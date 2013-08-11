@@ -55,34 +55,22 @@
                  action:@selector(scClick:)
          ];
         
-        [self addDoubleTapEvent:self target:self action:@selector(backIndex:)];
-        
     }
     return self;
 }
 
--(void)backIndex:(UIGestureRecognizer*)e {
+-(void)scClick:(UIButton*)e {
     v_enter *ve = [[v_enter alloc] initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:ve duration:.5];
     [ve loadCurrentPage:1];
 }
 
--(void)scClick:(UIButton*)e {
-    
-}
-
 -(void)loadCurrentPage:(int)cmd {
     
-    UIActivityIndicatorView *loginLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
-    [loginLoading setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height/2)];
-    loginLoading.tag = 9991;
-    [self addSubview:loginLoading];
-    [loginLoading startAnimating];
+    [self setLoading];
     
     NSLog(@"cmd = %d", cmd);
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams/%d/finish_uploading.json?auth_token=L1M1NXGpFayafaQasky7", cmd]];
-    
-    NSLog(@"%@", url);
     
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     request.tag = 60001;
@@ -188,9 +176,7 @@
         [request startAsynchronous];
     }else {
         
-        UIActivityIndicatorView *loginLoading = (UIActivityIndicatorView*)[self viewWithTag:9991];
-        [loginLoading stopAnimating];
-        [loginLoading removeFromSuperview];
+        [self clearUnuseful];
         
         NSLog(@"%@", [req responseString]);
         NSData *jsonData = [req responseData];
@@ -229,6 +215,39 @@
          ];
     }
     
+}
+
+-(void)setLoading {
+    UIView *ldv = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    ldv.tag = 9997;
+    ldv.backgroundColor = [UIColor blackColor];
+    [self addSubview:ldv];
+    ldv.alpha = .3;
+    
+    UIActivityIndicatorView *loginLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    [loginLoading setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height/2)];
+    loginLoading.tag = 9991;
+    [self addSubview:loginLoading];
+    [loginLoading startAnimating];
+    
+    UILabel *txt = [self addLabel:self
+                            frame:CGRectMake(0, 0, 200, 100)
+                             font:[UIFont systemFontOfSize:18]
+                             text:@"正在计算分数..."
+                            color:[UIColor whiteColor]
+                              tag:9992
+                    ];
+    txt.shadowColor = [UIColor blackColor];
+    txt.textAlignment = UITextAlignmentCenter;
+    txt.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height/2 + 50);
+}
+
+-(void)clearUnuseful {
+    UIActivityIndicatorView *loginLoading = (UIActivityIndicatorView*)[self viewWithTag:9991];
+    [loginLoading stopAnimating];
+    [loginLoading removeFromSuperview];
+    [[self viewWithTag:9992] removeFromSuperview];
+    [[self viewWithTag:9997] removeFromSuperview];
 }
 
 @end

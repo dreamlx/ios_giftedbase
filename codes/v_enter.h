@@ -14,6 +14,10 @@
 {
     iSequenceFrameView *sf;
     int vid;
+    
+    UIView *btnv;
 }
+
+-(void)showMenu;
 
 @end

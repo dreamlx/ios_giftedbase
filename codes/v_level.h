@@ -8,8 +8,10 @@
 
 #import "iPageView.h"
 #import "iCarousel.h"
+#import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
 
-@interface v_level : iPageView<iCarouselDelegate,iCarouselDataSource>
+@interface v_level : iPageView<iCarouselDelegate,iCarouselDataSource, UIAlertViewDelegate>
 
 {
     
@@ -17,6 +19,8 @@
     NSMutableArray *items;
     
     int num;
+    
+    ASIHTTPRequest *request;
     
     NSArray *allArray;
 }

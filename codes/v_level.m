@@ -10,8 +10,6 @@
 #import "v_score.h"
 #import "v_unit.h"
 #import "v_enter.h"
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
 #import "UIView+iTextManager.h"
 
 #define NUMBER_OF_ITEMS 19
@@ -27,28 +25,43 @@
     if (self) {
         // Initialization code
         
-        NSURL *url = [NSURL URLWithString:@"http://gifted-center.com/api/grades.json"];
-        ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-        [request setDelegate:self];
-        [request setRequestMethod:@"GET"];
-        [request startAsynchronous];
-        
         [self addBackground:@"lv_black.png"];
         
-        UIActivityIndicatorView *loginLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
-        [loginLoading setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height/2)];
-        loginLoading.tag = 9991;
-        [self addSubview:loginLoading];
-        [loginLoading startAnimating];
+        [self readInfo];
 //        [self showInfo];
     }
     return self;
 }
 
+-(void)readInfo {
+    NSURL *url = [NSURL URLWithString:@"http://gifted-center.com/api/grades.json"];
+    request = [ASIHTTPRequest requestWithURL:url];
+    [request setDelegate:self];
+    [request setRequestMethod:@"GET"];
+    [request startAsynchronous];
+    
+    UIActivityIndicatorView *loginLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    [loginLoading setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height/2)];
+    loginLoading.tag = 9991;
+    [self addSubview:loginLoading];
+    [loginLoading startAnimating];
+    
+    UILabel *txt = [self addLabel:self
+                            frame:CGRectMake(0, 0, 200, 100)
+                             font:[UIFont systemFontOfSize:18]
+                             text:@"加载中..."
+                            color:[UIColor whiteColor]
+                              tag:9992
+                    ];
+    txt.shadowColor = [UIColor blackColor];
+    txt.textAlignment = UITextAlignmentCenter;
+    txt.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height/2 + 50);
+}
+
 -(void)showInfo {
     
     items = [NSMutableArray array];
-    
+//    num = 6;
     for (int i = 0; i < num; i++)
     {
         [items addObject:[NSNumber numberWithInt:i]];
@@ -92,35 +105,51 @@
                     ];
     
     m1.alpha = m2.alpha = 0;
-//    [UIView animateWithDuration:.5
-//                     animations:^{
-//                         m1.alpha = m2.alpha = 1;
-//                     }];
 }
 
 #pragma mark –
 #pragma mark 请求完成 requestFinished
 
-- (void)requestFailed:(ASIHTTPRequest *)request
+- (void)requestFailed:(ASIHTTPRequest *)req
 {
-    NSError *error = [request error];
+    NSError *error = [req error];
     NSLog(@"login:%@",error);
     
+    [self clearUnuseful];
+    
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"网络无法连接"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
+                                                        message:@"网络无法连接, 请检查网络并重试."
+                                                       delegate:self
+                                              cancelButtonTitle:@"重试"
+                                              otherButtonTitles:@"好", nil];
     [alertView show];
+    
+}
+
+-(void)clearUnuseful {
+    UIActivityIndicatorView *loginLoading = (UIActivityIndicatorView*)[self viewWithTag:9991];
+    [loginLoading stopAnimating];
+    [loginLoading removeFromSuperview];
+    [[self viewWithTag:9992] removeFromSuperview];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 1) {
+        [request clearDelegatesAndCancel];
+        request = nil;
+        [self fadeOutView:self duration:0];
+        v_enter *ve = (v_enter*)(self.superview);
+        [ve showMenu];
+    }else {
+        [self readInfo];
+    }
     
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)r
 {
     
-    UIActivityIndicatorView *loginLoading = (UIActivityIndicatorView*)[self viewWithTag:9991];
-    [loginLoading stopAnimating];
-    [loginLoading removeFromSuperview];
+    [self clearUnuseful];
     
     NSData *jsonData = [r responseData];
     
@@ -176,7 +205,7 @@
         UILabel *ub = [self addLabel:bt
                  frame:CGRectMake(0, 47, 438, 27)
                   font:[UIFont systemFontOfSize:30]
-                  text:[NSString stringWithFormat:@"%@", [allArray[index] objectForKey:@"name"]]
+                                text:[NSString stringWithFormat:@"%@", [allArray[index] objectForKey:@"name"]]
                  color:[UIColor blackColor]
                    tag:999888
          ];
@@ -201,11 +230,11 @@
         }
         case iCarouselOptionArc:
         {
-            return M_PI * .6;
+            return M_PI * num * .2;
         }
         case iCarouselOptionRadius:
         {
-            return value * 2;
+            return value * 1.8;
         }
         case iCarouselOptionSpacing:
         {

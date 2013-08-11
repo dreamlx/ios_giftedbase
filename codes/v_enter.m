@@ -81,48 +81,79 @@
                       option:UIViewAnimationOptionAllowAnimatedContent
          ];
         
-        [self addButton:self
-                  image:@"et_1.png"
-               position:CGPointMake(329, 436)
-                    tag:1001
-                 target:self
-                 action:@selector(menuClick:)
-         ];
-        [self addButton:self
-                  image:@"et_2.png"
-               position:CGPointMake(329, 547)
-                    tag:1002
-                 target:self
-                 action:@selector(menuClick:)
-         ];
+        btnv = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
+        [self addSubview:btnv];
         
-        [self addButton:self
-                  image:@"et_3.png"
-               position:CGPointMake(389, 668)
-                    tag:1003
-                 target:self
-                 action:@selector(menuClick:)
-         ];
+        [self showMenu];
         
-        for (int i = 1; i < 4; i++) {
-            
-            UIButton *btn = (UIButton*)[self viewWithTag:1000 + i];
-            
-            btn.alpha = 0;
-            btn.transform = CGAffineTransformMakeScale(.5, .5);
-            
-            [UIView animateWithDuration:.5
-                                  delay:i * .2
-                                options:UIViewAnimationOptionAllowAnimatedContent
-                             animations:^{
-                                 btn.alpha = 1;
-                                 btn.transform = CGAffineTransformMakeScale(1, 1);
-                             } completion:^(BOOL finished) {
-//                                 if(btn.tag != 1003) [self showLight:btn];
-                             }];
-        }
+        UIImageView *ball = [self addImageView:self
+                                        image:@"et_ball.png"
+                                     position:CGPointMake(389, 668)
+                            ];
+        ball.center = CGPointMake(ball.center.x - 100, ball.center.y);
+        ball.transform = CGAffineTransformMakeRotation(10);
+        ball.alpha = 0;
+        
+        UIImageView *dog = [self addImageView:self
+                                        image:@"et_dog.png"
+                                     position:CGPointMake(360, 668)
+                            ];
+        dog.alpha = 0;
+        dog.center = CGPointMake(dog.center.x + 30, dog.center.y);
+        
+        [UIView animateWithDuration:2
+                              delay:.5
+                            options:UIViewAnimationOptionAllowAnimatedContent
+                         animations:^{
+                             ball.center = CGPointMake(ball.center.x + 100, ball.center.y);
+                             ball.transform = CGAffineTransformMakeRotation(0);
+                             ball.alpha = 1;
+                         }completion:^(BOOL finished) {
+                             [UIView animateWithDuration:.5
+                                              animations:^{
+                                                  dog.alpha = 1;
+                                                  dog.center = CGPointMake(dog.center.x - 30, dog.center.y);
+                                              }
+                              ];
+                         }
+         ];
     }
     return self;
+}
+
+-(void)showMenu {
+    
+    [self addButton:btnv
+              image:@"et_1.png"
+           position:CGPointMake(329, 436)
+                tag:1001
+             target:self
+             action:@selector(menuClick:)
+     ];
+    [self addButton:btnv
+              image:@"et_2.png"
+           position:CGPointMake(329, 547)
+                tag:1002
+             target:self
+             action:@selector(menuClick:)
+     ];
+    
+    for (int i = 1; i < 3; i++) {
+        
+        UIButton *btn = (UIButton*)[self viewWithTag:1000 + i];
+        
+        btn.alpha = 0;
+        btn.transform = CGAffineTransformMakeScale(.5, .5);
+        
+        [UIView animateWithDuration:.5
+                              delay:i * .2
+                            options:UIViewAnimationOptionAllowAnimatedContent
+                         animations:^{
+                             btn.alpha = 1;
+                             btn.transform = CGAffineTransformMakeScale(1, 1);
+                         } completion:^(BOOL finished) {
+                         }];
+    }
 }
 
 -(void)loadCurrentPage:(int)cmd {
@@ -148,13 +179,12 @@
     
     if(e.tag == 1001) {
         
-        for (int i = 1; i < 4; i ++) {
-            [[self viewWithTag:1000 + i] removeFromSuperview];
-            [[self viewWithTag:2000 + i] removeFromSuperview];
+        for(UIView *subv in btnv.subviews) {
+            [subv removeFromSuperview];
         }
         
-       // v_level *vl = [[v_level alloc]initWithFrame:CGRectMake(0, 343, 1024, 328)];
-       // [self fadeInView:vl duration:.5];
+        v_level *vl = [[v_level alloc]initWithFrame:CGRectMake(0, 343, 1024, 328)];
+        [self fadeInView:vl duration:.5];
         
         if(vid != 1) {
             registChooseSex *ur = [[registChooseSex alloc]initWithFrame:self.frame];

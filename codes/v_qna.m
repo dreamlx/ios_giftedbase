@@ -24,7 +24,8 @@
         
         timenum = 3;
         
-        postArr = [NSMutableArray array];
+        postAnswerArr = [NSMutableArray array];
+        postIDArr = [NSMutableArray array];
         
         [self addBackground:@"qq_bg.jpg"];
         
@@ -35,7 +36,7 @@
         [self addSubview:qupv];
         qupv.alpha = 0;
         
-        [self addButton:qnav
+        backbtn = [self addButton:qnav
                   image:@"qq_back.png"
                position:CGPointMake(10, 36)
                     tag:8888
@@ -71,7 +72,7 @@
                      image:@"qq_time.png"
                   position:CGPointMake(781, 30)];
         timetxt = [self addLabel:qnav
-                           frame:CGRectMake(800, 41, 100, 32)
+                           frame:CGRectMake(800, 40, 100, 32)
                             font:[UIFont systemFontOfSize:25]
                             text:@""
                            color:[UIColor colorWithRed:81.f/255.f green:244.f/255.f blue:233.f/255.f alpha:1]
@@ -154,6 +155,7 @@
         [self addSubview:mskmc];
         mskmc.backgroundColor = [UIColor blackColor];
         [self addTapEvent:mskmc target:self action:@selector(startClick:)];
+        timetxt.text = @"暂停";
     }
 }
 
@@ -195,7 +197,8 @@
         UIButton *btn = (UIButton*)[self viewWithTag:7000 + i];
         if(btn.tag == e.tag) {
             btn.alpha = 1;
-            [postArr replaceObjectAtIndex:questionID withObject:[NSString stringWithFormat:@"%d", i + 1]];
+            [postAnswerArr replaceObjectAtIndex:questionID withObject:[NSString stringWithFormat:@"%d", i]];
+            [postIDArr replaceObjectAtIndex:questionID withObject:[NSNumber numberWithInt:i]];
         }else {
             btn.alpha = .3;
         }
@@ -255,7 +258,8 @@
     }
     
     for (int i = 0; i < [questionList count]; i++) {
-        [postArr addObject:[NSString stringWithFormat:@"100"]];
+        [postAnswerArr addObject:[NSString stringWithFormat:@""]];
+        [postIDArr addObject:[NSNumber numberWithInt:-1]];
     }
     
     qnumtxt = [self addLabel:qnav
@@ -296,12 +300,12 @@
 }
 
 -(void)textViewDidChange:(UITextView *)textView {
-    [postArr replaceObjectAtIndex:questionID withObject:textView.text];
+//    [postAnswerArr replaceObjectAtIndex:questionID withObject:textView.text];
 }
 
 -(void)setQuestion {
     
-    anstxt.text = [postArr objectAtIndex:questionID];
+    anstxt.text = [postAnswerArr objectAtIndex:questionID];
     NSDictionary *questions = [[NSDictionary alloc]init];
     questions = [questionList[questionID] objectForKey:@"question"];
     qnumtxt.text = [NSString stringWithFormat:@"%d :", questionID + 1];
@@ -311,8 +315,7 @@
         UIButton *btn = (UIButton*)[self viewWithTag:7000 + i];
         UILabel *ub = (UILabel*)[self viewWithTag:7500 + i];
         ub.text = [NSString stringWithFormat:@"%@", [[questions objectForKey:@"single_choice_options"][i] objectForKey:@"content"]];
-//        if([ub.text isEqualToString:postArr[questionID]]) {
-        if(i == [postArr[questionID] integerValue] - 1) {
+        if(i == [postIDArr[questionID] integerValue]) {
             btn.alpha = 1;
         }else {
             btn.alpha = .3;
@@ -345,6 +348,7 @@
 }
 
 -(void)backClick:(UIButton*)e {
+    backbtn.alpha = 0;
     [UIView animateWithDuration:.5
                      animations:^{
                          qupv.alpha = 1;
@@ -363,91 +367,6 @@
 
 -(void)panClick:(UIButton*)e {
     
-}
-
-//
-// 提交数据
-//
--(void)tjClick:(UIButton*)e {
-    
-//    NSLog(@"%@", postArr);
-    
-    if(timer) {
-        [timer invalidate];
-        timer = nil;
-    }
-    
-    NSMutableArray *postDic = [[NSMutableArray alloc]init];
-    
-    for (int i = 0; i < [postArr count]; i++) {
-        
-        int queid = [postArr[i] integerValue] - 1;
-        NSLog(@"queid = %d", queid);
-        
-        NSArray *opdic = [[questionList[i] objectForKey:@"question"] objectForKey:@"single_choice_options"];
-        if(queid != 99) {
-            [postDic addObject:[NSDictionary dictionaryWithObjectsAndKeys:[questionList[i] objectForKey:@"id"], @"question_line_item_id", [opdic[queid] objectForKey:@"id"], @"option_id", nil]];
-        }
-    }
-    NSMutableDictionary *exams = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:unitid], @"unit_id", @"2013-07-13T00:12:30+08:00", @"started_at", @"2013-07-13T00:12:40+08:00", @"stopped_at", postDic, @"answers_attributes", nil];
-    
-    NSMutableDictionary *finalDic = [NSMutableDictionary dictionaryWithObject:exams forKey:@"exam"];
-    
-    NSString *newjson = [finalDic JSONRepresentation];
-    
-    NSLog(@"%@", newjson);
-    
-    NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams.json?auth_token=L1M1NXGpFayafaQasky7"]];
-    
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url2];
-    request.tag = 60002;
-    
-//    [request setPostValue:[NSNumber numberWithInt:unitid] forKey:@"exam[unit_id]"];
-//    [request setPostValue:@"2013-07-12T21:49:43+08:00" forKey:@"exam[started_at]"];
-//    [request setPostValue:@"2013-07-12T21:49:43+08:00" forKey:@"exam[stopped_at]"];
-    
-    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
-    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [request appendPostData:[newjson dataUsingEncoding:NSUTF8StringEncoding]];
-    [request setRequestMethod:@"POST"];
-    [request setDelegate:self];
-    [request startAsynchronous];
-}
-
-#pragma mark –
-#pragma mark 请求完成 requestFinished
-
-- (void)requestFailed:(ASIHTTPRequest *)request
-{
-    
-    NSLog(@"failed");
-    NSError *error = [request error];
-    NSLog(@"login:%@",error);
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"网络无法连接"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-    [alertView show];
-    
-}
-
-- (void)requestFinished:(ASIHTTPRequest *)req
-{
-    
-//    NSData *jsonData = [req responseData];
-    NSLog(@"successed");
-    NSLog(@"%@", [req responseString]);
-    
-    NSData *jsonData = [req responseData];
-    NSError *error = nil;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-    NSDictionary *deserializedDictionary = (NSDictionary *)jsonObject;
-    
-    v_score *vs = [[v_score alloc]initWithFrame:self.frame];
-    [self.superview fadeInView:self withNewView:vs duration:.5];
-    [vs loadCurrentPage:[[deserializedDictionary objectForKey:@"id"] integerValue]];
 }
 
 //------qup anything
@@ -544,11 +463,162 @@
     [UIView animateWithDuration:.5
                      animations:^{
                          qupv.alpha = 0;
+                         backbtn.alpha = 1;
                      }
      ];
     questionID = e.view.tag - 2000;
     [self setQuestion];
 }
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(alertView.tag == 9502) {
+        if(buttonIndex == 0) [self uploadAnswer];
+    }
+}
+
+-(void)tjClick:(UIButton*)e {
+    
+//    NSLog(@"%@", postIDArr);
+//    NSLog(@"%@", postAnswerArr);
+//    return;
+    
+    int doneQue = 0;
+    for (int i = 0; i < [postAnswerArr count]; i++) {
+        if(![postAnswerArr[i] isEqualToString:@""]) {
+            doneQue ++;
+        }
+    }
+    
+    if(doneQue == 0) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"你还没有做题目哦~"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"好"
+                                                  otherButtonTitles:nil];
+        alertView.tag = 9501;
+        [alertView show];
+    }else if(doneQue < [postAnswerArr count] - 1) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"题目还没有全部做完, 是否提交答卷?"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"提交"
+                                                  otherButtonTitles:@"继续做题", nil];
+        alertView.tag = 9502;
+        [alertView show];
+    }else {
+        [self uploadAnswer];
+    }
+}
+
+-(void)setLoading {
+    UIView *ldv = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    ldv.tag = 9997;
+    ldv.backgroundColor = [UIColor blackColor];
+    [self addSubview:ldv];
+    ldv.alpha = .5;
+    
+    UIActivityIndicatorView *loginLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    [loginLoading setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height/2)];
+    loginLoading.tag = 9991;
+    [self addSubview:loginLoading];
+    [loginLoading startAnimating];
+    
+    UILabel *txt = [self addLabel:self
+                            frame:CGRectMake(0, 0, 200, 100)
+                             font:[UIFont systemFontOfSize:18]
+                             text:@"正在提交..."
+                            color:[UIColor whiteColor]
+                              tag:9992
+                    ];
+    txt.shadowColor = [UIColor blackColor];
+    txt.textAlignment = UITextAlignmentCenter;
+    txt.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height/2 + 50);
+}
+
+-(void)clearUnuseful {
+    UIActivityIndicatorView *loginLoading = (UIActivityIndicatorView*)[self viewWithTag:9991];
+    [loginLoading stopAnimating];
+    [loginLoading removeFromSuperview];
+    [[self viewWithTag:9992] removeFromSuperview];
+    [[self viewWithTag:9997] removeFromSuperview];
+}
+
+//
+// 提交数据
+//
+
+-(void)uploadAnswer {
+    if(timer) {
+        [timer invalidate];
+        timer = nil;
+    }
+    
+    [self setLoading];
+    
+    NSMutableArray *postDic = [[NSMutableArray alloc]init];
+    
+    for (int i = 0; i < [postAnswerArr count]; i++) {
+        
+        int queid = [postIDArr[i] integerValue];
+//        NSLog(@"queid = %d", queid);
+        
+        NSArray *opdic = [[questionList[i] objectForKey:@"question"] objectForKey:@"single_choice_options"];
+        if(queid != -1) {
+            [postDic addObject:[NSDictionary dictionaryWithObjectsAndKeys:[questionList[i] objectForKey:@"id"], @"question_line_item_id", [opdic[queid] objectForKey:@"id"], @"option_id", nil]];
+        }
+    }
+    NSMutableDictionary *exams = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:unitid], @"unit_id", @"2013-07-13T00:12:30+08:00", @"started_at", @"2013-07-13T00:12:40+08:00", @"stopped_at", postDic, @"answers_attributes", nil];
+    
+    NSMutableDictionary *finalDic = [NSMutableDictionary dictionaryWithObject:exams forKey:@"exam"];
+    
+    NSString *newjson = [finalDic JSONRepresentation];
+    
+    NSLog(@"%@", newjson);
+    
+    NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams.json?auth_token=L1M1NXGpFayafaQasky7"]];
+    
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url2];
+    request.tag = 60002;
+    
+    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
+    [request addRequestHeader:@"Content-Type" value:@"application/json"];
+    [request appendPostData:[newjson dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setRequestMethod:@"POST"];
+    [request setDelegate:self];
+    [request startAsynchronous];
+}
+
+#pragma mark –
+#pragma mark 请求完成 requestFinished
+
+- (void)requestFailed:(ASIHTTPRequest *)request {
+    NSError *error = [request error];
+    NSLog(@"login:%@",error);
+    
+    [self clearUnuseful];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"提交失败, 请检查网络并重试"
+                                                       delegate:self
+                                              cancelButtonTitle:@"好"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)req
+{
+    [self clearUnuseful];
+    NSLog(@"successed");
+    NSLog(@"%@", [req responseString]);
+    
+    NSData *jsonData = [req responseData];
+    NSError *error = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+    NSDictionary *deserializedDictionary = (NSDictionary *)jsonObject;
+    
+    v_score *vs = [[v_score alloc]initWithFrame:self.frame];
+    [self.superview fadeInView:self withNewView:vs duration:.5];
+    [vs loadCurrentPage:[[deserializedDictionary objectForKey:@"id"] integerValue]];
+}
 
 @end

@@ -8,7 +8,7 @@
 
 #import "iPageView.h"
 
-@interface v_qna : iPageView<UITextViewDelegate>
+@interface v_qna : iPageView<UITextViewDelegate, UIAlertViewDelegate>
 
 {
     UIView *vbar;
@@ -32,7 +32,8 @@
     int questionID;
     NSArray *questionList;
     
-    NSMutableArray *postArr;
+    NSMutableArray *postAnswerArr;
+    NSMutableArray *postIDArr;
     
     UIView *qupv;
     UIView *qnav;
@@ -49,6 +50,8 @@
     int timenum;
     
     int unitid;
+    
+    UIButton *backbtn;
 }
 
 -(void)readInfo:(NSDictionary*)qlist questionID:(int)qid;
