@@ -24,9 +24,9 @@
                   position:CGPointMake(262, 473)
          ];
         
-        [self addButtonWithImageView:self
+        UIImageView *man = [self addButtonWithImageView:self
                                image:@"reg_man.png"
-                           highlight:nil
+                           highlight:@"reg_man_1.png"
                             position:CGPointMake(188, 166)
                                    t:1001
                               action:@selector(menuClick:)
@@ -34,33 +34,32 @@
         
         [self addButtonWithImageView:self
                                image:@"reg_woman.png"
-                           highlight:nil
+                           highlight:@"reg_woman_1.png"
                             position:CGPointMake(544, 166)
                                    t:1002
-                              action:@selector(menuClick:)];
+                              action:@selector(menuClick:)
+         ];
+        man.highlighted = YES;
         
         lg = [self addImageView:self
-                     image:@"reg_light.png"
+                     image:@"regboard.png"
                   position:CGPointMake(-500, -500)
               ];
-        lg.center = [self viewWithTag:1001].center;
+        lg.center = man.center;
         
-        CAKeyframeAnimation *rock;
-        rock = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
-        [rock setDuration:1];
-        [rock setRepeatCount:HUGE_VALF];
-        [rock setFillMode:kCAFillModeForwards];
+        CALayer *l2 = [[CALayer alloc] init];
+        [l2 setBounds:CGRectMake(0, 0, 262, 525)];
+        [l2 setAnchorPoint:CGPointMake(0.5, 0.5)];
+        [l2 setPosition:CGPointMake(lg.frame.origin.x - 30, lg.frame.origin.y)];
+        [l2 setContents:(UIImage*)[UIImage imageNamed:@"regrot.png"].CGImage];
+        [[lg layer] setMask:l2];
         
-        NSMutableArray *values = [NSMutableArray array];
+        CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        anim.cumulative = YES;
+        anim.toValue = [NSNumber numberWithFloat:-.1*M_PI];
+        anim.repeatCount = HUGE_VALF;
         
-        [values addObject:[NSNumber numberWithFloat:1]];
-        [values addObject:[NSNumber numberWithFloat:.5]];
-        [values addObject:[NSNumber numberWithFloat:1]];
-        
-        [rock setValues:values];
-        
-        [[lg layer] addAnimation:rock forKey:@"alpha"];
-        
+        [l2 addAnimation:anim forKey:@"animateLayer"];
         
         [self addButton:self
                   image:@"findPsw_next.png"
@@ -74,7 +73,16 @@
 }
 
 -(void)menuClick:(UIGestureRecognizer*)e {
-    
+    lg.center = e.view.center;
+    for (int i = 1001; i <= 1002; i++) {
+        UIImageView *img = (UIImageView*)[self viewWithTag:i];
+        
+        [UIView animateWithDuration:.5
+                         animations:^{
+                             img.highlighted = e.view.tag == i ? YES : NO;
+                         }
+         ];
+    }
     switch (e.view.tag) {
         case 1001:
         {
@@ -90,11 +98,6 @@
         }
             break;
     }
-    
-    
-    
-    
-    lg.center = e.view.center;
 }
 
 -(void)nextClick:(UIButton*)e {
