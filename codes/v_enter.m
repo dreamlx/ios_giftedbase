@@ -121,7 +121,7 @@
     return self;
 }
 
-//fuck fuck fuck  纠结纠结
+//fuck fuck fuck  纠结
 
 -(void)showMenu {
     
