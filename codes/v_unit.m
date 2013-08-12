@@ -24,10 +24,10 @@
         mapv.transform = CGAffineTransformMakeScale(.5, .5);
         [self addSubview:mapv];
         
-        [self addImageView:mapv
-                     image:@"ut_bg.jpg"
-                  position:CGPointMake(0, 0)
-         ];
+//        [self addImageView:mapv
+//                     image:@"ut_bg.jpg"
+//                  position:CGPointMake(0, 0)
+//         ];
         
         svv = [[UIView alloc]initWithFrame:CGRectMake(0, -130, 1024, 134)];
         [self addSubview:svv];
@@ -38,22 +38,6 @@
         
         uv = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 1024, 134)];
         [svv addSubview:uv];
-        
-//        [self addButton:self
-//                  image:@"qp_a1.png"
-//               position:CGPointMake(5, 26)
-//                    tag:6001
-//                 target:self
-//                 action:@selector(lrClick:)
-//         ];
-//        [self addButton:self
-//                  image:@"qp_a2.png"
-//               position:CGPointMake(974, 26)
-//                    tag:6002
-//                 target:self
-//                 action:@selector(lrClick:)
-//         ];
-//        [self addImageView:self image:@"ut_jb.png" position:CGPointMake(0, 9)];
         
         
         UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self
@@ -122,23 +106,16 @@
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd {
     
-//    UIImageView *lll = [self addImageView:mapv
-//                                    image:@"ut_line2.png"
-//                                 position:CGPointMake(378, 262)];
-//    
-//    lll.userInteractionEnabled = NO;
-//    
-//    lll.alpha = 0;
-//    
-//    [UIView animateWithDuration:.5
-//                          delay:.5
-//                        options:UIViewAnimationOptionAllowAnimatedContent
-//                     animations:^{
-//                         lll.alpha = 1;
-//                     } completion:^(BOOL finished) {
-//                         
-//                     }];
+    int mapcount = [[arr[cmd] objectForKey:@"pictures"] count];
     
+    NSString *imgurl = [[arr[cmd] objectForKey:@"pictures"][mapcount - 1] objectForKey:@"image_url"];
+    if(imgurl) {
+        NSLog(@"load map");
+        NSData *imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:imgurl]];
+        UIImage *image=[[UIImage alloc] initWithData:imageData];
+        UIImageView *imgview = [[UIImageView alloc]initWithImage:image];
+        [mapv addSubview:imgview];
+    }
     
     //圆圈arr
     NSMutableArray *cirArr = [NSMutableArray array];

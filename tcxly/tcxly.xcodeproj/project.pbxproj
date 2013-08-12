@@ -242,8 +242,8 @@
 		DE91F1991790857000BFDE2B /* reg_bt.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE91F1961790857000BFDE2B /* reg_bt.jpg */; };
 		DE91F19A1790857000BFDE2B /* reg_frame.png in Resources */ = {isa = PBXBuildFile; fileRef = DE91F1971790857000BFDE2B /* reg_frame.png */; };
 		DE91F19D179085D200BFDE2B /* userReg.m in Sources */ = {isa = PBXBuildFile; fileRef = DE91F19C179085D200BFDE2B /* userReg.m */; };
-		DEA58A2217B8CC7700D4C2A1 /* Gretoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEA58A2017B8CC7700D4C2A1 /* Gretoon.ttf */; };
-		DEA58A2317B8CC7700D4C2A1 /* GretoonHighlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEA58A2117B8CC7700D4C2A1 /* GretoonHighlight.ttf */; };
+		DEA58A2717B8D5D500D4C2A1 /* Gretoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEA58A2517B8D5D500D4C2A1 /* Gretoon.ttf */; };
+		DEA58A2817B8D5D500D4C2A1 /* GretoonHighlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DEA58A2617B8D5D500D4C2A1 /* GretoonHighlight.ttf */; };
 		DEC91F50175E393C00AB7164 /* qp_txtv.png in Resources */ = {isa = PBXBuildFile; fileRef = DEC91F4F175E393C00AB7164 /* qp_txtv.png */; };
 		DEC91F52175E3ADB00AB7164 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEC91F51175E3ADB00AB7164 /* CFNetwork.framework */; };
 		DEC91F54175E3AE000AB7164 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEC91F53175E3AE000AB7164 /* SystemConfiguration.framework */; };
@@ -578,8 +578,8 @@
 		DE91F1971790857000BFDE2B /* reg_frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reg_frame.png; sourceTree = "<group>"; };
 		DE91F19B179085D200BFDE2B /* userReg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userReg.h; sourceTree = "<group>"; };
 		DE91F19C179085D200BFDE2B /* userReg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = userReg.m; sourceTree = "<group>"; };
-		DEA58A2017B8CC7700D4C2A1 /* Gretoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Gretoon.ttf; sourceTree = "<group>"; };
-		DEA58A2117B8CC7700D4C2A1 /* GretoonHighlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GretoonHighlight.ttf; sourceTree = "<group>"; };
+		DEA58A2517B8D5D500D4C2A1 /* Gretoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Gretoon.ttf; sourceTree = "<group>"; };
+		DEA58A2617B8D5D500D4C2A1 /* GretoonHighlight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = GretoonHighlight.ttf; sourceTree = "<group>"; };
 		DEC91F4F175E393C00AB7164 /* qp_txtv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qp_txtv.png; sourceTree = "<group>"; };
 		DEC91F51175E3ADB00AB7164 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		DEC91F53175E3AE000AB7164 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -657,7 +657,6 @@
 		1B6AABD917343D7700EC3839 = {
 			isa = PBXGroup;
 			children = (
-				DEA58A1F17B8CC7700D4C2A1 /* fonts */,
 				DE698BDC17B8094000237317 /* common */,
 				DEE6C5C21774C4D700DB7A30 /* json */,
 				1B6AAC0317343D9F00EC3839 /* images */,
@@ -706,6 +705,7 @@
 		1B6AABEC17343D7700EC3839 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DEA58A2417B8D5D500D4C2A1 /* fonts */,
 				1B6AABED17343D7700EC3839 /* tcxly-Info.plist */,
 				1B6AABEE17343D7700EC3839 /* InfoPlist.strings */,
 				1B6AABF117343D7700EC3839 /* main.m */,
@@ -1224,11 +1224,11 @@
 			path = regist;
 			sourceTree = "<group>";
 		};
-		DEA58A1F17B8CC7700D4C2A1 /* fonts */ = {
+		DEA58A2417B8D5D500D4C2A1 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				DEA58A2017B8CC7700D4C2A1 /* Gretoon.ttf */,
-				DEA58A2117B8CC7700D4C2A1 /* GretoonHighlight.ttf */,
+				DEA58A2517B8D5D500D4C2A1 /* Gretoon.ttf */,
+				DEA58A2617B8D5D500D4C2A1 /* GretoonHighlight.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -1517,8 +1517,8 @@
 				DE3BF68E17AC2BF20026CB1D /* reg_woman_1.png in Resources */,
 				DE698BDB17B8093100237317 /* 0_light.png in Resources */,
 				DE698C6117B8094000237317 /* README-GHUnit in Resources */,
-				DEA58A2217B8CC7700D4C2A1 /* Gretoon.ttf in Resources */,
-				DEA58A2317B8CC7700D4C2A1 /* GretoonHighlight.ttf in Resources */,
+				DEA58A2717B8D5D500D4C2A1 /* Gretoon.ttf in Resources */,
+				DEA58A2817B8D5D500D4C2A1 /* GretoonHighlight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
