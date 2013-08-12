@@ -121,6 +121,8 @@
     return self;
 }
 
+//fuck fuck fuck
+
 -(void)showMenu {
     
     [self addButton:btnv
