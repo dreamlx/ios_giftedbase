@@ -366,6 +366,11 @@
 }
 
 -(void)panClick:(UIButton*)e {
+    //草稿
+    
+    
+    
+    
     
 }
 
