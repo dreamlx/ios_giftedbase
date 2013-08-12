@@ -79,63 +79,6 @@
     [request setRequestMethod:@"POST"];
     [request setDelegate:self];
     [request startAsynchronous];
-    
-//    for (int i = 1; i < 11; i++) {
-//        UIImageView *abc = [self addButtonWithImageView:self
-//                                                  image:[NSString stringWithFormat:@"se_w%d.png", i]
-//                                              highlight:[NSString stringWithFormat:@"se_q%d.png", i]
-//                                               position:CGPointMake(160 + (i - 1) * 70, 373)
-//                                                      t:1000 + i
-//                                                 action:nil
-//                            ];
-//        
-//        [self startAnimation:abc
-//                        sPos:abc.center
-//                        ePos:abc.center
-//                      sAlpha:0
-//                      eAlpha:1
-//                      sScale:CGPointMake(.5, .5)
-//                      eScale:CGPointMake(1, 1)
-//                    duration:.3
-//                       delay:i * .1
-//                      option:UIViewAnimationOptionAllowAnimatedContent
-//         ];
-//    }
-//    
-//    UIImageView *sc = [self addImageView:self image:@"se_v2.png" position:CGPointMake(440, 98)];
-//    sc.center = CGPointMake(self.frame.size.width / 2, sc.center.y);
-//    sc.transform = CGAffineTransformMakeScale(2, 2);
-//    sc.alpha = 0;
-//    [UIView animateWithDuration:.5
-//                          delay:.5
-//                        options:UIViewAnimationOptionAllowAnimatedContent
-//                     animations:^{
-//                         sc.transform = CGAffineTransformMakeScale(1, 1);
-//                         sc.alpha = 1;
-//                     } completion:^(BOOL finished) {
-//                         UIImageView *curabc = (UIImageView*)[self viewWithTag:1003];
-//                         curabc.highlighted = YES;
-//                         [self setShadowAnimtion:sc Image:@"se_v2w.png" time:.5];
-//                         
-//                         UIImageView *ud = [self addImageView:self image:@"se_ud.png" position:CGPointMake(0, 345)];
-//                         ud.center = CGPointMake(curabc.center.x, ud.center.y);
-//                         CAKeyframeAnimation *rock;
-//                         rock = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.y"];
-//                         [rock setDuration:1];
-//                         [rock setRepeatCount:HUGE_VALF];
-//                         [rock setFillMode:kCAFillModeForwards];
-//                         
-//                         NSMutableArray *values = [NSMutableArray array];
-//                         
-//                         [values addObject:[NSNumber numberWithFloat:1.2]];
-//                         [values addObject:[NSNumber numberWithFloat:1]];
-//                         [values addObject:[NSNumber numberWithFloat:1.2]];
-//                         
-//                         [rock setValues:values];
-//                         
-//                         [[ud layer] addAnimation:rock forKey:@"transform"];
-//                         
-//                     }];
 }
 
 #pragma mark –
@@ -193,14 +136,14 @@
         
         UILabel *txt = [self addLabel:self
                                 frame:CGRectMake(0, 0, 1024, 768)
-                                 font:[UIFont systemFontOfSize:200]
+                                 font:[UIFont fontWithName:@"Gretoon" size:200]
                                  text:@""
-                                color:[UIColor whiteColor]
+                                color:[UIColor colorWithRed:19.f/255.f green:226.f/255.f blue:243.f/255.f alpha:1]
                                   tag:5000
                         ];
         txt.text = [NSString stringWithFormat:@"%d", anspoint];
         txt.shadowOffset=CGSizeMake(5, 5);
-        txt.shadowColor=[UIColor blackColor];
+        txt.shadowColor=[UIColor colorWithWhite:-1 alpha:.5];
         txt.textAlignment = NSTextAlignmentCenter;
         txt.center = CGPointMake(512, 350);
         
