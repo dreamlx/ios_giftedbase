@@ -115,13 +115,7 @@
     else
     {
         //失败
-   
-        
-        
-        //fuck2
-        
-        
-        
+
     }
     
     request=nil;
