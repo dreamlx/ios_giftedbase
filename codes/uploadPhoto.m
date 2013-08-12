@@ -149,7 +149,7 @@
     {
         UIImage *originalImage=[info objectForKey:UIImagePickerControllerOriginalImage];
         
-    
+        
         float width=267/(float)originalImage.size.width;
         float height=267/(float)originalImage.size.height;
         
@@ -160,92 +160,22 @@
         
         av.image=img;
         
-        NSData* data = UIImageJPEGRepresentation(img, .5);
         
+        NSData* data = UIImageJPEGRepresentation(img, 1);
         [[NSUserDefaults standardUserDefaults] setObject:data
                                                   forKey:@"avatar"];
         
-        /*
-        member_avatar *ppp=[[member_avatar alloc] init];
-    
-        ppp.title=@"头像";
-        [picker pushViewController:ppp animated:YES];
-        [ppp loadImage:originalImage];
-         */
         
         [picker dismissViewControllerAnimated:YES
                                    completion:^{
             
         }];
-        
-      //  [picker dismissPopoverAnimated:YES];
     }
  
-        //上传用的图片数据
-//        UIImage *originalImage=[info objectForKey:UIImagePickerControllerOriginalImage];
-//        NSData* data = UIImageJPEGRepresentation(originalImage, .5);
-        
-        
-        /*
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@UserPhotoUpload?desc=0",ServerURL]];
-        NSLog(@"%@",url);
-        
-        uploadRequest = nil;
-        uploadRequest = [ASIFormDataRequest requestWithURL:url];
-        uploadRequest.delegate=self;
-        [uploadRequest setRequestMethod:@"POST"];
-
-        //照片
-        [uploadRequest setData:data
-                  withFileName:@"temp.jpg"
-                andContentType:@"image/jpeg"
-                        forKey:@"file"];
-        
-        
-        [uploadRequest startAsynchronous];
-        */
-
-}
-/*
-//请求回调
-
-- (void)requestFinished:(ASIHTTPRequest *)r
-{
-    NSLog(@"用户照片上传完成");
-
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)r
-{
-       
-    int statusCode=[r responseStatusCode];
     
-    switch (statusCode) {
-        case 401:
-        {
-            
-            [[NSUserDefaults standardUserDefaults] setObject:nil
-                                                      forKey:@"Value"];
-            [self.navigationController popToRootViewControllerAnimated:NO];
-            
-        }
-            break;
-            
-        default:
-        {
-            //网络不好跳出提示
-
-        }
-            break;
-    }
     
-    [r clearDelegatesAndCancel];
-
-    r=nil;
+    
+    
 }
-
- */
-
-
 
 @end

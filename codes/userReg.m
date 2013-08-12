@@ -124,34 +124,36 @@
             BOOL success = [[jsonObject objectForKey:@"success"] boolValue];
             
             if (success){
-            
-                
                 
                 NSString *token=[jsonObject objectForKey:@"auth_token"];
                 
                 //注册成功并保存token
                 [[NSUserDefaults standardUserDefaults] setObject:token
                                                           forKey:@"token"];
-
+                
                 //然后开始提交照片
-                 NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/api/profile.json?auth_token=%@",token];
-                 NSURL *url = [NSURL URLWithString:[s stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-                 
-                 NSLog(@"上传照片 url=%@",url);
-                 
-                 photoRequest = [ASIFormDataRequest requestWithURL:url];
+                NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/api/profile.json?auth_token=%@",token];
+                NSURL *url = [NSURL URLWithString:[s stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                
+                NSLog(@"上传照片 url=%@",url);
+                
+                photoRequest = [ASIFormDataRequest requestWithURL:url];
                 
                 NSData *data=[jsonObject objectForKey:@"avatar"];
                 
                 
-                [photoRequest setData:data
-                          withFileName:@"temp.jpg"
-                        andContentType:@"image/jpeg"
-                                forKey:@"avatar"];
                 
-                 [photoRequest setRequestMethod:@"PUT"];
-                 [photoRequest setDelegate:self];
-                 [photoRequest startAsynchronous];
+                
+                
+                [photoRequest setData:data
+                         withFileName:@"temp.png"
+                       andContentType:@"image/png"
+                               forKey:@"avatar"];
+                
+                
+                [photoRequest setRequestMethod:@"PUT"];
+                [photoRequest setDelegate:self];
+                [photoRequest startAsynchronous];
                 
             }
             else

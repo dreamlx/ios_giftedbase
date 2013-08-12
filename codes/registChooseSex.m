@@ -83,6 +83,9 @@
                          }
          ];
     }
+    
+    
+    //记录性别
     switch (e.view.tag) {
         case 1001:
         {
@@ -100,7 +103,10 @@
     }
 }
 
+
+
 -(void)nextClick:(UIButton*)e {
+    //去上传头像的地方
     uploadPhoto *up = [[uploadPhoto alloc]initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:up duration:.5];
     [up loadCurrentPage:0];

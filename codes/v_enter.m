@@ -188,12 +188,12 @@
             [subv removeFromSuperview];
         }
         
-//        if(vid != 1) {
-//            registChooseSex *ur = [[registChooseSex alloc]initWithFrame:self.frame];
-//            [self fadeInView:ur duration:.5];
-//            [ur loadCurrentPage:0];
-//        }
-        [self showList];
+        if(vid != 1) {
+            registChooseSex *ur = [[registChooseSex alloc]initWithFrame:self.frame];
+            [self fadeInView:ur duration:.5];
+            [ur loadCurrentPage:0];
+        }
+      //  [self showList];
         
     }else if(e.tag == 1002){
         
