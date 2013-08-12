@@ -12,3 +12,4 @@ git merge --no-ff private_branch
 
 这次增加了f2特性
 f3
+f4
