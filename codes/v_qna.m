@@ -14,6 +14,9 @@
 #import "ASIFormDataRequest.h"
 #import "NSObject+SBJson.h"
 
+//草稿
+#import "v_qna_caogao.h"
+
 @implementation v_qna
 
 - (id)initWithFrame:(CGRect)frame
@@ -366,7 +369,15 @@
 }
 
 -(void)panClick:(UIButton*)e {
-    //草稿
+    
+    NSLog(@"草稿来了");
+
+    
+    
+    
+    v_qna_caogao *cg=[[v_qna_caogao alloc] initWithFrame:CGRectMake(452, 90, 463, 680)];
+    [cg loadCurrentPage:0];
+    [self addSubview:cg];
     
     
     
