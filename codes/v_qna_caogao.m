@@ -7,6 +7,7 @@
 //
 
 #import "v_qna_caogao.h"
+#import "v_qna.h"
 
 @implementation v_qna_caogao
 
@@ -68,14 +69,24 @@
     
     //笔触换颜色
     switch (cmd) {
-        case 0:
+        case 1:
         {
-            r=0.f;
+            r=67.f;
+            g=216.f;
+            b=241.f;
+        }
+            break;
+        case 2: {
+            r=135.f;
+            g=135.f;
+            b=135.f;
+        }
+            break;
+        case 3: {
+            r=255.f;
             g=0.f;
             b=0.f;
         }
-            break;
-            
         default:
             break;
     }
@@ -86,7 +97,8 @@
 -(void)onDown:(UIButton*)sender
 {
     
-    
+    v_qna *vq = (v_qna*)(self.superview);
+    [vq clearcaogao];
     [self removeFromSuperview];
 }
 
@@ -116,8 +128,7 @@
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
         CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 5.0);
         
-        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), r,g,b, 1.0);
-        
+        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), r/255.f,g/255.f,b/255.f, 1.0);
         CGContextBeginPath(UIGraphicsGetCurrentContext());
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(),  lastPoint.x,  lastPoint.y);
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), translation.x,translation.y);

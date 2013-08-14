@@ -7,6 +7,7 @@
 //
 
 #import "iPageView.h"
+#import "v_qna_caogao.h"
 
 @interface v_qna : iPageView<UITextViewDelegate, UIAlertViewDelegate>
 
@@ -52,9 +53,11 @@
     int unitid;
     
     UIButton *backbtn;
+    
+    v_qna_caogao *cg;
 }
 
 -(void)readInfo:(NSDictionary*)qlist questionID:(int)qid;
 -(void)loadInfo:(NSArray*)arr menuIndex:(int)mid;
-
+-(void)clearcaogao;
 @end

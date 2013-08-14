@@ -370,19 +370,20 @@
 
 -(void)panClick:(UIButton*)e {
     
-    NSLog(@"草稿来了");
+    NSLog(@"草稿来了, 修改下");
 
     
-    
-    
-    v_qna_caogao *cg=[[v_qna_caogao alloc] initWithFrame:CGRectMake(452, 90, 463, 680)];
-    [cg loadCurrentPage:0];
-    [self addSubview:cg];
-    
-    
-    
-    
-    
+    if(!cg) {
+        cg=[[v_qna_caogao alloc] initWithFrame:CGRectMake(452, 90, 463, 680)];
+        [cg loadCurrentPage:e.tag - 4000];
+        [self addSubview:cg];
+    }else {
+        [cg loadCurrentPage:e.tag - 4000];
+    }
+}
+
+-(void)clearcaogao {
+    cg = nil;
 }
 
 //------qup anything
