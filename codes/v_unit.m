@@ -193,21 +193,25 @@
 
     
     
-    //圆圈arr
-    NSMutableArray *cirArr = [NSMutableArray array];
-    [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(322, 237)]];
-    [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(159, 337)]];
-    [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(200, 487)]];
-    [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(442, 634)]];
-    [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(668, 482)]];
-    [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(831, 370)]];
-    [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(586, 319)]];
-    [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(720, 79)]];
+    
+    NSArray *stages=[arr[cmd] objectForKey:@"stages"];
+    
+   
+    
+    NSArray *pos=[stages[stages.count-1] objectForKey:@"map_places"];
     
     
-    for (int i = 0; i < [cirArr count]; i++) {
+    NSLog(@"%@",[pos objectAtIndex:1]);
+    
+    
         
-        CGPoint p = [[cirArr objectAtIndex:i]CGPointValue];
+    
+    for (int i = 0; i < [pos count]; i++) {
+        
+        
+        
+        
+        CGPoint p =CGPointMake([[[pos objectAtIndex:i] objectForKey:@"x"] integerValue],[[[pos objectAtIndex:i] objectForKey:@"y"] integerValue]);
         
         UIButton *cir = [self addButton:mapv
                                   image:[NSString stringWithFormat:@"ut_cir%d.png", i]

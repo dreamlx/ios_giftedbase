@@ -136,15 +136,13 @@
     
     BOOL success = [[jsonObject objectForKey:@"success"] boolValue];
     
-    
-    
-    [[NSUserDefaults standardUserDefaults] setObject:[jsonObject objectForKey:@"token"]
-                                              forKey:@"token"];
-    
-    
+
+
     if (success){
-        
-        //失败
+       
+        [[NSUserDefaults standardUserDefaults] setObject:[jsonObject objectForKey:@"auth_token"]
+                                                        forKey:@"token"];
+       
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                             message:@"注册成功。"
@@ -153,7 +151,7 @@
                                                   otherButtonTitles:nil];
         [alertView show];
 
-            }
+    }
     else
     {
         //失败
