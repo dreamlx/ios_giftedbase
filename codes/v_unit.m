@@ -10,8 +10,13 @@
 #import "v_qna.h"
 #import "v_shop.h"
 #import "UIView+iTextManager.h"
+#import "UIImageView+WebCache.h"
+#import "v_enter.h"
+
 
 @implementation v_unit
+
+@synthesize delegate;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -45,9 +50,41 @@
                                                                                            action:@selector(pinchPiece:)];
         [self addGestureRecognizer:pinchGesture];
         
+        gy = [self addButton:mapv
+                       image:@"ut_gaiyao.png"
+                    position:CGPointMake(0, 0)
+                         tag:78978
+                      target:self
+                      action:@selector(gyClick:)
+              ];
+        gy.alpha = 0;
+        
+        
+        
+        
+        backButton= [self addButton:self
+                              image:@"qq_back.png"
+                           position:CGPointMake(30, 30)
+                                tag:1004
+                             target:self
+                             action:@selector(backClick:)
+                     ];
+
+        
+        
     }
     return self;
 }
+
+-(void)backClick:(UIButton*)e {
+    
+    v_enter *vp = [[v_enter alloc] initWithFrame:self.frame];
+    [self.superview fadeInView:self
+         withNewView:vp duration:.5];
+    [vp  loadCurrentPage:0];
+    
+}
+
 
 -(void)gyClick:(UIButton*)e {
     v_shop *vp = [[v_shop alloc] initWithFrame:self.frame];
@@ -77,8 +114,10 @@
             [UIView animateWithDuration:.5 animations:^{
                 svv.frame = CGRectMake(0, -130, 1024, 134);
                 svv.alpha = 0;
-                gy.alpha = 0;
+                backButton.alpha=1;
             }];
+            
+           
         }
 	}
 }
@@ -119,20 +158,33 @@
     NSString *imgurl = [[arr[cmd] objectForKey:@"pictures"][mapcount - 1] objectForKey:@"image_url"];
     if(imgurl) {
         NSLog(@"load map");
-        NSData *imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:imgurl]];
-        UIImage *image=[[UIImage alloc] initWithData:imageData];
-        UIImageView *imgview = [[UIImageView alloc]initWithImage:image];
-        [mapv addSubview:imgview];
-    }
+        
+        //NSData *imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:imgurl]];
+        //UIImage *image=[[UIImage alloc] initWithData:imageData];
+        
+        UIImageView *imgview = [self addImageView:mapv
+                                            image:@"ut_wait.png"
+                                         position:CGPointMake(0, 0)];
+        
+        
+        imgview.alpha=0;
+        
     
-    gy = [self addButton:mapv
-                   image:@"ut_gaiyao.png"
-                position:CGPointMake(0, 0)
-                     tag:78978
-                  target:self
-                  action:@selector(gyClick:)
-          ];
-    gy.alpha = 0;
+        [imgview setImageWithURL:[NSURL URLWithString:imgurl]
+                placeholderImage:nil
+                       completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                           
+                           [UIView animateWithDuration:.5
+                                            animations:^{
+                                               
+                                                
+                                                imgview.alpha=1;
+                                                
+                                                //[delegate onLoadMapFinish];
+                                            }];
+                       }];
+
+    }
     
     //圆圈arr
     NSMutableArray *cirArr = [NSMutableArray array];
@@ -144,6 +196,7 @@
     [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(831, 370)]];
     [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(586, 319)]];
     [cirArr addObject:[NSValue valueWithCGPoint:CGPointMake(720, 79)]];
+    
     
     for (int i = 0; i < [cirArr count]; i++) {
         
@@ -216,6 +269,8 @@
 
 -(void)cirClick:(UIButton*)e {
     
+    backButton.alpha=0;
+    
     CGPoint pp;
     int px = self.frame.size.width * 1.5 - e.center.x;
     int py = self.frame.size.height * 1.5 - e.center.y;
@@ -241,6 +296,7 @@
                                           }
                           ];
                      }];
+    
     
 }
 

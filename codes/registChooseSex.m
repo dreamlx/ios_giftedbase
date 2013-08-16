@@ -8,7 +8,7 @@
 
 #import "registChooseSex.h"
 #import "uploadPhoto.h"
-
+#import "userLogin.h"
 @implementation registChooseSex
 
 - (id)initWithFrame:(CGRect)frame
@@ -32,7 +32,7 @@
                               action:@selector(menuClick:)
          ];
         
-        [self addButtonWithImageView:self
+       UIImageView *woman=  [self addButtonWithImageView:self
                                image:@"reg_woman.png"
                            highlight:@"reg_woman_1.png"
                             position:CGPointMake(544, 166)
@@ -46,6 +46,10 @@
                   position:CGPointMake(-500, -500)
               ];
         lg.center = man.center;
+        
+        
+        
+        
         
         CALayer *l2 = [[CALayer alloc] init];
         [l2 setBounds:CGRectMake(0, 0, 262, 525)];
@@ -62,12 +66,37 @@
         [l2 addAnimation:anim forKey:@"animateLayer"];
         
         [self addButton:self
-                  image:@"findPsw_next.png"
-               position:CGPointMake(425, 568)
+                  image:@"back_step.jpg"
+               position:CGPointMake(39, 653)
                     tag:1003
+                 target:self
+                 action:@selector(backClick:)
+         ];
+        
+        
+        
+        
+        
+        [self addButton:self
+                  image:@"findPsw_next.png"
+               position:CGPointMake(803, 653)
+                    tag:1004
                  target:self
                  action:@selector(nextClick:)
          ];
+        
+        
+        NSString *sex= [[NSUserDefaults standardUserDefaults] objectForKey:@"sex"];
+        
+        if ([sex isEqualToString:@"f"])
+        {
+             lg.center = woman.center;
+        }
+        else
+        {   
+            lg.center = man.center;
+        }
+        
     }
     return self;
 }
@@ -101,6 +130,20 @@
         }
             break;
     }
+}
+
+
+
+-(void)backClick:(UIButton*)e {
+    //回登入
+    userLogin *up = [[userLogin alloc]initWithFrame:self.frame];
+    [self.superview fadeInView:self withNewView:up duration:.5];
+    [up loadCurrentPage:0];
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:nil
+                                              forKey:@"sex"];
+
 }
 
 

@@ -10,7 +10,7 @@
 #import "userReg.h"
 #import "ASIFormDataRequest.h"
 #import "MainViewController.h"
-
+#import "registChooseSex.h"
 
 
 
@@ -58,15 +58,37 @@
              target:self
              action:@selector(onDown:)];
     
+
+    
+    [self addButton:self
+              image:@"back_step.jpg"
+           position:CGPointMake(39, 653)
+                tag:1003
+             target:self
+             action:@selector(backClick:)
+     ];
+    
     
     [self addButton:self
               image:@"findPsw_next.png"
-           position:CGPointMake(422, 636)
+           position:CGPointMake(803, 653)
                 tag:2002
              target:self
-             action:@selector(onDown:)];
+             action:@selector(onDown:)
+     ];
+
     
 }
+
+
+-(void)backClick:(UIButton*)e {
+    //回登入
+    registChooseSex *up = [[registChooseSex alloc]initWithFrame:self.frame];
+    [self.superview fadeInView:self withNewView:up duration:.5];
+    [up loadCurrentPage:0];
+}
+
+
 
 -(void)onDown:(UIButton*)sender
 {

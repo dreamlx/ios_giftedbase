@@ -11,6 +11,7 @@
 #import "v_unit.h"
 #import "v_level.h"
 #import "userReg.h"
+#import "userLogin.h"
 #import "registChooseSex.h"
 
 @implementation v_enter
@@ -190,14 +191,33 @@
             [subv removeFromSuperview];
         }
       
-        /*
+
+        //没有登入过得，去登入
+        NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+        NSLog(@"token====%@",token);
+        
+        if(token==nil)
+        {
+            userLogin *p=[[userLogin alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+            [self addSubview:p];
+            [p loadCurrentPage:0];
+        }
+        else
+        {
+           [self showList]; 
+        }
+        
+        
+        
+        return;
+
         if(vid != 1) {
             registChooseSex *ur = [[registChooseSex alloc]initWithFrame:self.frame];
             [self fadeInView:ur duration:.5];
             [ur loadCurrentPage:0];
         }
-         */
-        [self showList];
+         
+       // [self showList];
         
     }else if(e.tag == 1002){
         

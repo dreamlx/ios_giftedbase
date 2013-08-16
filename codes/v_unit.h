@@ -8,6 +8,9 @@
 
 #import "iPageView.h"
 
+
+@protocol loadMapDelegate;
+
 @interface v_unit : iPageView
 
 {
@@ -29,8 +32,21 @@
     int pointnum;
     
     UIButton *gy;
+    
+    UIButton *backButton;
 }
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd;
 
+@property (nonatomic,strong) id<loadMapDelegate> delegate;
+
+
+@end
+
+
+//-----
+@protocol loadMapDelegate <NSObject>
+
+@optional
+    -(void)onLoadMapFinish;
 @end

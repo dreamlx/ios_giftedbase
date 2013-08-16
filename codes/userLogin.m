@@ -9,7 +9,8 @@
 #import "userLogin.h"
 #import "ASIFormDataRequest.h"
 #import "v_enter.h"
-
+#import "registChooseSex.h"
+#import "v_enter.h"
 @implementation userLogin
 
 - (id)initWithFrame:(CGRect)frame
@@ -20,9 +21,7 @@
         
           [self addBackground:@"et_bg.png"];
         
-        
-        
-        
+    
         
     }
     return self;
@@ -59,7 +58,7 @@
                             tag:1001];
     
     Password.placeholder=@"6-10位";
-    
+    Password.secureTextEntry = YES;
     
     
     [self addButton:im
@@ -68,7 +67,31 @@
                 tag:2000
              target:self
              action:@selector(onLoginDown:)];
+    
+    
+    [self addButton:im
+              image:@"reg_bt.png"
+           position:CGPointMake(300, 247)
+                tag:2001
+             target:self
+             action:@selector(onRegDown:)];
   
+    
+    
+    [self addButton:self
+              image:@"qq_back.png"
+           position:CGPointMake(30, 30)
+                tag:1003
+             target:self
+             action:@selector(backClick:)
+     ];
+
+}
+
+-(void)backClick:(id)sender
+{
+    [self fadeOutView:self duration:.5];
+     [((v_enter*)self.superview) showMenu];
 }
 
 
@@ -79,11 +102,22 @@
     NSError *error = [r error];
     NSLog(@"reg:%@",error);
     
+    
+    //失败
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"用户名或密码错，请重试！"
+                                                       delegate:nil
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+    [alertView show];
+
+    
     //停止查询
     [r clearDelegatesAndCancel];
     r=nil;
     
 }
+
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
@@ -103,22 +137,57 @@
     BOOL success = [[jsonObject objectForKey:@"success"] boolValue];
     
     
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[jsonObject objectForKey:@"token"]
+                                              forKey:@"token"];
+    
+    
     if (success){
         
-        //成功
+        //失败
         
-        v_enter *ve = (v_enter*)(self.superview);
-        [ve showList];
-        [self fadeOutView:self duration:.5];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"注册成功。"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil];
+        [alertView show];
 
-    }
+            }
     else
     {
         //失败
-
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"用户名或密码错，请重试！"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+        
     }
     
     request=nil;
+     
+}
+
+-(void)onRegDown:(id*)sender
+{
+    
+    registChooseSex *ur = [[registChooseSex alloc]initWithFrame:self.frame];
+    [self fadeInView:ur duration:.5];
+    [ur loadCurrentPage:0];
+    
+}
+
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //成功
+    v_enter *ve = (v_enter*)(self.superview);
+    [ve showList];
+    [self fadeOutView:self duration:.5];
 }
 
 
@@ -144,23 +213,19 @@
     
     if ([msg isEqualToString:@"ok"]) {
         
-        [self fadeOutView:self duration:.5];
-        /*
-        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[email]=%@&user[password]=%@&user[password_confirmation]=%@",UserName.text,Password.text.text];
-        NSURL *url = [NSURL URLWithString:[s stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSString *ss=[NSString stringWithFormat:@"http://gifted-center.com/users/sign_in.json?user[email]=%@&user[password]=%@",UserName.text,Password.text];
         
+        NSURL *url = [NSURL URLWithString:[ss stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
         NSLog(@"通过验证，可提交 url=%@",url);
         
         ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-        [request setPostValue:@"a@test.com" forKey:@"user[email]"];
-        [request setPostValue:@"123456" forKey:@"user[password]"];
         [request setRequestMethod:@"POST"];
         
-        
         [request setDelegate:self];
-        [request startAsynchronous];
-         */
         
+        [request startAsynchronous];
+         
     }
     else
     {

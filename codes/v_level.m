@@ -8,7 +8,7 @@
 
 #import "v_level.h"
 #import "v_score.h"
-#import "v_unit.h"
+
 #import "v_enter.h"
 #import "UIView+iTextManager.h"
 
@@ -255,11 +255,15 @@
     NSLog(@"%d",index);
     
     v_unit *vs = [[v_unit alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    vs.delegate=self;
+    
+    [vs loadInfo:allArray idx:index];
+    
+    
     [self.superview.superview fadeInView:self.superview
                    withNewView:vs
                       duration:.5
      ];
-    [vs loadInfo:allArray idx:index];
 }
 
 - (NSUInteger)numberOfPlaceholdersInCarousel:(iCarousel *)carousel

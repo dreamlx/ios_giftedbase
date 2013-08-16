@@ -8,7 +8,7 @@
 
 #import "userReg.h"
 #import "userLogin.h"
-
+#import "uploadPhoto.h"
 
 @implementation userReg
 
@@ -83,7 +83,31 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
+    
+    [self addButton:self
+              image:@"back_step.jpg"
+           position:CGPointMake(39, 653)
+                tag:1003
+             target:self
+             action:@selector(backClick:)
+     ];
+
+    
 }
+
+-(void)backClick:(UIButton*)e {
+    //回登入
+    uploadPhoto *up = [[uploadPhoto alloc]initWithFrame:self.frame];
+    [self.superview fadeInView:self withNewView:up duration:.5];
+    [up loadCurrentPage:0];
+}
+
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 
 -(void)keyboardWasHide:(NSNotification*) nf {
@@ -96,6 +120,8 @@
 //请求回调 ---------------------------------------------------------------------------------------------------
 - (void)requestFailed:(ASIHTTPRequest *)r
 {
+    [HUD hide:YES];
+    
     NSError *error = [r error];
     NSLog(@"reg:%@",error);
 
@@ -112,7 +138,8 @@
             
             //注册功能回调
         case 8000:
-        {            
+        {
+            
             // Use when fetching binary data
             NSData *jsonData = [request responseData];
 
@@ -127,37 +154,98 @@
                 
                 NSString *token=[jsonObject objectForKey:@"auth_token"];
                 
+
+                
+                
+                [HUD hide:YES];
+                
+            
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                    message:@"恭喜你注册成功了！"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+                
+                
+                
+                //去掉性别纪录
+                [[NSUserDefaults standardUserDefaults] setObject:nil
+                                                          forKey:@"sex"];
+
+                
+                return;
+
+                
                 //注册成功并保存token
                 [[NSUserDefaults standardUserDefaults] setObject:token
                                                           forKey:@"token"];
+
+                
+                
                 
                 //然后开始提交照片
-                NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/api/profile.json?auth_token=%@",token];
+                NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/api/profiles/upload_avatar.json?auth_token=%@",token];
                 NSURL *url = [NSURL URLWithString:[s stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
                 NSLog(@"上传照片 url=%@",url);
                 
                 photoRequest = [ASIFormDataRequest requestWithURL:url];
-                
+                photoRequest.tag=8001;
                 NSData *data=[jsonObject objectForKey:@"avatar"];
                 
-                
-                
-                
+
                 
                 [photoRequest setData:data
-                         withFileName:@"temp.png"
-                       andContentType:@"image/png"
+                         withFileName:@"temp.jpg"
+                       andContentType:@"image/jpeg"
                                forKey:@"avatar"];
                 
                 
-                [photoRequest setRequestMethod:@"PUT"];
+                [photoRequest setRequestMethod:@"POST"];
                 [photoRequest setDelegate:self];
                 [photoRequest startAsynchronous];
+                
+                
+                
+                /*2013-08-17 01:37:18.794 tcxly[4615:907] <!DOCTYPE html>
+                 <html>
+                 <head>
+                 <title>The change you wanted was rejected (422)</title>
+                 <style type="text/css">
+                 body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
+                 div.dialog {
+                 width: 25em;
+                 padding: 0 4em;
+                 margin: 4em auto 0 auto;
+                 border: 1px solid #ccc;
+                 border-right-color: #999;
+                 border-bottom-color: #999;
+                 }
+                 h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+                 </style>
+                 </head>
+                 
+                 <body>
+                 <!-- This file lives in public/422.html -->
+                 <div class="dialog">
+                 <h1>The change you wanted was rejected.</h1>
+                 <p>Maybe you tried to change something you didn't have access to.</p>
+                 </div>
+                 </body>
+                 </html>
+                 */
+                
+                
+                
+                
                 
             }
             else
             {
+                [HUD hide:YES];
+                
                 //注册失败
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                                     message:@"注册失败，重试。"
@@ -174,6 +262,9 @@
             //照片提交成功回调
         case 8001:
         {
+            [HUD hide:YES];
+            
+            
             // Use when fetching text data
             NSString *responseString = [request responseString];
             
@@ -253,6 +344,7 @@
     }
     else
     {
+        [HUD hide:YES];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                             message:msg
                                                            delegate:nil
@@ -261,6 +353,8 @@
         [alertView show];
     }
 }
+
+
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     userLogin *ul = [[userLogin alloc]initWithFrame:self.frame];

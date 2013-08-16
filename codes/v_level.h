@@ -10,8 +10,8 @@
 #import "iCarousel.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
-
-@interface v_level : iPageView<iCarouselDelegate,iCarouselDataSource, UIAlertViewDelegate>
+#import "v_unit.h"
+@interface v_level : iPageView<iCarouselDelegate,iCarouselDataSource, UIAlertViewDelegate,loadMapDelegate>
 
 {
     

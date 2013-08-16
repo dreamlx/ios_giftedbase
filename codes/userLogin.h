@@ -9,7 +9,7 @@
 #import "iPageView.h"
 #import "UIView+iTextManager.h"
 
-@interface userLogin : iPageView
+@interface userLogin : iPageView<UIAlertViewDelegate>
 {
     UITextField *Password;
     UITextField *UserName;
