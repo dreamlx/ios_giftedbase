@@ -21,14 +21,14 @@
         
         [self addButton:self
                   image:@"sp_buy.png"
-               position:CGPointMake(856, 63)
+               position:CGPointMake(856, 36)
                     tag:5000
                  target:self
                  action:@selector(buyClick:)
          ];
         
         [self addImageView:self
-                     image:@"sp_borad.png"
+                     image:@"sp_board.png"
                   position:CGPointMake(354, 418)
          ];
         
@@ -44,8 +44,20 @@
                      image:@"sp_text.png"
                   position:CGPointMake(77, 66)
          ];
+        
+        [self addButton:self
+                  image:@"qq_back.png"
+               position:CGPointMake(30, 30)
+                    tag:8888
+                 target:self
+                 action:@selector(backClick:)
+         ];
     }
     return self;
+}
+
+-(void)backClick:(UIButton*)e {
+    [self fadeOutView:self duration:.5];
 }
 
 -(void)loadCurrentPage:(int)cmd {

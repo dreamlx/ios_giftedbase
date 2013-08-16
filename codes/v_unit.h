@@ -27,6 +27,8 @@
     int curvtag;
     
     int pointnum;
+    
+    UIButton *gy;
 }
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd;

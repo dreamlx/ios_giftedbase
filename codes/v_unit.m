@@ -8,6 +8,7 @@
 
 #import "v_unit.h"
 #import "v_qna.h"
+#import "v_shop.h"
 #import "UIView+iTextManager.h"
 
 @implementation v_unit
@@ -44,8 +45,23 @@
                                                                                            action:@selector(pinchPiece:)];
         [self addGestureRecognizer:pinchGesture];
         
+        gy = [self addButton:mapv
+                       image:@"ut_gaiyao.png"
+                    position:CGPointMake(0, 0)
+                         tag:78978
+                      target:self
+                      action:@selector(gyClick:)
+              ];
+        gy.alpha = 0;
+        
     }
     return self;
+}
+
+-(void)gyClick:(UIButton*)e {
+    v_shop *vp = [[v_shop alloc] initWithFrame:self.frame];
+    [self fadeInView:vp duration:.5];
+    [vp loadCurrentPage:0];
 }
 
 //放大缩小
@@ -206,6 +222,7 @@
     pp.y = py > 768 ? 768 : py < 0 ? 0 : py;
     
     NSLog(@"%f---%f", pp.x, pp.y);
+    gy.alpha = 0;
     
     [UIView animateWithDuration:.5
                           delay:0
@@ -215,7 +232,16 @@
                          mapv.center = pp;
                      } completion:^(BOOL finished) {
                          [self addPointAni:e.tag - 2001];
+                         gy.center = CGPointMake(e.center.x, e.center.y + 120);
+                         [UIView animateWithDuration:.5
+                                          animations:^{
+                                              gy.center = CGPointMake(gy.center.x, gy.center.y - 20);
+                                              gy.alpha = 1;
+                                          }
+                          ];
                      }];
+    
+    
 }
 
 -(void)addPointAni:(int)cid {

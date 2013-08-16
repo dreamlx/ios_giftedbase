@@ -244,6 +244,8 @@
 		DEE642E617BE83FE00B1B1E6 /* sp_play.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE642E217BE83FE00B1B1E6 /* sp_play.png */; };
 		DEE642E817BE853200B1B1E6 /* sp_text.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE642E717BE853200B1B1E6 /* sp_text.png */; };
 		DEE642EB17BE854500B1B1E6 /* v_pay.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE642EA17BE854500B1B1E6 /* v_pay.m */; };
+		DEE642EF17BE876200B1B1E6 /* pay_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DEE642ED17BE876200B1B1E6 /* pay_bg.jpg */; };
+		DEE642F817BE8D7A00B1B1E6 /* pay_btn1.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE642F117BE8D7A00B1B1E6 /* pay_btn1.png */; };
 		DEE6C5DC1774C4D700DB7A30 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE6C5C41774C4D700DB7A30 /* NSObject+SBJson.m */; };
 		DEE6C5DD1774C4D700DB7A30 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE6C5C71774C4D700DB7A30 /* SBJsonParser.m */; };
 		DEE6C5DE1774C4D700DB7A30 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE6C5C91774C4D700DB7A30 /* SBJsonStreamParser.m */; };
@@ -567,6 +569,8 @@
 		DEE642E717BE853200B1B1E6 /* sp_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sp_text.png; sourceTree = "<group>"; };
 		DEE642E917BE854500B1B1E6 /* v_pay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v_pay.h; sourceTree = "<group>"; };
 		DEE642EA17BE854500B1B1E6 /* v_pay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v_pay.m; sourceTree = "<group>"; };
+		DEE642ED17BE876200B1B1E6 /* pay_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pay_bg.jpg; sourceTree = "<group>"; };
+		DEE642F117BE8D7A00B1B1E6 /* pay_btn1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_btn1.png; sourceTree = "<group>"; };
 		DEE6C5C31774C4D700DB7A30 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		DEE6C5C41774C4D700DB7A30 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		DEE6C5C51774C4D700DB7A30 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -727,6 +731,7 @@
 		1B6AAC0317343D9F00EC3839 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DEE642EC17BE876200B1B1E6 /* pay */,
 				DEE642DE17BE83FE00B1B1E6 /* shop */,
 				6EF6095617B8F90E00370DB4 /* 0_light.png */,
 				DE91F1941790857000BFDE2B /* regist */,
@@ -1199,6 +1204,15 @@
 			path = shop;
 			sourceTree = "<group>";
 		};
+		DEE642EC17BE876200B1B1E6 /* pay */ = {
+			isa = PBXGroup;
+			children = (
+				DEE642F117BE8D7A00B1B1E6 /* pay_btn1.png */,
+				DEE642ED17BE876200B1B1E6 /* pay_bg.jpg */,
+			);
+			path = pay;
+			sourceTree = "<group>";
+		};
 		DEE6C5C21774C4D700DB7A30 /* json */ = {
 			isa = PBXGroup;
 			children = (
@@ -1466,6 +1480,8 @@
 				DEE642E517BE83FE00B1B1E6 /* sp_buy.png in Resources */,
 				DEE642E617BE83FE00B1B1E6 /* sp_play.png in Resources */,
 				DEE642E817BE853200B1B1E6 /* sp_text.png in Resources */,
+				DEE642EF17BE876200B1B1E6 /* pay_bg.jpg in Resources */,
+				DEE642F817BE8D7A00B1B1E6 /* pay_btn1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

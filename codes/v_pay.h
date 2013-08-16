@@ -7,7 +7,14 @@
 //
 
 #import "iPageView.h"
+#import "iCarousel.h"
 
-@interface v_pay : iPageView
+@interface v_pay : iPageView<iCarouselDelegate,iCarouselDataSource>
+
+{
+    iCarousel *carousel;
+    NSMutableArray *items;
+    int num;
+}
 
 @end
