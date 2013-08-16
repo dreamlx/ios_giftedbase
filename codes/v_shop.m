@@ -8,6 +8,8 @@
 
 #import "v_shop.h"
 #import "v_pay.h"
+#import "mpvc.h"
+#import "MainViewController.h"
 
 @implementation v_shop
 
@@ -71,6 +73,20 @@
 }
 
 -(void)playMovie:(UIButton*)e {
+ 
+    MainViewController *m=(MainViewController*)[self getManager];
+    mpvc *mv=[[mpvc alloc] init];
+    
+    [mv load:@"sp" Ex:@"mp4"];
+    
+    [m presentViewController:mv
+                    animated:YES
+                  completion:^{
+        
+    }];
+    
+    
+    
     
 }
 

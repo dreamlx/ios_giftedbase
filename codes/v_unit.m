@@ -50,14 +50,6 @@
                                                                                            action:@selector(pinchPiece:)];
         [self addGestureRecognizer:pinchGesture];
         
-        gy = [self addButton:mapv
-                       image:@"ut_gaiyao.png"
-                    position:CGPointMake(0, 0)
-                         tag:78978
-                      target:self
-                      action:@selector(gyClick:)
-              ];
-        gy.alpha = 0;
         
         
         
@@ -115,7 +107,11 @@
                 svv.frame = CGRectMake(0, -130, 1024, 134);
                 svv.alpha = 0;
                 backButton.alpha=1;
+                gy.alpha=0;
+            
             }];
+            
+            
             
            
         }
@@ -176,15 +172,26 @@
                            
                            [UIView animateWithDuration:.5
                                             animations:^{
-                                               
-                                                
                                                 imgview.alpha=1;
                                                 
                                                 //[delegate onLoadMapFinish];
+                                            
+                                                
                                             }];
                        }];
-
     }
+    
+    
+    gy = [self addButton:mapv
+                   image:@"ut_gaiyao.png"
+                position:CGPointMake(0, 0)
+                     tag:78978
+                  target:self
+                  action:@selector(gyClick:)
+          ];
+    gy.alpha = 0;
+
+    
     
     //圆圈arr
     NSMutableArray *cirArr = [NSMutableArray array];

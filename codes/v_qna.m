@@ -592,7 +592,10 @@
     
     NSLog(@"%@", newjson);
     
-    NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams.json?auth_token=L1M1NXGpFayafaQasky7"]];
+    
+    NSString *token=[[NSUserDefaults standardUserDefaults]  objectForKey:@"token"];
+    
+    NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams.json?auth_token=%@",token]];
     
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url2];
     request.tag = 60002;

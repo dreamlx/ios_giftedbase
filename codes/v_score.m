@@ -70,7 +70,8 @@
     [self setLoading];
     
     NSLog(@"cmd = %d", cmd);
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams/%d/finish_uploading.json?auth_token=L1M1NXGpFayafaQasky7", cmd]];
+     NSString *token=[[NSUserDefaults standardUserDefaults]  objectForKey:@"token"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams/%d/finish_uploading.json?auth_token=%@", cmd,token]];
     
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     request.tag = 60001;
@@ -111,7 +112,8 @@
         id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
         NSDictionary *deserializedDictionary = (NSDictionary *)jsonObject;
         
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams/%d.json?auth_token=L1M1NXGpFayafaQasky7", [[deserializedDictionary objectForKey:@"id"] integerValue ]]];
+         NSString *token=[[NSUserDefaults standardUserDefaults]  objectForKey:@"token"];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams/%d.json?auth_token=%@", [[deserializedDictionary objectForKey:@"id"] integerValue ],token]];
         
         ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
         [request setRequestMethod:@"GET"];
