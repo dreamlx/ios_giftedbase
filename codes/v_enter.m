@@ -195,7 +195,6 @@
         //没有登入过得，去登入
         NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
         
-        
         NSLog(@"token====%@",token);
         
         if(token!=nil)
