@@ -10,7 +10,10 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "v_enter.h"
+#import "v_unit.h"
+#import "v_qna.h"
 #import "UIView+iTextManager.h"
+#import "MainViewController.h"
 
 @implementation v_score
 
@@ -60,9 +63,11 @@
 }
 
 -(void)scClick:(UIButton*)e {
-    v_enter *ve = [[v_enter alloc] initWithFrame:self.frame];
+    v_unit *ve = [[v_unit alloc] initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:ve duration:.5];
-    [ve loadCurrentPage:1];
+    //[ve loadCurrentPage:1];
+    MainViewController *mvc = (MainViewController*)[self getManager];
+    [ve loadInfo:mvc.allArr idx:[[[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"] integerValue]];
 }
 
 -(void)loadCurrentPage:(int)cmd {
@@ -158,8 +163,41 @@
                              txt.alpha = 1;
                          }
          ];
+        
+        [self addButton:self
+                  image:@"again_bt.jpg"
+               position:CGPointMake(100, 570)
+                    tag:8991
+                 target:self
+                 action:@selector(againClick:)
+         ];
+        [self addButton:self
+                  image:@"result_bt.jpg"
+               position:CGPointMake(100, 660)
+                    tag:8992
+                 target:self
+                 action:@selector(againClick:)
+         ];
     }
     
+}
+
+-(void)againClick:(UIButton*)e {
+    if(e.tag == 8991) {
+        v_qna *vq = [[v_qna alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
+        [self.superview fadeInView:self
+                       withNewView:vq
+                          duration:.5
+         ];
+        NSString *n = [[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"];
+        int menuid = n.intValue;
+        NSString *str_tag = [[NSUserDefaults standardUserDefaults] objectForKey:@"menutag"];
+        int menutag = str_tag.intValue;
+        MainViewController *mvc = (MainViewController*)[self getManager];
+        NSArray *sarr = [[mvc.allArr[menuid] objectForKey:@"stages"][0] objectForKey:@"units"];
+        [vq readInfo:sarr[menutag] questionID:0];
+        [vq loadInfo:sarr menuIndex:menutag];
+    }
 }
 
 -(void)setLoading {

@@ -150,7 +150,7 @@
                    withNewView:vq
                       duration:.5
      ];
-    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", curvtag] forKey:@"menutag"];
     [vq readInfo:allArray[curvtag] questionID:0];
     [vq loadInfo:allArray menuIndex:curvtag];
     NSLog(@"+++++%d", curvtag);

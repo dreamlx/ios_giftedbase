@@ -10,4 +10,9 @@
 
 @interface MainViewController : UIViewController
 
+{
+    NSArray *allArr;
+}
+@property (nonatomic) NSArray *allArr;
+
 @end

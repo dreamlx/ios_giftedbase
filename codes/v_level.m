@@ -8,7 +8,7 @@
 
 #import "v_level.h"
 #import "v_score.h"
-
+#import "MainViewController.h"
 #import "v_enter.h"
 #import "UIView+iTextManager.h"
 
@@ -164,8 +164,11 @@
     {
         
         allArray = (NSArray*)deserializedDictionary;
-//        [[NSUserDefaults standardUserDefaults] setObject:allArray
-//                                                  forKey:@"infos"];
+        [[NSUserDefaults standardUserDefaults] setObject:allArray
+                                                  forKey:@"infos"];
+        
+        MainViewController *mvc = (MainViewController*)[self getManager];
+        mvc.allArr = allArray;
         NSLog(@"%@", allArray);
         
         num = [allArray count];

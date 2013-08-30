@@ -15,6 +15,8 @@
 
 @implementation MainViewController
 
+@synthesize allArr;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
