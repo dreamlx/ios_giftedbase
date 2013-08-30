@@ -9,6 +9,7 @@
 #import "v_shop.h"
 #import "v_pay.h"
 #import "mpvc.h"
+#import "UIView+iTextManager.h"
 #import "MainViewController.h"
 
 @implementation v_shop
@@ -42,10 +43,10 @@
                  action:@selector(playMovie:)
          ];
         
-        [self addImageView:self
-                     image:@"sp_text.png"
-                  position:CGPointMake(77, 66)
-         ];
+//        [self addImageView:self
+//                     image:@"sp_text.png"
+//                  position:CGPointMake(77, 66)
+//         ];
         
         [self addButton:self
                   image:@"qq_back.png"
@@ -61,6 +62,24 @@
         
         NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"infos"];
         
+        
+        UILabel *title = [self addLabel:self
+                                  frame:CGRectMake(0, 66, 1024, 36)
+                                   font:[UIFont systemFontOfSize:20]
+                                   text:[[arr[menuid] objectForKey:@"stages"][0] objectForKey:@"name"]
+                                  color:[UIColor blackColor]
+                                    tag:1401
+                          ];
+        title.textAlignment = UITextAlignmentCenter;
+        
+        UILabel *content = [self addLabel:self
+                                  frame:CGRectMake(77, 162, 980, 160)
+                                   font:[UIFont systemFontOfSize:15]
+                                   text:[[arr[menuid] objectForKey:@"stages"][0] objectForKey:@"name"]
+                                  color:[UIColor blackColor]
+                                    tag:1402
+                          ];
+        content.textAlignment = UITextAlignmentCenter;
         
     }
     return self;
