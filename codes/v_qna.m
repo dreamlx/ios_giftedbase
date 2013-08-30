@@ -77,7 +77,7 @@
         timetxt = [self addLabel:qnav
                            frame:CGRectMake(800, 40, 100, 32)
                             font:[UIFont systemFontOfSize:25]
-                            text:@""
+                            text:@"00:00"
                            color:[UIColor colorWithRed:81.f/255.f green:244.f/255.f blue:233.f/255.f alpha:1]
                              tag:5670
                    ];
@@ -134,6 +134,7 @@
          ];
         
         [self addQupAnyThing];
+
         
     }
     return self;
@@ -218,13 +219,14 @@
     unitid = [[qlist objectForKey:@"id"] integerValue];
     
     timeall = [[qlist objectForKey:@"exam_minutes"] integerValue] * 60;
-    timer=[NSTimer scheduledTimerWithTimeInterval:1
-                                           target:self
-                                         selector:@selector(update)
-                                         userInfo:nil
-                                          repeats:YES];
     
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"开始做题目了, 准备好了么?"
+                                                       delegate:self
+                                              cancelButtonTitle:@"开始"
+                                              otherButtonTitles:nil];
+    alertView.tag = 9609;
+    [alertView show];
     
     NSDictionary *questions = [[NSDictionary alloc]init];
     questions = [questionList[questionID] objectForKey:@"question"];
@@ -267,7 +269,7 @@
     }
     
     qnumtxt = [self addLabel:qnav
-                            frame:CGRectMake(36, 135, 120, 60)
+                            frame:CGRectMake(20, 135, 120, 60)
                              font:[UIFont fontWithName:@"Gretoon" size:40]
                              text:@""
                             color:[UIColor colorWithRed:85.f/255.f green:107.f/255.f blue:131.f/255.f alpha:1]
@@ -275,7 +277,7 @@
                     ];
     qnumtxt.shadowOffset=CGSizeMake(0, 1);
     qnumtxt.shadowColor=[UIColor whiteColor];
-//    qnumtxt.textAlignment = NSTextAlignmentCenter;
+    qnumtxt.textAlignment = NSTextAlignmentCenter;
     
     
     quetxt = [self addLabel:qnav
@@ -490,6 +492,14 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(alertView.tag == 9502) {
         if(buttonIndex == 0) [self uploadAnswer];
+    }else if(alertView.tag == 9609) {
+        timer=[NSTimer scheduledTimerWithTimeInterval:1
+                                               target:self
+                                             selector:@selector(update)
+                                             userInfo:nil
+                                              repeats:YES];
+        
+        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     }
 }
 
