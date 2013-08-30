@@ -7,11 +7,22 @@
 //
 
 #import "iPageView.h"
+#import "ASIFormDataRequest.h"
+#import "MBProgressHUD.h"
 
-@interface uploadPhoto : iPageView<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface uploadPhoto : iPageView<MBProgressHUDDelegate>
 {
-    UIPopoverController *popoverController;
+
     UIImageView *av;
+    
+    UITextField *UserName;
+    ASIFormDataRequest *regRequest;
+    
+     MBProgressHUD *HUD;
+    id an;
+    UIImageView *avatar;
 }
-@property (nonatomic,strong) UIPopoverController *popoverController;
+
+-(void)updateAvatar;
+
 @end
