@@ -265,9 +265,13 @@
     [vs loadInfo:allArray idx:index];
     
     
-    [self.superview.superview fadeInView:self.superview
-                   withNewView:vs
-                      duration:.5
+//    [self.superview.superview fadeInView:self.superview
+//                   withNewView:vs
+//                      duration:.5
+//     ];
+    
+    [self.superview.superview fadeInView:vs
+                                duration:.5
      ];
 }
 

@@ -23,6 +23,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        
+        self.backgroundColor=[UIColor blackColor];
+        
         pointnum = 8;
         //
         mapv = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 2048, 1536)];
@@ -72,10 +75,13 @@
 
 -(void)backClick:(UIButton*)e {
     
-    v_enter *vp = [[v_enter alloc] initWithFrame:self.frame];
-    [self.superview fadeInView:self
-         withNewView:vp duration:.5];
-    [vp  loadCurrentPage:0];
+//
+//    v_enter *vp = [[v_enter alloc] initWithFrame:self.frame];
+//    [self.superview fadeInView:self
+//         withNewView:vp duration:.5];
+//    [vp  loadCurrentPage:0];
+    
+     [self.superview fadeOutView:self duration:.5];
     
 }
 
