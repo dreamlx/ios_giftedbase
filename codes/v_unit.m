@@ -61,7 +61,9 @@
                              target:self
                              action:@selector(backClick:)
                      ];
-
+        
+        vhand = [self addImageView:self image:@"ut_hand.png" position:CGPointMake(900, 660)];
+        vhand.alpha = 0;
         
         
     }
@@ -106,8 +108,9 @@
             [UIView animateWithDuration:.5 animations:^{
                 svv.frame = CGRectMake(0, -130, 1024, 134);
                 svv.alpha = 0;
-                backButton.alpha=1;
-                gy.alpha=0;
+                backButton.alpha = 1;
+                gy.alpha = 0;
+                vhand.alpha = 0;
             
             }];
             
@@ -297,6 +300,7 @@
                      animations:^{
                          mapv.transform = CGAffineTransformMakeScale(1, 1);
                          mapv.center = pp;
+                         vhand.alpha = 1;
                      } completion:^(BOOL finished) {
                          [self addPointAni:e.tag - 2001];
                          gy.center = CGPointMake(e.center.x, e.center.y + 120);

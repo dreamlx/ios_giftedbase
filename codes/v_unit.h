@@ -17,7 +17,7 @@
     UIView *mapv;
     UIScrollView *uv;
     
-    UIImageView *curu;
+    UIImageView *curu, *vhand;
     
     NSMutableArray *larr;
     
