@@ -164,6 +164,8 @@
     {
         
         allArray = (NSArray*)deserializedDictionary;
+        [[NSUserDefaults standardUserDefaults] setObject:allArray
+                                                  forKey:@"infos"];
         NSLog(@"%@", allArray);
         
         num = [allArray count];
@@ -253,6 +255,9 @@
 {
     NSInteger index = [carousel indexOfItemView:sender];
     NSLog(@"%d",index);
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", index]
+                                              forKey:@"menuid"];
     
     v_unit *vs = [[v_unit alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
     vs.delegate=self;

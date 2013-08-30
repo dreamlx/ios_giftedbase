@@ -54,6 +54,14 @@
                  target:self
                  action:@selector(backClick:)
          ];
+        
+        NSString *n = [[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"];
+        int menuid = n.intValue;
+        NSLog(@"menuid == %d", menuid);
+        
+        NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"infos"];
+        
+        
     }
     return self;
 }
