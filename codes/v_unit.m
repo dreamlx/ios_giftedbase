@@ -84,6 +84,7 @@
     v_shop *vp = [[v_shop alloc] initWithFrame:self.frame];
     [self fadeInView:vp duration:.5];
     [vp loadCurrentPage:0];
+    [vp loadInfo:gbArr];
 }
 
 //放大缩小
@@ -151,7 +152,7 @@
 }
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd {
-    
+    gbArr = [arr[cmd] objectForKey:@"stages"];
     int mapcount = [[arr[cmd] objectForKey:@"pictures"] count];
     
     NSString *imgurl = [[arr[cmd] objectForKey:@"pictures"][mapcount - 1] objectForKey:@"image_url"];

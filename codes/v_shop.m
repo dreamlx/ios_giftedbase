@@ -56,31 +56,6 @@
                  action:@selector(backClick:)
          ];
         
-        NSString *n = [[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"];
-        int menuid = n.intValue;
-        NSLog(@"menuid == %d", menuid);
-        
-        NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"infos"];
-        
-        
-        UILabel *title = [self addLabel:self
-                                  frame:CGRectMake(0, 66, 1024, 36)
-                                   font:[UIFont systemFontOfSize:20]
-                                   text:[[arr[menuid] objectForKey:@"stages"][0] objectForKey:@"name"]
-                                  color:[UIColor blackColor]
-                                    tag:1401
-                          ];
-        title.textAlignment = UITextAlignmentCenter;
-        
-        UILabel *content = [self addLabel:self
-                                  frame:CGRectMake(77, 162, 980, 160)
-                                   font:[UIFont systemFontOfSize:15]
-                                   text:[[arr[menuid] objectForKey:@"stages"][0] objectForKey:@"name"]
-                                  color:[UIColor blackColor]
-                                    tag:1402
-                          ];
-        content.textAlignment = UITextAlignmentCenter;
-        
     }
     return self;
 }
@@ -91,6 +66,32 @@
 
 -(void)loadCurrentPage:(int)cmd {
     
+}
+
+-(void)loadInfo:(NSArray *)arr {
+    NSString *n = [[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"];
+    int menuid = n.intValue;
+    NSLog(@"menuid == %d", menuid);
+    
+    NSLog(@"%@++++++", [arr[0] objectForKey:@"name"]);
+    
+    UILabel *title = [self addLabel:self
+                              frame:CGRectMake(0, 66, 1024, 36)
+                               font:[UIFont systemFontOfSize:20]
+                               text:[arr[0] objectForKey:@"name"]
+                              color:[UIColor blackColor]
+                                tag:1401
+                      ];
+    title.textAlignment = UITextAlignmentCenter;
+    
+    UILabel *content = [self addLabel:self
+                                frame:CGRectMake(77, 162, 870, 160)
+                                 font:[UIFont systemFontOfSize:15]
+                                 text:[arr[0] objectForKey:@"description"]
+                                color:[UIColor blackColor]
+                                  tag:1402
+                        ];
+    content.textAlignment = UITextAlignmentCenter;
 }
 
 -(void)buyClick:(UIButton*)e {

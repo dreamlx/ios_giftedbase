@@ -198,7 +198,7 @@
         
         NSLog(@"token====%@",token);
         
-        if(token!=nil)
+        if(token==nil)
         {
             userLogin *p=[[userLogin alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
             [self addSubview:p];

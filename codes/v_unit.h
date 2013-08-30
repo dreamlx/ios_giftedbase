@@ -25,7 +25,7 @@
     
     float scalePos;
     
-    NSArray *allArray;
+    NSArray *allArray, *gbArr;
     
     int curvtag;
     

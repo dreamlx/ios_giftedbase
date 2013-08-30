@@ -164,8 +164,8 @@
     {
         
         allArray = (NSArray*)deserializedDictionary;
-        [[NSUserDefaults standardUserDefaults] setObject:allArray
-                                                  forKey:@"infos"];
+//        [[NSUserDefaults standardUserDefaults] setObject:allArray
+//                                                  forKey:@"infos"];
         NSLog(@"%@", allArray);
         
         num = [allArray count];

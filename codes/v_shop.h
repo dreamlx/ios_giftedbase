@@ -10,4 +10,6 @@
 
 @interface v_shop : iPageView
 
+-(void)loadInfo:(NSArray*)arr;
+
 @end
