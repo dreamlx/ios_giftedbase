@@ -329,7 +329,7 @@
         NSString *sex=[[NSUserDefaults standardUserDefaults] objectForKey:@"sex"];
         
         
-        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[email]=%@&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@",UserName.text,Password.text,ConfirmPassword.text,sex];
+        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[login]=%@&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@",UserName.text,Password.text,ConfirmPassword.text,sex];
         
         NSURL *url = [NSURL URLWithString:[s stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         

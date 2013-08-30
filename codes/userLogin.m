@@ -90,8 +90,9 @@
 
 -(void)backClick:(id)sender
 {
+    [((v_enter*)self.superview) showMenu];
     [self fadeOutView:self duration:.5];
-     [((v_enter*)self.superview) showMenu];
+    
 }
 
 
@@ -145,7 +146,7 @@
        
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                            message:@"注册成功。"
+                                                            message:@"登入成功。"
                                                            delegate:self
                                                   cancelButtonTitle:@"确定"
                                                   otherButtonTitles:nil];
@@ -171,10 +172,19 @@
 
 -(void)onRegDown:(id*)sender
 {
+    [Password endEditing:YES];
+    [UserName endEditing:YES];
     
     registChooseSex *ur = [[registChooseSex alloc]initWithFrame:self.frame];
-    [self fadeInView:ur duration:.5];
+    
     [ur loadCurrentPage:0];
+    
+    [self.superview fadeInView:self
+                   withNewView:ur
+                      duration:.5];
+    
+    
+    
     
 }
 
@@ -199,6 +209,7 @@
     NSString *msg=@"ok";
     
     
+    /*
     if(UserName.text.length==0)
     {
         msg=@"请输入用户名";
@@ -207,11 +218,11 @@
     else if(Password.text.length==0)
     {
         msg=@"请输入密码";
-    }    
+    }  */  
     
     if ([msg isEqualToString:@"ok"]) {
         
-        NSString *ss=[NSString stringWithFormat:@"http://gifted-center.com/users/sign_in.json?user[email]=%@&user[password]=%@",UserName.text,Password.text];
+        NSString *ss=[NSString stringWithFormat:@"http://gifted-center.com/users/sign_in.json?user[login]=%@&user[password]=%@",@"admin@gmail.com",@"11111111"];
         
         NSURL *url = [NSURL URLWithString:[ss stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
@@ -223,7 +234,6 @@
         [request setDelegate:self];
         
         [request startAsynchronous];
-         
     }
     else
     {
@@ -234,6 +244,7 @@
                                                   cancelButtonTitle:@"确定"
                                                   otherButtonTitles:nil];
         [alertView show];
+        
     }
 }
 

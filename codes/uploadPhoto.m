@@ -11,13 +11,14 @@
 #import "ASIFormDataRequest.h"
 #import "MainViewController.h"
 #import "registChooseSex.h"
-
+#import "userLogin.h"
+#import "selectAvatar.h"
 
 
 
 @implementation uploadPhoto
 
-@synthesize popoverController;
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,7 +27,7 @@
         // Initialization code
         
         [self addBackground:@"et_bg.png"];
-
+        
     }
     return self;
 }
@@ -34,31 +35,66 @@
 -(void)loadCurrentPage:(int)cmd
 {
     
+//    
+//    an=  [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
+//
+//    
+//    if(!an||[an isKindOfClass:[NSNull class]])
+//    {
+//        an=@"0";
+//    }
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@"0"
+                                              forKey:@"avatar"];
+
+    
+    
+    
+    avatar=[self addButtonWithImageView:self
+                                  image:@"avatar_0.jpg"
+                              highlight:nil
+                               position:CGPointMake(413, 113)
+                                      t:1100
+                                 action:@selector(onSelect:)];
+    
+    
+    
     [self addImageView:self
-                 image:@"default_frame.png"
-              position:CGPointMake(371, 128)];
+                 image:@"avatar_t0.png"
+              position:CGPointMake(447, 61)];
     
     
-    av= [self addImageView:self
-                 image:@"default_avatar.png"
-              position:CGPointMake(371+8, 128+8)];
     
-
-    [self addButton:self
-              image:@"uploadFromCamera_bt.png"
-           position:CGPointMake(422, 450)
-                tag:2000
-             target:self
-             action:@selector(onDown:)];
+    //输入矿
+    [self addImageView:self
+                 image:@"avatar_tf.jpg"
+              position:CGPointMake(354, 350)];
+    
+    
     
     [self addButton:self
-              image:@"uploadFromAblum_bt.png"
-           position:CGPointMake(422, 524)
-                tag:2001
+              image:@"avatar_ok.jpg"
+           position:CGPointMake(663, 350)
+                tag:2002
              target:self
-             action:@selector(onDown:)];
+             action:@selector(onDown:)
+     ];
     
-
+    
+    
+    UserName=[self addTextField:self
+                          frame:CGRectMake(361, 360, 290, 40)
+                           font:[UIFont systemFontOfSize:18]
+                          color:[UIColor blackColor]
+                    placeholder:nil
+                            tag:1000];
+    
+    UserName.placeholder=@"输入昵称";
+    
+    
+   // UserName.backgroundColor=[UIColor redColor];
+    
     
     [self addButton:self
               image:@"back_step.jpg"
@@ -67,21 +103,116 @@
              target:self
              action:@selector(backClick:)
      ];
-    
-    
-    [self addButton:self
-              image:@"findPsw_next.png"
-           position:CGPointMake(803, 653)
-                tag:2002
-             target:self
-             action:@selector(onDown:)
-     ];
-
+     
     
 }
 
 
--(void)backClick:(UIButton*)e {
+-(void)onSelect:(id)s
+{
+    selectAvatar *p=[[selectAvatar alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    [p loadCurrentPage:[an integerValue]];
+    [self fadeInView:p duration:.5];
+}
+
+-(void)updateAvatar
+{
+    
+    an=  [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
+    
+    
+    if(!an||[an isKindOfClass:[NSNull class]])
+    {
+        an=@"0";
+    }
+    
+    avatar.image=[UIImage imageNamed:[NSString stringWithFormat:@"avatar_%@.jpg",an]];
+    
+}
+
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    
+    NSLog(@"%@",[request responseString]);
+    
+    switch (request.tag) {
+            
+            //注册功能回调
+        case 8000:
+        {
+            
+            // Use when fetching binary data
+            NSData *jsonData = [request responseData];
+            
+            //解析JSon
+            NSError *error = nil;
+            NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+            
+            
+            BOOL success = [[jsonObject objectForKey:@"success"] boolValue];
+            
+            if (success){
+                
+                NSString *token=[jsonObject objectForKey:@"auth_token"];
+                
+                
+                
+                [HUD hide:YES];
+                
+                
+                
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                    message:@"恭喜你注册成功了！"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+                
+                
+                
+                //去掉性别纪录
+                [[NSUserDefaults standardUserDefaults] setObject:nil
+                                                          forKey:@"sex"];
+                
+                
+                return;
+                
+                
+                //注册成功并保存token
+                [[NSUserDefaults standardUserDefaults] setObject:token
+                                                          forKey:@"token"];
+                
+                
+            }
+            else
+            {
+                [HUD hide:YES];
+                
+                //注册失败
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                    message:@"注册失败，重试。"
+                                                                   delegate:nil
+                                                          cancelButtonTitle:@"确定"
+                                                          otherButtonTitles:nil];
+                [alertView show];
+            }
+            
+        }
+            break;
+            
+            
+            
+            
+            request=nil;
+    }
+    
+}
+
+
+
+-(void)backClick:(UIButton*)e
+{
     //回登入
     registChooseSex *up = [[registChooseSex alloc]initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:up duration:.5];
@@ -92,112 +223,72 @@
 
 -(void)onDown:(UIButton*)sender
 {
-    switch (sender.tag) {
-        case 2000:
-        {
-            //拍照
-            UIImagePickerController *imagePickController=[[UIImagePickerController alloc]init];
-            imagePickController.sourceType=UIImagePickerControllerSourceTypeCamera;
-            imagePickController.delegate=self;
-            imagePickController.allowsEditing=NO;
-            imagePickController.showsCameraControls=YES;
-            
-            [(MainViewController*)[self getManager]  presentModalViewController:imagePickController animated:YES];
-            
-            
-            
-            
-            
-            /*
-            UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:imagePickController];
-            self.popoverController = popover;
-         
-            [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, 300, 0)
-                                                    inView:self
-                                  permittedArrowDirections:UIPopoverArrowDirectionUp
-                                                  animated:YES];*/
-        }
-            break;
-            
-        case 2001:
-        {
-            //从相册
-            UIImagePickerController *imagePickController=[[UIImagePickerController alloc]init];
-            imagePickController.sourceType=UIImagePickerControllerSourceTypePhotoLibrary;
-            imagePickController.delegate=self;
-            
-            UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:imagePickController];
-            self.popoverController = popover;
-            //popoverController.delegate = self;
-            [self.popoverController presentPopoverFromRect:CGRectMake(0, 0, 0, 0)
-                                     inView:self
-                   permittedArrowDirections:UIPopoverArrowDirectionAny
-                                   animated:YES];
-            
-        }
-            break;
-            
-        case 2002:
-        {
-            userReg *ur = [[userReg alloc]initWithFrame:self.frame];
-            [self.superview fadeInView:self withNewView:ur duration:.5];
-            [ur loadCurrentPage:0];
-        }
-            break;
-    }
-
-    
-}
-
-
-- (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize
-{
-    UIGraphicsBeginImageContext(CGSizeMake(reSize.width, reSize.height));
-    [image drawInRect:CGRectMake(0, 0, reSize.width, reSize.height)];
-    UIImage *reSizeImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return reSizeImage;
-}
-
-
-#pragma mark –
-#pragma mark 上传照片回调
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    //开始提交
+    NSString *msg=@"ok";
     
     
-    if ([mediaType isEqualToString:@"public.image"])
+    [UserName endEditing:YES];
+    
+    if(UserName.text.length==0)
     {
-        UIImage *originalImage=[info objectForKey:UIImagePickerControllerOriginalImage];
-        
-        
-        float width=267/(float)originalImage.size.width;
-        float height=267/(float)originalImage.size.height;
-        
-        float k=width>height?height:width;
-
-        UIImage *img=[self reSizeImage:originalImage
-                       toSize:CGSizeMake(originalImage.size.width*k, originalImage.size.height*k)];
-        
-        av.image=img;
-        
-        
-        NSData* data = UIImageJPEGRepresentation(img, 1);
-        [[NSUserDefaults standardUserDefaults] setObject:data
-                                                  forKey:@"avatar"];
-        
-        
-        [picker dismissViewControllerAnimated:YES
-                                   completion:^{
-            
-        }];
+        msg=@"请输入昵称";
     }
- 
+    else if(UserName.text.length>20)
+    {
+        msg=@"太长拉";
+    }
     
-    
+    if ([msg isEqualToString:@"ok"]) {
+        
+        HUD = [[MBProgressHUD alloc] initWithView:self];
+        [self addSubview:HUD];
+        HUD.labelText = @"正在提交，请稍等..."; 
+        
+        [HUD show:YES];
+        
+        
+        //开始提交
+        NSString *sex=[[NSUserDefaults standardUserDefaults] objectForKey:@"sex"];
+        
+        
+        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[login]=%@&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@",
+                     @"abc2@test.com",
+                     @"11111111",
+                     @"11111111",
+                     sex];
+        
+        NSURL *url = [NSURL URLWithString:[s stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        
+        NSLog(@"通过验证，可提交 url=%@",url);
+        
+        regRequest = [ASIFormDataRequest requestWithURL:url];
+        regRequest.tag=8000;
+        [regRequest setRequestMethod:@"POST"];
+        [regRequest setDelegate:self];
+        [regRequest startAsynchronous];
+        
+    }
+    else
+    {
+        [HUD hide:YES];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:msg
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
     
     
 }
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    userLogin *ul = [[userLogin alloc]initWithFrame:self.frame];
+    [self.superview fadeInView:self withNewView:ul duration:.5];
+    [ul loadCurrentPage:0];
+}
+
+
 
 @end
