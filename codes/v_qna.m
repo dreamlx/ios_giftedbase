@@ -251,13 +251,14 @@
         btn.center = CGPointMake(25, 25);
         btn.alpha = .5;
         
-        [self addLabel:ansview
+        UILabel *alb = [self addLabel:ansview
                  frame:CGRectMake(70, 10, 500, 32)
-                  font:[UIFont systemFontOfSize:26]
+                  font:[UIFont systemFontOfSize:32]
                   text:[oparr[i] objectForKey:@"content"]
                  color:[UIColor blackColor]
                    tag:7500 + i
          ];
+        alb.alpha = .7;
     }
     
     for (int i = 0; i < [questionList count]; i++) {
@@ -266,20 +267,20 @@
     }
     
     qnumtxt = [self addLabel:qnav
-                            frame:CGRectMake(20, 135, 40, 24)
-                             font:[UIFont fontWithName:@"Arial" size:22]
+                            frame:CGRectMake(36, 135, 120, 60)
+                             font:[UIFont fontWithName:@"Gretoon" size:40]
                              text:@""
                             color:[UIColor colorWithRed:85.f/255.f green:107.f/255.f blue:131.f/255.f alpha:1]
                               tag:12001
                     ];
     qnumtxt.shadowOffset=CGSizeMake(0, 1);
     qnumtxt.shadowColor=[UIColor whiteColor];
-    qnumtxt.textAlignment = NSTextAlignmentCenter;
+//    qnumtxt.textAlignment = NSTextAlignmentCenter;
     
     
     quetxt = [self addLabel:qnav
-                      frame:CGRectMake(84, 135, 750, 26)
-                       font:[UIFont systemFontOfSize:24]
+                      frame:CGRectMake(150, 140, 750, 50)
+                       font: [UIFont boldSystemFontOfSize:50]
                        text:@""
                       color:[UIColor blackColor]
                         tag:12002
@@ -287,7 +288,6 @@
 //    quetxt.numberOfLines = 3;
     quetxt.shadowOffset=CGSizeMake(0, 1);
     quetxt.shadowColor=[UIColor whiteColor];
-    
     
     anstxt = [[UITextView alloc]initWithFrame:CGRectMake(83, -282, 782, 132)];
     anstxt.backgroundColor=[UIColor clearColor];
@@ -428,19 +428,19 @@
     
     for (int i = 0; i < [question_line_items count]; i ++) {
         
-        UIView *txt = [[UIView alloc]initWithFrame:CGRectMake(0, 16 + i * 62, 1042, 42)];
+        UIView *txt = [[UIView alloc]initWithFrame:CGRectMake(0, 24 + i * 80, 1042, 42)];
         txt.tag = 2000 + i;
         [sv addSubview:txt];
         [self addTapEvent:txt target:self action:@selector(txtClick:)];
         
         [self addImageView:txt
                      image:@"qp_line.png"
-                  position:CGPointMake(0, 40)
+                  position:CGPointMake(0, 50)
          ];
         
         UILabel *tum = [self addLabel:txt
-                                frame:CGRectMake(15, 0, 40, 24)
-                                 font:[UIFont fontWithName:@"Arial" size:22]
+                                frame:CGRectMake(15, 0, 60, 24)
+                                 font:[UIFont fontWithName:@"Gretoon" size:24]
                                  text:[NSString stringWithFormat:@"%d :", i + 1]
                                 color:[UIColor colorWithRed:85.f/255.f green:107.f/255.f blue:131.f/255.f alpha:1]
                                   tag:2998
@@ -453,8 +453,8 @@
         questions = [question_line_items[i] objectForKey:@"question"];
         
         UILabel *ques = [self addLabel:txt
-                                 frame:CGRectMake(70, 5, 500, 16)
-                                  font:[UIFont fontWithName:@"Calibri" size:10]
+                                 frame:CGRectMake(100, 0, 500, 24)
+                                  font:[UIFont fontWithName:@"Arial" size:24]
                                   text:[questions objectForKey:@"subject"]
                                  color:[UIColor redColor]
                                    tag:2999
@@ -463,7 +463,7 @@
         ques.shadowOffset=CGSizeMake(0, 1);
         ques.shadowColor=[UIColor whiteColor];
         
-        [sv setContentSize:CGSizeMake(1024, (i + 1) * 62)];
+        [sv setContentSize:CGSizeMake(1024, (i + 1) * 80)];
     }
 }
 
