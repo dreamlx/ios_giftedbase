@@ -32,6 +32,7 @@
     v_shop *vs = [[v_shop alloc] initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:vs duration:0];
     [vs loadCurrentPage:0];
+    [vs loadInfo:varr];
 }
 
 -(void)loadCurrentPage:(int)cmd {
@@ -76,6 +77,10 @@
              target:self
              action:@selector(backClick:)
      ];
+}
+
+-(void)saveInfo:(NSArray *)arr {
+    varr = arr;
 }
 
 #pragma mark -

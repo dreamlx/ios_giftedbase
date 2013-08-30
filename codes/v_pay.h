@@ -15,6 +15,9 @@
     iCarousel *carousel;
     NSMutableArray *items;
     int num;
+    NSArray *varr;
 }
+
+-(void)saveInfo:(NSArray*)arr;
 
 @end

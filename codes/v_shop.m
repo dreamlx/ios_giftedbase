@@ -69,6 +69,7 @@
 }
 
 -(void)loadInfo:(NSArray *)arr {
+    varr = arr;
     NSString *n = [[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"];
     int menuid = n.intValue;
     NSLog(@"menuid == %d", menuid);
@@ -77,7 +78,7 @@
     
     UILabel *title = [self addLabel:self
                               frame:CGRectMake(0, 66, 1024, 36)
-                               font:[UIFont systemFontOfSize:20]
+                               font:[UIFont boldSystemFontOfSize:20]
                                text:[arr[0] objectForKey:@"name"]
                               color:[UIColor blackColor]
                                 tag:1401
@@ -98,6 +99,7 @@
     v_pay *vp = [[v_pay alloc] initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:vp duration:.5];
     [vp loadCurrentPage:0];
+    [vp saveInfo:varr];
 }
 
 -(void)playMovie:(UIButton*)e {
