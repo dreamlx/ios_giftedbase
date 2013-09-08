@@ -19,24 +19,24 @@
     if (self) {
         // Initialization code
         
-          [self addBackground:@"et_bg.png"];
+        [self addBackground:@"et_bg.png"];
         
-    
+        
         
     }
     return self;
 }
 
+
 -(void)loadCurrentPage:(int)cmd
 {
+    
     
     UIImageView *im = [self addImageView:self
                                    image:@"login_frame.png"
                                 position:CGPointMake(189, 82)];
     
     im.userInteractionEnabled=YES;
-    
-    
     
     UserName=[self addTextField:im
                           frame:CGRectMake(214, 122, 357, 35)
@@ -45,9 +45,9 @@
                     placeholder:nil
                             tag:1000];
     
+    
+    
     UserName.placeholder=@"电子邮件";
-    
-    
     
     
     Password=[self addTextField:im
@@ -56,6 +56,7 @@
                           color:[UIColor blackColor]
                     placeholder:nil
                             tag:1001];
+    
     
     Password.placeholder=@"6-10位";
     Password.secureTextEntry = YES;
@@ -88,12 +89,13 @@
 
 }
 
+
 -(void)backClick:(id)sender
 {
     [((v_enter*)self.superview) showMenu];
     [self fadeOutView:self duration:.5];
-    
 }
+
 
 
 
@@ -182,13 +184,8 @@
     [self.superview fadeInView:self
                    withNewView:ur
                       duration:.5];
-    
-    
-    
-    
+      
 }
-
-
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -218,11 +215,19 @@
     else if(Password.text.length==0)
     {
         msg=@"请输入密码";
-    }  */  
+    }  
+  
+    
+    
+    
+    NSString *usernname=[NSString stringWithFormat:@"%@@%@",[self uniqueString],@"gifted.com"];
+    
+    
+    
     
     if ([msg isEqualToString:@"ok"]) {
         
-        NSString *ss=[NSString stringWithFormat:@"http://gifted-center.com/users/sign_in.json?user[login]=%@&user[password]=%@",@"397751393@qq.com",@"123456"];
+        NSString *ss=[NSString stringWithFormat:@"http://gifted-center.com/users/sign_in.json?user[username]=test99&user[login]=%@&user[password]=%@",usernname,@"11111111"];
         
         NSURL *url = [NSURL URLWithString:[ss stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
@@ -246,8 +251,8 @@
         [alertView show];
         
     }
+      */
 }
-
 
 
 @end

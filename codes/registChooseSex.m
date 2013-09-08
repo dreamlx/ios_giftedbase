@@ -65,13 +65,24 @@
         
         [l2 addAnimation:anim forKey:@"animateLayer"];
         
+        
+        /*
         [self addButton:self
                   image:@"back_step.jpg"
                position:CGPointMake(39, 653)
                     tag:1003
                  target:self
                  action:@selector(backClick:)
+         ];*/
+        
+        [self addButton:self
+                  image:@"qq_back.png"
+               position:CGPointMake(30, 30)
+                    tag:1003
+                 target:self
+                 action:@selector(backClick:)
          ];
+
         
         
         
@@ -112,6 +123,7 @@
                          }
          ];
     }
+
     
     
     //记录性别
@@ -134,22 +146,31 @@
 
 
 
+
+
 -(void)backClick:(UIButton*)e {
+    
+    /*
     //回登入
     userLogin *up = [[userLogin alloc]initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:up duration:.5];
     [up loadCurrentPage:0];
+     */
+    
+    [self fadeOutView:self duration:.5];
     
     
+    //返回的话清空
     [[NSUserDefaults standardUserDefaults] setObject:nil
                                               forKey:@"sex"];
-
 }
 
 
 
 -(void)nextClick:(UIButton*)e {
-    //去上传头像的地方
+
+    NSLog(@"去上传头像的地方");
+    
     uploadPhoto *up = [[uploadPhoto alloc]initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:up duration:.5];
     [up loadCurrentPage:0];

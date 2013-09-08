@@ -197,19 +197,20 @@
         
         NSLog(@"token====%@",token);
         
+        
+        //
         if(token==nil)
         {
-            userLogin *p=[[userLogin alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+            registChooseSex *p=[[registChooseSex alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
             [self addSubview:p];
             [p loadCurrentPage:0];
         }
         else
         {
-           [self showList]; 
+            [self showList]; 
         }
         
-        
-        
+
         return;
 
         if(vid != 1) {

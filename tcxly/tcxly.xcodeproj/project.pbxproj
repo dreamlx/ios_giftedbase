@@ -811,14 +811,10 @@
 		1B6AAC0217343D9900EC3839 /* codes */ = {
 			isa = PBXGroup;
 			children = (
+				6E907C3D17DC52E5005DB38F /* 备份 */,
 				DE649DEB179AD9C30041B1D4 /* registChooseSex.h */,
 				DE649DEC179AD9C40041B1D4 /* registChooseSex.m */,
-				DE649DDF179ACFE60041B1D4 /* uploadPhoto.h */,
-				DE649DE0179ACFE60041B1D4 /* uploadPhoto.m */,
-				6E4EBE7317D1068F0061AFAF /* selectAvatar.h */,
-				6E4EBE7417D1068F0061AFAF /* selectAvatar.m */,
-				DE649DE1179ACFE60041B1D4 /* userLogin.h */,
-				DE649DE2179ACFE60041B1D4 /* userLogin.m */,
+				6E907C3E17DC536E005DB38F /* 头像 */,
 				1B6AAC081734405900EC3839 /* MainViewController.h */,
 				1B6AAC091734405900EC3839 /* MainViewController.m */,
 				1B6AACA71734411200EC3839 /* v_enter.h */,
@@ -1100,6 +1096,26 @@
 				6E4EBE5B17D0F00A0061AFAF /* avatar_t.png */,
 			);
 			path = avatar;
+			sourceTree = "<group>";
+		};
+		6E907C3D17DC52E5005DB38F /* 备份 */ = {
+			isa = PBXGroup;
+			children = (
+				DE649DE1179ACFE60041B1D4 /* userLogin.h */,
+				DE649DE2179ACFE60041B1D4 /* userLogin.m */,
+			);
+			name = "备份";
+			sourceTree = "<group>";
+		};
+		6E907C3E17DC536E005DB38F /* 头像 */ = {
+			isa = PBXGroup;
+			children = (
+				DE649DDF179ACFE60041B1D4 /* uploadPhoto.h */,
+				DE649DE0179ACFE60041B1D4 /* uploadPhoto.m */,
+				6E4EBE7317D1068F0061AFAF /* selectAvatar.h */,
+				6E4EBE7417D1068F0061AFAF /* selectAvatar.m */,
+			);
+			name = "头像";
 			sourceTree = "<group>";
 		};
 		6EE7932B17BEB23900C34F3D /* SDWebImage */ = {
