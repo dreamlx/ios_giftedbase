@@ -26,7 +26,6 @@
         
         self.backgroundColor=[UIColor blackColor];
         
-        
         pointnum = 8;
         //
         mapv = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 2048, 1536)];
@@ -65,9 +64,10 @@
                              target:self
                              action:@selector(backClick:)
                      ];
-
         
-               
+        vhand = [self addImageView:self image:@"ut_hand.png" position:CGPointMake(900, 660)];
+        vhand.alpha = 0;
+        
         
     }
     return self;
@@ -75,9 +75,13 @@
 
 -(void)backClick:(UIButton*)e {
     
-    //v_enter *vp = [[v_enter alloc] initWithFrame:self.frame];
-    [self.superview fadeOutView:self duration:.5];
-    //[vp  loadCurrentPage:0];
+//
+//    v_enter *vp = [[v_enter alloc] initWithFrame:self.frame];
+//    [self.superview fadeInView:self
+//         withNewView:vp duration:.5];
+//    [vp  loadCurrentPage:0];
+    
+     [self.superview fadeOutView:self duration:.5];
     
 }
 
@@ -86,6 +90,7 @@
     v_shop *vp = [[v_shop alloc] initWithFrame:self.frame];
     [self fadeInView:vp duration:.5];
     [vp loadCurrentPage:0];
+    [vp loadInfo:gbArr];
 }
 
 //放大缩小
@@ -110,8 +115,9 @@
             [UIView animateWithDuration:.5 animations:^{
                 svv.frame = CGRectMake(0, -130, 1024, 134);
                 svv.alpha = 0;
-                backButton.alpha=1;
-                gy.alpha=0;
+                backButton.alpha = 1;
+                gy.alpha = 0;
+                vhand.alpha = 0;
             
             }];
             
@@ -152,7 +158,7 @@
 }
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd {
-    
+    gbArr = [arr[cmd] objectForKey:@"stages"];
     int mapcount = [[arr[cmd] objectForKey:@"pictures"] count];
     
     NSString *imgurl = [[arr[cmd] objectForKey:@"pictures"][mapcount - 1] objectForKey:@"image_url"];
@@ -185,6 +191,7 @@
                        }];
     }
     
+
     
     gy = [self addButton:mapv
                    image:@"ut_gaiyao.png"
@@ -301,6 +308,7 @@
                      animations:^{
                          mapv.transform = CGAffineTransformMakeScale(1, 1);
                          mapv.center = pp;
+                         vhand.alpha = 1;
                      } completion:^(BOOL finished) {
                          [self addPointAni:e.tag - 2001];
                          gy.center = CGPointMake(e.center.x, e.center.y + 120);

@@ -13,7 +13,7 @@
 #import "registChooseSex.h"
 #import "userLogin.h"
 #import "selectAvatar.h"
-
+#import "v_enter.h"
 
 
 @implementation uploadPhoto
@@ -110,6 +110,8 @@
 
 -(void)onSelect:(id)s
 {
+     [UserName endEditing:YES];
+    
     selectAvatar *p=[[selectAvatar alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
     [p loadCurrentPage:[an integerValue]];
     [self fadeInView:p duration:.5];
@@ -154,14 +156,19 @@
             
             if (success){
                 
+                
+                
+                //注册成功并保存token
                 NSString *token=[jsonObject objectForKey:@"auth_token"];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:token
+                                                          forKey:@"token"];
+                
                 
                 
                 
                 [HUD hide:YES];
-                
-                
-                
+
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                                     message:@"恭喜你注册成功了！"
                                                                    delegate:self
@@ -169,21 +176,7 @@
                                                           otherButtonTitles:nil];
                 [alertView show];
                 
-                
-                
-                //去掉性别纪录
-                [[NSUserDefaults standardUserDefaults] setObject:nil
-                                                          forKey:@"sex"];
-                
-                
-                return;
-                
-                
-                //注册成功并保存token
-                [[NSUserDefaults standardUserDefaults] setObject:token
-                                                          forKey:@"token"];
-                
-                
+
             }
             else
             {
@@ -220,6 +213,14 @@
 }
 
 
+//生成唯一编码
+- (NSString *) uniqueString
+{
+    CFUUIDRef unique = CFUUIDCreate(kCFAllocatorDefault);
+    NSString *result =(NSString *)CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, unique));
+    CFRelease(unique);
+    return result;
+}
 
 -(void)onDown:(UIButton*)sender
 {
@@ -247,12 +248,20 @@
         [HUD show:YES];
         
         
-        //开始提交
+        //开始注册
+        
+        //性别
         NSString *sex=[[NSUserDefaults standardUserDefaults] objectForKey:@"sex"];
         
         
-        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[login]=%@&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@",
-                     @"abc2@test.com",
+        //昵称
+        NSString *nickname=UserName.text;
+        
+
+        
+        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[username]=%@&user[email]=%@@gifted.com&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@&user[ava",
+                     nickname,
+                     [self uniqueString],
                      @"11111111",
                      @"11111111",
                      sex];
@@ -282,11 +291,12 @@
     
 }
 
-
+//
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    userLogin *ul = [[userLogin alloc]initWithFrame:self.frame];
-    [self.superview fadeInView:self withNewView:ul duration:.5];
-    [ul loadCurrentPage:0];
+    //成功
+    v_enter *ve = (v_enter*)(self.superview);
+    [ve showList];
+    [self fadeOutView:self duration:.5];
 }
 
 

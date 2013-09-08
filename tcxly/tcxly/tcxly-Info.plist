@@ -20,7 +20,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>izom.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>com.sk.test4</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

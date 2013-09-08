@@ -89,6 +89,8 @@
 }
 
 
+
+
 -(void)onTap:(UIGestureRecognizer*)sender
 {
     
