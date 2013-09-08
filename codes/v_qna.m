@@ -441,7 +441,7 @@
          ];
         
         UILabel *tum = [self addLabel:txt
-                                frame:CGRectMake(15, 0, 60, 24)
+                                frame:CGRectMake(30, 0, 100, 24)
                                  font:[UIFont fontWithName:@"Gretoon" size:24]
                                  text:[NSString stringWithFormat:@"%d :", i + 1]
                                 color:[UIColor colorWithRed:85.f/255.f green:107.f/255.f blue:131.f/255.f alpha:1]
@@ -449,13 +449,13 @@
                         ];
         tum.shadowOffset=CGSizeMake(0, 1);
         tum.shadowColor=[UIColor whiteColor];
-        tum.textAlignment = NSTextAlignmentCenter;
+//        tum.textAlignment = NSTextAlignmentCenter;
         
         NSDictionary *questions = [[NSDictionary alloc]init];
         questions = [question_line_items[i] objectForKey:@"question"];
         
         UILabel *ques = [self addLabel:txt
-                                 frame:CGRectMake(100, 0, 500, 24)
+                                 frame:CGRectMake(120, 0, 500, 24)
                                   font:[UIFont fontWithName:@"Arial" size:24]
                                   text:[questions objectForKey:@"subject"]
                                  color:[UIColor redColor]

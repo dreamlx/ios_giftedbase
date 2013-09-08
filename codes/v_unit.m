@@ -46,6 +46,7 @@
                   position:CGPointMake(0, 0)];
         
         uv = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 1024, 134)];
+        [uv setBounces:YES];
         [svv addSubview:uv];
         
         
