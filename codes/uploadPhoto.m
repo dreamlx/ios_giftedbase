@@ -259,12 +259,13 @@
         
 
         
-        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[username]=%@&user[email]=%@@gifted.com&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@&user[ava",
+        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[username]=%@&user[email]=%@@gifted.com&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@&user[avatarid]=%@",
                      nickname,
                      [self uniqueString],
                      @"11111111",
                      @"11111111",
-                     sex];
+                     sex,
+                     [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"]];
         
         NSURL *url = [NSURL URLWithString:[s stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
