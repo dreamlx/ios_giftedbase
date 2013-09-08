@@ -141,13 +141,11 @@
        withNewView:(iPageView*) v2 
           duration:(float)d
 {
-    v2.alpha=0;
-    [self addSubview:v2];
+    [self insertSubview:v2 belowSubview:v1];
     v2.tag=v1.tag;
 
     [UIView animateWithDuration:d
                      animations:^{
-                         v2.alpha=1;
                          v1.alpha = 0;
                      } completion:^(BOOL finished) {
                          [v1 unloadCurrentPage];

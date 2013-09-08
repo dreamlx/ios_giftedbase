@@ -159,9 +159,17 @@
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd {
     gbArr = [arr[cmd] objectForKey:@"stages"];
+    
+    
+    
     int mapcount = [[arr[cmd] objectForKey:@"pictures"] count];
     
+    
+    
+    
     NSString *imgurl = [[arr[cmd] objectForKey:@"pictures"][mapcount - 1] objectForKey:@"image_url"];
+    
+    
     if(imgurl) {
         NSLog(@"load map");
         
@@ -203,6 +211,7 @@
 
     
     
+
     
     NSArray *stages=[arr[cmd] objectForKey:@"stages"];
     
@@ -211,16 +220,11 @@
     NSArray *pos=[stages[stages.count-1] objectForKey:@"map_places"];
     
     
-    NSLog(@"%@",[pos objectAtIndex:1]);
-    
-    
-        
+
     
     for (int i = 0; i < [pos count]; i++) {
         
-        
-        
-        
+
         CGPoint p =CGPointMake([[[pos objectAtIndex:i] objectForKey:@"x"] integerValue],[[[pos objectAtIndex:i] objectForKey:@"y"] integerValue]);
         
         UIButton *cir = [self addButton:mapv
@@ -245,6 +249,7 @@
                          }];
     }
     
+
     int allnum = [[[arr[cmd] objectForKey:@"stages"][0] objectForKey:@"units"] count];
     NSLog(@"allnum = %d", allnum);
     

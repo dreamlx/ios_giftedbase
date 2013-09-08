@@ -164,9 +164,7 @@
     {
         
         allArray = (NSArray*)deserializedDictionary;
-        [[NSUserDefaults standardUserDefaults] setObject:allArray
-                                                  forKey:@"infos"];
-        
+                
         MainViewController *mvc = (MainViewController*)[self getManager];
         mvc.allArr = allArray;
         NSLog(@"%@", allArray);
