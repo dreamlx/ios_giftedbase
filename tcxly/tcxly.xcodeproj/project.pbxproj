@@ -281,6 +281,7 @@
 		DEC91F5A175E3B0800AB7164 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEC91F59175E3B0800AB7164 /* MobileCoreServices.framework */; };
 		DEC91FB0175E4A6200AB7164 /* qp_upbg2.png in Resources */ = {isa = PBXBuildFile; fileRef = DEC91FAF175E4A6200AB7164 /* qp_upbg2.png */; };
 		DEC91FB2175E4C9800AB7164 /* qp_line.png in Resources */ = {isa = PBXBuildFile; fileRef = DEC91FB1175E4C9800AB7164 /* qp_line.png */; };
+		DEDF512B17DC693F00910515 /* v_answerCheck.m in Sources */ = {isa = PBXBuildFile; fileRef = DEDF512A17DC693F00910515 /* v_answerCheck.m */; };
 		DEE642DD17BE839200B1B1E6 /* v_shop.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE642DC17BE839200B1B1E6 /* v_shop.m */; };
 		DEE642E317BE83FE00B1B1E6 /* sp_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DEE642DF17BE83FE00B1B1E6 /* sp_bg.jpg */; };
 		DEE642E417BE83FE00B1B1E6 /* sp_board.png in Resources */ = {isa = PBXBuildFile; fileRef = DEE642E017BE83FE00B1B1E6 /* sp_board.png */; };
@@ -661,6 +662,8 @@
 		DEC91F59175E3B0800AB7164 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		DEC91FAF175E4A6200AB7164 /* qp_upbg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qp_upbg2.png; sourceTree = "<group>"; };
 		DEC91FB1175E4C9800AB7164 /* qp_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qp_line.png; sourceTree = "<group>"; };
+		DEDF512917DC693F00910515 /* v_answerCheck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v_answerCheck.h; sourceTree = "<group>"; };
+		DEDF512A17DC693F00910515 /* v_answerCheck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v_answerCheck.m; sourceTree = "<group>"; };
 		DEE642DB17BE839200B1B1E6 /* v_shop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v_shop.h; sourceTree = "<group>"; };
 		DEE642DC17BE839200B1B1E6 /* v_shop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v_shop.m; sourceTree = "<group>"; };
 		DEE642DF17BE83FE00B1B1E6 /* sp_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sp_bg.jpg; sourceTree = "<group>"; };
@@ -831,6 +834,8 @@
 				6EF59B5E17BA94CD0070589E /* v_qna_caogao.m */,
 				1B6AAD7717357BE100EC3839 /* v_score.h */,
 				1B6AAD7817357BE100EC3839 /* v_score.m */,
+				DEDF512917DC693F00910515 /* v_answerCheck.h */,
+				DEDF512A17DC693F00910515 /* v_answerCheck.m */,
 				DEE642DB17BE839200B1B1E6 /* v_shop.h */,
 				DEE642DC17BE839200B1B1E6 /* v_shop.m */,
 				DEE642E917BE854500B1B1E6 /* v_pay.h */,
@@ -1792,6 +1797,7 @@
 				6EE7934A17BEB23900C34F3D /* UIImageView+WebCache.m in Sources */,
 				6EE7935D17BEBBE100C34F3D /* mpvc.m in Sources */,
 				6E4EBE7517D106900061AFAF /* selectAvatar.m in Sources */,
+				DEDF512B17DC693F00910515 /* v_answerCheck.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

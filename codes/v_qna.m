@@ -587,7 +587,7 @@
     for (int i = 0; i < [postAnswerArr count]; i++) {
         
         int queid = [postIDArr[i] integerValue];
-//        NSLog(@"queid = %d", queid);
+        NSLog(@"queid = %d", queid);
         
         NSArray *opdic = [[questionList[i] objectForKey:@"question"] objectForKey:@"single_choice_options"];
         if(queid != -1) {
@@ -649,6 +649,7 @@
     v_score *vs = [[v_score alloc]initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:vs duration:.5];
     [vs loadCurrentPage:[[deserializedDictionary objectForKey:@"id"] integerValue]];
+    [vs sendAnswer:postIDArr];
 }
 
 @end

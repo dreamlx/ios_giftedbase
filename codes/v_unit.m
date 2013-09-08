@@ -153,17 +153,16 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", curvtag] forKey:@"menutag"];
     [vq readInfo:allArray[curvtag] questionID:0];
     [vq loadInfo:allArray menuIndex:curvtag];
-    NSLog(@"+++++%d", curvtag);
     
 }
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd {
     gbArr = [arr[cmd] objectForKey:@"stages"];
     int mapcount = [[arr[cmd] objectForKey:@"pictures"] count];
-    
+    NSLog(@"map count == %d", mapcount);
     NSString *imgurl = [[arr[cmd] objectForKey:@"pictures"][mapcount - 1] objectForKey:@"image_url"];
     if(imgurl) {
-        NSLog(@"load map");
+        NSLog(@"%@", imgurl);
         
         //NSData *imageData = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:imgurl]];
         //UIImage *image=[[UIImage alloc] initWithData:imageData];
@@ -206,15 +205,7 @@
     
     NSArray *stages=[arr[cmd] objectForKey:@"stages"];
     
-   
-    
     NSArray *pos=[stages[stages.count-1] objectForKey:@"map_places"];
-    
-    
-    NSLog(@"%@",[pos objectAtIndex:1]);
-    
-    
-        
     
     for (int i = 0; i < [pos count]; i++) {
         

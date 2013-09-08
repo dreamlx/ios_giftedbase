@@ -14,6 +14,7 @@
 #import "v_qna.h"
 #import "UIView+iTextManager.h"
 #import "MainViewController.h"
+#import "v_answerCheck.h"
 
 @implementation v_score
 
@@ -197,6 +198,10 @@
         NSArray *sarr = [[mvc.allArr[menuid] objectForKey:@"stages"][0] objectForKey:@"units"];
         [vq readInfo:sarr[menutag] questionID:0];
         [vq loadInfo:sarr menuIndex:menutag];
+    }else {
+        v_answerCheck *vc = [[v_answerCheck alloc] initWithFrame:self.frame];
+        [self fadeInView:vc duration:.5];
+        [vc sendAnswer:answerArr];
     }
 }
 
@@ -231,6 +236,11 @@
     [loginLoading removeFromSuperview];
     [[self viewWithTag:9992] removeFromSuperview];
     [[self viewWithTag:9997] removeFromSuperview];
+}
+
+
+-(void)sendAnswer:(NSArray *)arr {
+    answerArr = arr;
 }
 
 @end

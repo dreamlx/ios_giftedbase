@@ -1,17 +1,17 @@
 //
-//  v_score.h
+//  v_answerCheck.h
 //  tcxly
 //
-//  Created by Terry on 13-5-5.
+//  Created by Terry on 13-9-8.
 //  Copyright (c) 2013年 Terry. All rights reserved.
 //
 
 #import "iPageView.h"
 
-@interface v_score : iPageView
+@interface v_answerCheck : iPageView
 
 {
-    NSArray *answerArr;
+    NSArray *question_line_items;
 }
 
 -(void)sendAnswer:(NSArray*)arr;
