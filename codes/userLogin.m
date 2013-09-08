@@ -222,7 +222,7 @@
     
     if ([msg isEqualToString:@"ok"]) {
         
-        NSString *ss=[NSString stringWithFormat:@"http://gifted-center.com/users/sign_in.json?user[login]=%@&user[password]=%@",@"admin@gmail.com",@"11111111"];
+        NSString *ss=[NSString stringWithFormat:@"http://gifted-center.com/users/sign_in.json?user[login]=%@&user[password]=%@",@"397751393@qq.com",@"123456"];
         
         NSURL *url = [NSURL URLWithString:[ss stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     

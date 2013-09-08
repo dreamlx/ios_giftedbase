@@ -51,8 +51,8 @@
                   position:CGPointMake(418, 533)];
         
         [self addButton:self
-                  image:@"se_shouc.png"
-               position:CGPointMake(736, 578)
+                  image:@"qq_back.png"
+               position:CGPointMake(30, 30)
                     tag:2000
                  target:self
                  action:@selector(scClick:)
@@ -166,14 +166,14 @@
         
         [self addButton:self
                   image:@"again_bt.jpg"
-               position:CGPointMake(100, 570)
+               position:CGPointMake(750, 600)
                     tag:8991
                  target:self
                  action:@selector(againClick:)
          ];
         [self addButton:self
                   image:@"result_bt.jpg"
-               position:CGPointMake(100, 660)
+               position:CGPointMake(100, 600)
                     tag:8992
                  target:self
                  action:@selector(againClick:)

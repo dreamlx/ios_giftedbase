@@ -59,9 +59,7 @@
     [iBackgroundMusicPlayer fadeOut];
     
 	//路径	
-    NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] 
-                                         pathForResource:_fn
-                                         ofType:_ex]];	
+     NSURL *url = [NSURL URLWithString:_fn];
 
     //视频
     movieManager = [[MPMoviePlayerController alloc] initWithContentURL: url];

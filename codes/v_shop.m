@@ -11,6 +11,7 @@
 #import "mpvc.h"
 #import "UIView+iTextManager.h"
 #import "MainViewController.h"
+#import "UIImageView+WebCache.h"
 
 @implementation v_shop
 
@@ -28,19 +29,6 @@
                     tag:5000
                  target:self
                  action:@selector(buyClick:)
-         ];
-        
-        [self addImageView:self
-                     image:@"sp_board.png"
-                  position:CGPointMake(354, 418)
-         ];
-        
-        [self addButton:self
-                  image:@"sp_play.png"
-               position:CGPointMake(473, 555)
-                    tag:4500
-                 target:self
-                 action:@selector(playMovie:)
          ];
         
 //        [self addImageView:self
@@ -87,12 +75,47 @@
     
     UILabel *content = [self addLabel:self
                                 frame:CGRectMake(77, 162, 870, 160)
-                                 font:[UIFont systemFontOfSize:15]
+                                 font:[UIFont systemFontOfSize:18]
                                  text:[arr[0] objectForKey:@"description"]
                                 color:[UIColor blackColor]
                                   tag:1402
                         ];
     content.textAlignment = UITextAlignmentCenter;
+    
+    [self addImageView:self
+                 image:@"sp_board.png"
+              position:CGPointMake(354, 418)
+     ];
+    UIImageView *bvv = [[UIImageView alloc] initWithFrame:CGRectMake(404, 490, 243, 205)];
+    [self addSubview:bvv];
+//    [[bvv layer] setCornerRadius:2.0];
+    bvv.clipsToBounds = YES;
+    [bvv setImageWithURL:[NSURL URLWithString:[arr[0] objectForKey:@"thumb_video_poster_url"]]
+            placeholderImage:nil
+                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+                       
+//                       [UIView animateWithDuration:.5
+//                                        animations:^{
+//                                            bvs.alpha=1;
+//                                            
+//                                        }];
+                   }];
+    [self addButton:self
+              image:@"sp_play.png"
+           position:CGPointMake(473, 555)
+                tag:4500
+             target:self
+             action:@selector(playMovie:)
+     ];
+    
+    UILabel *ys = [self addLabel:self
+                           frame:CGRectMake(389, 447, 275, 25)
+                            font:[UIFont systemFontOfSize:15]
+                            text:@"视频讲解演示"
+                           color:[UIColor blackColor]
+                             tag:1403
+                   ];
+    ys.textAlignment = UITextAlignmentCenter;
 }
 
 -(void)buyClick:(UIButton*)e {
@@ -107,7 +130,7 @@
     MainViewController *m=(MainViewController*)[self getManager];
     mpvc *mv=[[mpvc alloc] init];
     
-    [mv load:@"sp" Ex:@"mp4"];
+    [mv load:[varr[0] objectForKey:@"video_url"] Ex:nil];
     
     [m presentViewController:mv
                     animated:YES
