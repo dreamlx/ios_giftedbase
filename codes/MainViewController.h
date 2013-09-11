@@ -12,7 +12,9 @@
 
 {
     NSArray *allArr;
+    NSArray *unitArr;
 }
 @property (nonatomic) NSArray *allArr;
+@property (nonatomic) NSArray *unitArr;
 
 @end

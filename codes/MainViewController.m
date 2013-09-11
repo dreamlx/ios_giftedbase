@@ -16,6 +16,7 @@
 @implementation MainViewController
 
 @synthesize allArr;
+@synthesize unitArr;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
