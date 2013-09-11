@@ -147,13 +147,19 @@
 
 -(void)boardClick:(UIGestureRecognizer*)e {
     v_qna *vq = [[v_qna alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    
+    
+    int unitid = [[allArray[curvtag] objectForKey:@"id"] integerValue];
+    NSLog(@"unitid = %d", unitid);
+    [vq loadCurrentPage:unitid];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", unitid] forKey:@"unitid"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", curvtag] forKey:@"menutag"];
+    //[vq readInfo:allArray[curvtag] questionID:0];
+    //[vq loadInfo:allArray menuIndex:curvtag];
     [self.superview fadeInView:self
                    withNewView:vq
                       duration:.5
      ];
-    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", curvtag] forKey:@"menutag"];
-    [vq readInfo:allArray[curvtag] questionID:0];
-    [vq loadInfo:allArray menuIndex:curvtag];
     
 }
 

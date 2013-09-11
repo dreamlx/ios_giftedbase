@@ -8,6 +8,7 @@
 
 #import "iPageView.h"
 #import "v_qna_caogao.h"
+#import "ASIHTTPRequest.h"
 
 @interface v_qna : iPageView<UITextViewDelegate, UIAlertViewDelegate>
 
@@ -23,6 +24,8 @@
     UILabel *qnumtxt;
     UILabel *quetxt;
     UILabel *timetxt;
+    
+    ASIHTTPRequest *request;
     
     NSTimer *timer;
     
@@ -57,7 +60,7 @@
     v_qna_caogao *cg;
 }
 
--(void)readInfo:(NSDictionary*)qlist questionID:(int)qid;
--(void)loadInfo:(NSArray*)arr menuIndex:(int)mid;
+-(void)readInfo:(NSDictionary*)qlist;
+-(void)loadInfo:(NSDictionary*)arr;
 -(void)clearcaogao;
 @end

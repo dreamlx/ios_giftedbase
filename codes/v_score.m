@@ -190,14 +190,9 @@
                        withNewView:vq
                           duration:.5
          ];
-        NSString *n = [[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"];
-        int menuid = n.intValue;
-        NSString *str_tag = [[NSUserDefaults standardUserDefaults] objectForKey:@"menutag"];
-        int menutag = str_tag.intValue;
-        MainViewController *mvc = (MainViewController*)[self getManager];
-        NSArray *sarr = [[mvc.allArr[menuid] objectForKey:@"stages"][0] objectForKey:@"units"];
-        [vq readInfo:sarr[menutag] questionID:0];
-        [vq loadInfo:sarr menuIndex:menutag];
+        NSString *n = [[NSUserDefaults standardUserDefaults] objectForKey:@"unitid"];
+        int unitid = n.intValue;
+        [vq loadCurrentPage:unitid];
     }else {
         v_answerCheck *vc = [[v_answerCheck alloc] initWithFrame:self.frame];
         [self fadeInView:vc duration:.5];

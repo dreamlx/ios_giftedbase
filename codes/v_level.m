@@ -165,9 +165,6 @@
         
         allArray = (NSArray*)deserializedDictionary;
         
-        MainViewController *mvc = (MainViewController*)[self getManager];
-        mvc.allArr = allArray;
-        
         num = [allArray count];
         
         [self showInfo];
