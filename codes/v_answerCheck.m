@@ -43,18 +43,9 @@
     [self addSubview:sv];
     
     MainViewController *mvc = (MainViewController*)[self getManager];
-    NSString *n = [[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"];
-    int menuid = n.intValue;
-    NSString *str_tag = [[NSUserDefaults standardUserDefaults] objectForKey:@"menutag"];
-    int menutag = str_tag.intValue;
-    NSArray *allArray = [[mvc.allArr[menuid] objectForKey:@"stages"][0] objectForKey:@"units"];
-    NSArray *question_groups = [[NSArray alloc]init];
-    question_groups = [allArray[menutag] objectForKey:@"question_groups"];
-    
-    NSLog(@"%@", question_groups);
     
     question_line_items = [[NSArray alloc]init];
-    question_line_items = [question_groups[0] objectForKey:@"question_line_items"];
+    question_line_items = mvc.allArr;
     
     for (int i = 0; i < [question_line_items count]; i ++) {
         
@@ -77,7 +68,6 @@
                         ];
         tum.shadowOffset=CGSizeMake(0, 1);
         tum.shadowColor=[UIColor whiteColor];
-//        tum.textAlignment = NSTextAlignmentCenter;
         
         NSDictionary *questions = [[NSDictionary alloc]init];
         questions = [question_line_items[i] objectForKey:@"question"];

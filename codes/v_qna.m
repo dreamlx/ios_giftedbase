@@ -13,6 +13,7 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "NSObject+SBJson.h"
+#import "MainViewController.h"
 
 //草稿
 #import "v_qna_caogao.h"
@@ -211,10 +212,53 @@
     [self updateQuestionState];
 }
 
--(void)readInfo:(NSDictionary*)qlist questionID:(int)qid {
+-(void)loadCurrentPage:(int)cmd {
+    NSString *str = [NSString stringWithFormat:@"http://gifted-center.com/api/units/%d.json", cmd];
+    NSURL *url = [NSURL URLWithString:str];
+    request = [ASIHTTPRequest requestWithURL:url];
+    request.tag = 60005;
+    [request setDelegate:self];
+    [request setRequestMethod:@"GET"];
+    [request startAsynchronous];
+    
+    UIActivityIndicatorView *loginLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    [loginLoading setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height/2)];
+    loginLoading.tag = 9991;
+    [self addSubview:loginLoading];
+    [loginLoading startAnimating];
+}
+
+#pragma mark –
+#pragma mark 请求完成 requestFinished
+
+- (void)requestFailed:(ASIHTTPRequest *)req
+{
+    NSError *error = [req error];
+    NSLog(@"login:%@",error);
+    
+    [self clearUnuseful];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"网络无法连接, 请检查网络并重试."
+                                                       delegate:self
+                                              cancelButtonTitle:@"重试"
+                                              otherButtonTitles:@"好", nil];
+    [alertView show];
+    
+}
+
+-(void)clearUnuseful {
+    UIActivityIndicatorView *loginLoading = (UIActivityIndicatorView*)[self viewWithTag:9991];
+    [loginLoading stopAnimating];
+    [loginLoading removeFromSuperview];
+    [[self viewWithTag:9992] removeFromSuperview];
+}
+
+-(void)readInfo:(NSDictionary*)qlist {
     
     questionList = [[qlist objectForKey:@"question_groups"][0] objectForKey:@"question_line_items"];
-    questionID = qid;
+    NSLog(@"--> %@", questionList);
+    questionID = 0;
     
     unitid = [[qlist objectForKey:@"id"] integerValue];
     
@@ -232,8 +276,6 @@
     questions = [questionList[questionID] objectForKey:@"question"];
     NSArray *oparr = [NSArray array];
     oparr = [questions objectForKey:@"single_choice_options"];
-    
-    NSLog(@"%@", oparr);
     
     opnum = [oparr count];
     
@@ -412,15 +454,17 @@
     [self setcurunit:e.view.tag - 1000];
 }
 
--(void)loadInfo:(NSArray *)arr menuIndex:(int)mid {
+-(void)loadInfo:(NSMutableDictionary *)arr {
     
     NSArray *question_groups = [[NSArray alloc]init];
-    question_groups = [arr[mid] objectForKey:@"question_groups"];
+    question_groups = [arr objectForKey:@"question_groups"];
     
     NSLog(@"%@", question_groups);
-    
     question_line_items = [[NSArray alloc]init];
     question_line_items = [question_groups[0] objectForKey:@"question_line_items"];
+    
+    MainViewController *mvc = (MainViewController*)[self getManager];
+    mvc.allArr = question_line_items;
     
     NSLog(@"question number = %d", [question_line_items count]);
     
@@ -562,14 +606,6 @@
     txt.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height/2 + 50);
 }
 
--(void)clearUnuseful {
-    UIActivityIndicatorView *loginLoading = (UIActivityIndicatorView*)[self viewWithTag:9991];
-    [loginLoading stopAnimating];
-    [loginLoading removeFromSuperview];
-    [[self viewWithTag:9992] removeFromSuperview];
-    [[self viewWithTag:9997] removeFromSuperview];
-}
-
 //
 // 提交数据
 //
@@ -607,45 +643,30 @@
     
     NSURL *url2 = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/exams.json?auth_token=%@",token]];
     
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url2];
-    request.tag = 60002;
+    ASIFormDataRequest *req = [ASIFormDataRequest requestWithURL:url2];
+    req.tag = 60002;
     
-    [request addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
-    [request addRequestHeader:@"Content-Type" value:@"application/json"];
-    [request appendPostData:[newjson dataUsingEncoding:NSUTF8StringEncoding]];
-    [request setRequestMethod:@"POST"];
-    [request setDelegate:self];
-    [request startAsynchronous];
-}
-
-#pragma mark –
-#pragma mark 请求完成 requestFinished
-
-- (void)requestFailed:(ASIHTTPRequest *)request {
-    NSError *error = [request error];
-    NSLog(@"login:%@",error);
-    
-    [self clearUnuseful];
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"提交失败, 请检查网络并重试"
-                                                       delegate:self
-                                              cancelButtonTitle:@"好"
-                                              otherButtonTitles:nil];
-    [alertView show];
+    [req addRequestHeader:@"User-Agent" value:@"ASIHTTPRequest"];
+    [req addRequestHeader:@"Content-Type" value:@"application/json"];
+    [req appendPostData:[newjson dataUsingEncoding:NSUTF8StringEncoding]];
+    [req setRequestMethod:@"POST"];
+    [req setDelegate:self];
+    [req startAsynchronous];
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)req
 {
     [self clearUnuseful];
-    NSLog(@"successed");
-    NSLog(@"%@", [req responseString]);
     
     NSData *jsonData = [req responseData];
     NSError *error = nil;
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
     NSDictionary *deserializedDictionary = (NSDictionary *)jsonObject;
-    
+    if(req.tag == 60005) {
+        [self readInfo:deserializedDictionary];
+        [self loadInfo:deserializedDictionary];
+        return;
+    }
     v_score *vs = [[v_score alloc]initWithFrame:self.frame];
     [self.superview fadeInView:self withNewView:vs duration:.5];
     [vs loadCurrentPage:[[deserializedDictionary objectForKey:@"id"] integerValue]];
