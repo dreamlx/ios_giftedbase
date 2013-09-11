@@ -165,6 +165,10 @@
 		6E4EBE7017D0F11B0061AFAF /* avatar_tf.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E4EBE6E17D0F11B0061AFAF /* avatar_tf.jpg */; };
 		6E4EBE7217D0F2530061AFAF /* avatar_t0.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E4EBE7117D0F2530061AFAF /* avatar_t0.png */; };
 		6E4EBE7517D106900061AFAF /* selectAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4EBE7417D1068F0061AFAF /* selectAvatar.m */; };
+		6E9F1E8817DF04DC008A0CB2 /* avatar_12.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6E9F1E8717DF04DC008A0CB2 /* avatar_12.jpg */; };
+		6E9F1EF817E08C9E008A0CB2 /* pm_bg1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9F1EF517E08C9E008A0CB2 /* pm_bg1.png */; };
+		6E9F1EF917E08C9E008A0CB2 /* pm_bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9F1EF617E08C9E008A0CB2 /* pm_bg2.png */; };
+		6E9F1EFC17E08CE0008A0CB2 /* v_paiming.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9F1EFB17E08CE0008A0CB2 /* v_paiming.m */; };
 		6EE7932817BEA5C400C34F3D /* reg_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EE7932717BEA5C400C34F3D /* reg_bt.png */; };
 		6EE7932A17BEA75900C34F3D /* back_step.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6EE7932917BEA75900C34F3D /* back_step.jpg */; };
 		6EE7934117BEB23900C34F3D /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE7932D17BEB23900C34F3D /* MKAnnotationView+WebCache.m */; };
@@ -486,6 +490,11 @@
 		6E4EBE7117D0F2530061AFAF /* avatar_t0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar_t0.png; sourceTree = "<group>"; };
 		6E4EBE7317D1068F0061AFAF /* selectAvatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selectAvatar.h; sourceTree = "<group>"; };
 		6E4EBE7417D1068F0061AFAF /* selectAvatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = selectAvatar.m; sourceTree = "<group>"; };
+		6E9F1E8717DF04DC008A0CB2 /* avatar_12.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar_12.jpg; sourceTree = "<group>"; };
+		6E9F1EF517E08C9E008A0CB2 /* pm_bg1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pm_bg1.png; sourceTree = "<group>"; };
+		6E9F1EF617E08C9E008A0CB2 /* pm_bg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pm_bg2.png; sourceTree = "<group>"; };
+		6E9F1EFA17E08CE0008A0CB2 /* v_paiming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v_paiming.h; sourceTree = "<group>"; };
+		6E9F1EFB17E08CE0008A0CB2 /* v_paiming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v_paiming.m; sourceTree = "<group>"; };
 		6EE7932717BEA5C400C34F3D /* reg_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reg_bt.png; sourceTree = "<group>"; };
 		6EE7932917BEA75900C34F3D /* back_step.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back_step.jpg; sourceTree = "<group>"; };
 		6EE7932C17BEB23900C34F3D /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -842,6 +851,8 @@
 				DEE642EA17BE854500B1B1E6 /* v_pay.m */,
 				DE91F19B179085D200BFDE2B /* userReg.h */,
 				DE91F19C179085D200BFDE2B /* userReg.m */,
+				6E9F1EFA17E08CE0008A0CB2 /* v_paiming.h */,
+				6E9F1EFB17E08CE0008A0CB2 /* v_paiming.m */,
 			);
 			name = codes;
 			path = ../codes;
@@ -850,6 +861,7 @@
 		1B6AAC0317343D9F00EC3839 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6E9F1EF317E08C9E008A0CB2 /* 排名 */,
 				6E4EBE4E17D0F00A0061AFAF /* avatar */,
 				DEE642EC17BE876200B1B1E6 /* pay */,
 				DEE642DE17BE83FE00B1B1E6 /* shop */,
@@ -1083,6 +1095,7 @@
 		6E4EBE4E17D0F00A0061AFAF /* avatar */ = {
 			isa = PBXGroup;
 			children = (
+				6E9F1E8717DF04DC008A0CB2 /* avatar_12.jpg */,
 				6E4EBE7117D0F2530061AFAF /* avatar_t0.png */,
 				6E4EBE6D17D0F11B0061AFAF /* avatar_ok.jpg */,
 				6E4EBE6E17D0F11B0061AFAF /* avatar_tf.jpg */,
@@ -1121,6 +1134,15 @@
 				6E4EBE7417D1068F0061AFAF /* selectAvatar.m */,
 			);
 			name = "头像";
+			sourceTree = "<group>";
+		};
+		6E9F1EF317E08C9E008A0CB2 /* 排名 */ = {
+			isa = PBXGroup;
+			children = (
+				6E9F1EF517E08C9E008A0CB2 /* pm_bg1.png */,
+				6E9F1EF617E08C9E008A0CB2 /* pm_bg2.png */,
+			);
+			path = "排名";
 			sourceTree = "<group>";
 		};
 		6EE7932B17BEB23900C34F3D /* SDWebImage */ = {
@@ -1709,6 +1731,9 @@
 				DE3136B317D130DE0012D159 /* ut_hand.png in Resources */,
 				DE3136B617D13DF30012D159 /* again_bt.jpg in Resources */,
 				DE3136B717D13DF30012D159 /* result_bt.jpg in Resources */,
+				6E9F1E8817DF04DC008A0CB2 /* avatar_12.jpg in Resources */,
+				6E9F1EF817E08C9E008A0CB2 /* pm_bg1.png in Resources */,
+				6E9F1EF917E08C9E008A0CB2 /* pm_bg2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1798,6 +1823,7 @@
 				6EE7935D17BEBBE100C34F3D /* mpvc.m in Sources */,
 				6E4EBE7517D106900061AFAF /* selectAvatar.m in Sources */,
 				DEDF512B17DC693F00910515 /* v_answerCheck.m in Sources */,
+				6E9F1EFC17E08CE0008A0CB2 /* v_paiming.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1876,6 +1902,7 @@
 		1B6AAC0017343D7700EC3839 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcxly/tcxly-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -1888,6 +1915,7 @@
 					"\"$(SRCROOT)/../common/panorama\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1895,6 +1923,8 @@
 		1B6AAC0117343D7700EC3839 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tcxly/tcxly-Prefix.pch";
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -1907,6 +1937,8 @@
 					"\"$(SRCROOT)/../common/panorama\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

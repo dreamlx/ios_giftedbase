@@ -38,6 +38,7 @@
     request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];
     [request setRequestMethod:@"GET"];
+    request.timeOutSeconds=60;
     [request startAsynchronous];
     
     UIActivityIndicatorView *loginLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
@@ -223,6 +224,7 @@
 
 - (CGFloat)carousel:(iCarousel *)_carousel valueForOption:(iCarouselOption)option withDefault:(CGFloat)value
 {
+   
     //customize carousel display
     switch (option)
     {
@@ -247,6 +249,8 @@
             return value;
         }
     }
+    
+    
 }
 
 

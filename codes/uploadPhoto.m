@@ -35,21 +35,11 @@
 -(void)loadCurrentPage:(int)cmd
 {
     
-//    
-//    an=  [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
-//
-//    
-//    if(!an||[an isKindOfClass:[NSNull class]])
-//    {
-//        an=@"0";
-//    }
-    
+
+    an=@"0";
     
     [[NSUserDefaults standardUserDefaults] setObject:@"0"
                                               forKey:@"avatar"];
-
-    
-    
     
     avatar=[self addButtonWithImageView:self
                                   image:@"avatar_0.jpg"
@@ -70,27 +60,27 @@
     [self addImageView:self
                  image:@"avatar_tf.jpg"
               position:CGPointMake(354, 350)];
+
     
+    UIButton *bt=  [self addButton:self
+                             image:@"findPsw_next.png"
+                          position:CGPointMake(803, 653)
+                               tag:2002
+                            target:self
+                            action:@selector(onDown:)
+                    ];
     
-    
-    [self addButton:self
-              image:@"avatar_ok.jpg"
-           position:CGPointMake(663, 350)
-                tag:2002
-             target:self
-             action:@selector(onDown:)
-     ];
-    
-    
+
     
     UserName=[self addTextField:self
                           frame:CGRectMake(361, 360, 290, 40)
-                           font:[UIFont systemFontOfSize:18]
+                           font:[UIFont boldSystemFontOfSize:22]
                           color:[UIColor blackColor]
                     placeholder:nil
                             tag:1000];
     
     UserName.placeholder=@"输入昵称";
+
     
     
    // UserName.backgroundColor=[UIColor redColor];
@@ -101,16 +91,14 @@
            position:CGPointMake(39, 653)
                 tag:1003
              target:self
-             action:@selector(backClick:)
-     ];
-     
+             action:@selector(backClick:)];
     
 }
 
 
 -(void)onSelect:(id)s
 {
-     [UserName endEditing:YES];
+    [UserName endEditing:YES];
     
     selectAvatar *p=[[selectAvatar alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
     [p loadCurrentPage:[an integerValue]];
@@ -119,9 +107,7 @@
 
 -(void)updateAvatar
 {
-    
     an=  [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
-    
     
     if(!an||[an isKindOfClass:[NSNull class]])
     {
@@ -129,7 +115,6 @@
     }
     
     avatar.image=[UIImage imageNamed:[NSString stringWithFormat:@"avatar_%@.jpg",an]];
-    
 }
 
 
@@ -230,7 +215,11 @@
     
     [UserName endEditing:YES];
     
-    if(UserName.text.length==0)
+    if([an isEqualToString:@"0"])
+    {
+        msg=@"请选择一个头像";
+    }
+    else if(UserName.text.length==0)
     {
         msg=@"请输入昵称";
     }
@@ -273,6 +262,7 @@
         
         regRequest = [ASIFormDataRequest requestWithURL:url];
         regRequest.tag=8000;
+        regRequest.timeOutSeconds=10;
         [regRequest setRequestMethod:@"POST"];
         [regRequest setDelegate:self];
         [regRequest startAsynchronous];

@@ -54,7 +54,7 @@
         CGPoint p=[[pos objectAtIndex:i] CGPointValue];
         
       UIButton *bt=  [self addButtonWithImageView:self
-                               image:[NSString stringWithFormat:@"avatar_%d.jpg",i]
+                               image:[NSString stringWithFormat:@"avatar_%d.jpg",i+1]
                            highlight:nil
                             position:p
                                    t:1000+i
@@ -63,8 +63,8 @@
     }
     
     
-    [self bringSubviewToFront:[self viewWithTag:1000+cmd]];
-    [self viewWithTag:1000+cmd].transform=CGAffineTransformMakeScale(1.2, 1.2);
+    //[self bringSubviewToFront:[self viewWithTag:1000+cmd]];
+    //[self viewWithTag:1000+cmd].transform=CGAffineTransformMakeScale(1.2, 1.2);
       
     
     
@@ -79,16 +79,8 @@
 
 -(void)backClick:(UIButton*)sender
 {
-    uploadPhoto *p=(uploadPhoto*)self.superview;
-    [p updateAvatar];
-    
-    
     [self fadeOutView:self duration:.5];
-    
-    
 }
-
-
 
 
 -(void)onTap:(UIGestureRecognizer*)sender
@@ -106,9 +98,16 @@
                          [self bringSubviewToFront:bt];
                          bt.transform=CGAffineTransformMakeScale(1.2, 1.2);
                          
-                         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",sender.view.tag-1000]
+                         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",sender.view.tag-1000+1]
                                                                    forKey:@"avatar"];
                          
+                     } completion:^(BOOL finished) {
+                         uploadPhoto *p=(uploadPhoto*)self.superview;
+                         [p updateAvatar];
+                         
+                         
+                         [self fadeOutView:self duration:.5];
+    
                      }];
     
     

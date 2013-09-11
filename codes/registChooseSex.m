@@ -9,6 +9,8 @@
 #import "registChooseSex.h"
 #import "uploadPhoto.h"
 #import "userLogin.h"
+#import "v_enter.h"
+
 @implementation registChooseSex
 
 - (id)initWithFrame:(CGRect)frame
@@ -156,6 +158,8 @@
     [self.superview fadeInView:self withNewView:up duration:.5];
     [up loadCurrentPage:0];
      */
+    
+    [((v_enter*)self.superview) showMenu];
     
     [self fadeOutView:self duration:.5];
     
