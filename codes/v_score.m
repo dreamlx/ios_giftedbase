@@ -68,7 +68,7 @@
     [self.superview fadeInView:self withNewView:ve duration:.5];
     //[ve loadCurrentPage:1];
     MainViewController *mvc = (MainViewController*)[self getManager];
-    [ve loadInfo:mvc.allArr idx:[[[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"] integerValue]];
+    [ve loadInfo:mvc.unitArr idx:[[[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"] integerValue]];
 }
 
 -(void)loadCurrentPage:(int)cmd {
