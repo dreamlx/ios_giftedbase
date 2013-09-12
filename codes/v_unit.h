@@ -34,6 +34,9 @@
     UIButton *gy;
     
     UIButton *backButton;
+    
+    NSArray *stages;
+    int cirID;
 }
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd;
