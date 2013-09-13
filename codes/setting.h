@@ -1,14 +1,15 @@
 //
-//  v_paiming.h
+//  profile.h
 //  tcxly
 //
-//  Created by Li yi on 13-9-11.
+//  Created by Li yi on 13-9-12.
 //  Copyright (c) 2013年 Terry. All rights reserved.
 //
 
 #import "iPageView.h"
 #import "ASIFormDataRequest.h"
-@interface v_paiming : iPageView
+
+@interface setting : iPageView
 {
     ASIFormDataRequest *request;
 }

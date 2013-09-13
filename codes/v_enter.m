@@ -13,7 +13,7 @@
 #import "userReg.h"
 #import "userLogin.h"
 #import "registChooseSex.h"
-#import "profile.h"
+#import "setting.h"
 
 @implementation v_enter
 
@@ -129,13 +129,13 @@
     
     [self addButton:btnv
               image:@"et_1.png"
-           position:CGPointMake(329, 470)//436)
+           position:CGPointMake(329, 436)//436)
                 tag:1001
              target:self
              action:@selector(menuClick:)
      ];
     [self addButton:btnv
-              image:@"et_2_hide.png"
+              image:@"et_2.png"
            position:CGPointMake(329, 547)
                 tag:1002
              target:self
@@ -226,7 +226,7 @@
         
         NSLog(@"setting");
         
-        profile *ur = [[profile alloc]initWithFrame:self.frame];
+        setting *ur = [[setting alloc]initWithFrame:self.frame];
         [self fadeInView:ur duration:.5];
         [ur loadCurrentPage:0];
         

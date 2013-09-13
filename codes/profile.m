@@ -2,12 +2,13 @@
 //  profile.m
 //  tcxly
 //
-//  Created by Li yi on 13-9-12.
+//  Created by Li yi on 13-9-14.
 //  Copyright (c) 2013年 Terry. All rights reserved.
 //
 
 #import "profile.h"
-#import "v_paiming.h"
+#import "UIView+iTextManager.h"
+
 @implementation profile
 
 - (id)initWithFrame:(CGRect)frame
@@ -18,14 +19,25 @@
         
         [self addBackground:@"et_bg.png"];
         
+        
+        [self addImageView:self
+                     image:@"profile_0_bg.jpg"
+                  position:CGPointMake(56, 106)];
+        
+        
+        
+        [self addImageView:self
+                     image:@"profile_0_0.png"
+                  position:CGPointMake(407, 41)];
+        
+        
+        
+        
         [self addImageView:self
                      image:@"avatar_12.jpg"
-                  position:CGPointMake(196, 116)];
-
-        [self addImageView:self
-                     image:@"profile_0.jpg"
-                  position:CGPointMake(196, 323)];
+                  position:CGPointMake(71, 116)];
         
+
         
         
         [self addButton:self
@@ -38,69 +50,59 @@
         
         
         
-        NSMutableArray *pos=[NSMutableArray array];
+        [self addLabel:self
+                 frame:CGRectMake(319, 137, 200, 60)
+                  font:[UIFont boldSystemFontOfSize:25]
+                  text:@"姓名："
+                 color:[UIColor blackColor]
+                   tag:0];
         
-        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 116)]];
-        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 233)]];
-        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 349)]];
-        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 466)]];
+        
+        [self addLabel:self
+                 frame:CGRectMake(319, 137+80, 200, 60)
+                  font:[UIFont boldSystemFontOfSize:25]
+                  text:@"性别："
+                 color:[UIColor blackColor]
+                   tag:0];
         
         
+        [self addLabel:self
+                 frame:CGRectMake(319, 137+80*2, 200, 60)
+                  font:[UIFont boldSystemFontOfSize:25]
+                  text:@"QQ："
+                 color:[UIColor blackColor]
+                   tag:0];
         
-        for (int i=0; i<[pos count]; i++) {
-            CGPoint p=[[pos objectAtIndex:i] CGPointValue];
-            
-            [self addButton:self
-                      image:[NSString stringWithFormat:@"profile_bt%d.png",i]
-                   position:p
-                        tag:1000+i
-                     target:self
-                     action:@selector(onDown:)];
-          
-        }
+        [self addLabel:self
+                 frame:CGRectMake(319, 137+80*3, 200, 60)
+                  font:[UIFont boldSystemFontOfSize:25]
+                  text:@"邮箱地址："
+                 color:[UIColor blackColor]
+                   tag:0];
+        
+        
+        [self addButton:self
+                  image:@"profile_0_bt.png"
+               position:CGPointMake(769, 650)
+                    tag:1000
+                 target:self
+                 action:@selector(onDown:)];
+        
         
     }
     return self;
 }
 
-
 -(void)onDown:(UIButton*)sender
 {
     
-    switch (sender.tag) {
-        case 1000:
-        {
-            
-        }
-            break;
-        case 1001:
-        {
-            v_paiming *p=[[v_paiming alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
-            [p loadCurrentPage:0];
-            [self fadeInView:p duration:.5];
-        }
-            break;
-        case 1002:
-        {
-            
-        }
-            break;
-        case 1003:
-        {
-            
-        }
-            break;
-    }
-    
-    
 }
 
--(void)loadCurrentPage:(int)cmd
+
+-(void)backClick:(UIButton*)sender
 {
-    
-    
-    
-    
+    [self fadeOutView:self duration:.5];
 }
+
 
 @end
