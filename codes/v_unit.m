@@ -148,14 +148,12 @@
 -(void)boardClick:(UIGestureRecognizer*)e {
     v_qna *vq = [[v_qna alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
     
-    
-    int unitid = [[allArray[curvtag] objectForKey:@"id"] integerValue];
+    NSArray *unArr = [stages[cirID] objectForKey:@"units"];
+    int unitid = [[unArr[curvtag] objectForKey:@"id"] integerValue];
     NSLog(@"unitid = %d", unitid);
     [vq loadCurrentPage:unitid];
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", unitid] forKey:@"unitid"];
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", curvtag] forKey:@"menutag"];
-    //[vq readInfo:allArray[curvtag] questionID:0];
-    //[vq loadInfo:allArray menuIndex:curvtag];
     [self.superview fadeInView:self
                    withNewView:vq
                       duration:.5
@@ -210,16 +208,12 @@
     
     
     
-    NSArray *stages=[arr[cmd] objectForKey:@"stages"];
+    stages=[arr[cmd] objectForKey:@"stages"];
+    NSLog(@"stages count = %d", [stages count]);
     
-    NSArray *pos=[stages[stages.count-1] objectForKey:@"map_places"];
-    
-    for (int i = 0; i < [pos count]; i++) {
-        
-        
-        
-        
-        CGPoint p =CGPointMake([[[pos objectAtIndex:i] objectForKey:@"x"] integerValue],[[[pos objectAtIndex:i] objectForKey:@"y"] integerValue]);
+    for (int i = 0; i < [stages count]; i++) {
+        NSArray *pos=[stages[i] objectForKey:@"map_places"];
+        CGPoint p =CGPointMake([[pos[0] objectForKey:@"x"] integerValue],[[pos[0] objectForKey:@"y"] integerValue]);
         
         UIButton *cir = [self addButton:mapv
                                   image:[NSString stringWithFormat:@"ut_cir%d.png", i]
@@ -243,50 +237,15 @@
                          }];
     }
     
-    int allnum = [[[arr[cmd] objectForKey:@"stages"][0] objectForKey:@"units"] count];
-    NSLog(@"allnum = %d", allnum);
-    
-    if(allnum == 0) return;
-    
-    uv.contentSize = CGSizeMake(170 * allnum, 134);
-    
-    svv.alpha = 0;
-    
-    allArray = [NSArray array];
-    allArray = [[arr[cmd] objectForKey:@"stages"][0] objectForKey:@"units"];
-    
-    for (int i = 0; i < allnum; i++) {
-        UIImageView *unitbtn = [self addButtonWithImageView:uv
-                                                      image:@"ut_cls1.png"
-                                                  highlight:nil
-                                                   position:CGPointMake(7 + i * 170, 13)
-                                                          t:1000 + i
-                                                     action:@selector(utClick:)
-                                ];
-        
-        UILabel *utname = [self addLabel:unitbtn
-                                   frame:CGRectMake(0, 15, 158, 20)
-                                    font:[UIFont systemFontOfSize:14]
-                                    text:[NSString stringWithFormat:@"%@", [[[arr[cmd] objectForKey:@"stages"][0] objectForKey:@"units"][i] objectForKey:@"name"]]
-                                   color:[UIColor blackColor]
-                                     tag:878722
-                           ];
-        
-        utname.textAlignment = UITextAlignmentCenter;
-    }
-    UIImageView *boards = [self addButtonWithImageView:uv
-                                                 image:@"ut_board.png"
-                                             highlight:nil
-                                              position:CGPointMake(0, 0)
-                                                     t:8787
-                                                action:@selector(boardClick:)
-                           ];
-    boards.alpha = 0;
-    [self setcurunit:0];
-    
 }
 
 -(void)cirClick:(UIButton*)e {
+    
+    for(UIView *sview in uv.subviews) {
+        [sview removeFromSuperview];
+    }
+    svv.frame = CGRectMake(0, -130, 1024, 134);
+    svv.alpha = 0;
     
     backButton.alpha=0;
     
@@ -323,6 +282,47 @@
 -(void)addPointAni:(int)cid {
     
     [self clearPoint:cid];
+    
+    int allnum = [[stages[cid + 1] objectForKey:@"units"] count];
+    NSLog(@"allnum = %d", allnum);
+    
+    for(UIView *sview in uv.subviews) {
+        [sview removeFromSuperview];
+    }
+    cirID = cid + 1;
+    
+    uv.contentSize = CGSizeMake(170 * allnum, 134);
+    
+    svv.alpha = 0;
+    
+    for (int i = 0; i < allnum; i++) {
+        UIImageView *unitbtn = [self addButtonWithImageView:uv
+                                                      image:@"ut_cls1.png"
+                                                  highlight:nil
+                                                   position:CGPointMake(7 + i * 170, 13)
+                                                          t:1000 + i
+                                                     action:@selector(utClick:)
+                                ];
+        NSArray *unArr = [stages[cid + 1] objectForKey:@"units"];
+        UILabel *utname = [self addLabel:unitbtn
+                                   frame:CGRectMake(0, 15, 158, 20)
+                                    font:[UIFont systemFontOfSize:14]
+                                    text:[NSString stringWithFormat:@"%@", [unArr[i] objectForKey:@"name"]]
+                                   color:[UIColor blackColor]
+                                     tag:878722
+                           ];
+        
+        utname.textAlignment = UITextAlignmentCenter;
+    }
+    UIImageView *boards = [self addButtonWithImageView:uv
+                                                 image:@"ut_board.png"
+                                             highlight:nil
+                                              position:CGPointMake(0, 0)
+                                                     t:8787
+                                                action:@selector(boardClick:)
+                           ];
+    boards.alpha = 0;
+    [self setcurunit:0];
     
     [UIView animateWithDuration:.3 animations:^{
         svv.frame = CGRectMake(0, 9, 1024, 134);

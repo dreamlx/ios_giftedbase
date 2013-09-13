@@ -129,13 +129,13 @@
     
     [self addButton:btnv
               image:@"et_1.png"
-           position:CGPointMake(329, 436)
+           position:CGPointMake(329, 470)//436)
                 tag:1001
              target:self
              action:@selector(menuClick:)
      ];
     [self addButton:btnv
-              image:@"et_2.png"
+              image:@"et_2_hide.png"
            position:CGPointMake(329, 547)
                 tag:1002
              target:self
