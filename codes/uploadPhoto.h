@@ -10,7 +10,7 @@
 #import "ASIFormDataRequest.h"
 #import "MBProgressHUD.h"
 
-@interface uploadPhoto : iPageView<MBProgressHUDDelegate>
+@interface uploadPhoto : iPageView<MBProgressHUDDelegate,UITextFieldDelegate>
 {
 
     UIImageView *av;

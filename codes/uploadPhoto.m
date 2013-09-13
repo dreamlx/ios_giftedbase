@@ -78,7 +78,8 @@
                           color:[UIColor blackColor]
                     placeholder:nil
                             tag:1000];
-    
+    UserName.delegate=self;
+    UserName.returnKeyType = UIReturnKeyDone;
     UserName.placeholder=@"输入昵称";
 
     
@@ -94,6 +95,16 @@
              action:@selector(backClick:)];
     
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+
+    [UserName endEditing:YES];
+
+    [self reg];
+    return YES;
+}
+
 
 
 -(void)onSelect:(id)s
@@ -207,8 +218,11 @@
     return result;
 }
 
--(void)onDown:(UIButton*)sender
+
+
+-(void)reg
 {
+    
     //开始提交
     NSString *msg=@"ok";
     
@@ -232,7 +246,7 @@
         
         HUD = [[MBProgressHUD alloc] initWithView:self];
         [self addSubview:HUD];
-        HUD.labelText = @"正在提交，请稍等..."; 
+        HUD.labelText = @"正在提交，请稍等...";
         
         [HUD show:YES];
         
@@ -246,7 +260,7 @@
         //昵称
         NSString *nickname=UserName.text;
         
-
+        
         
         NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[username]=%@&user[email]=%@@gifted.com&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@&user[avatarid]=%@",
                      nickname,
@@ -259,6 +273,7 @@
         NSURL *url = [NSURL URLWithString:[s stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
         NSLog(@"通过验证，可提交 url=%@",url);
+        
         
         regRequest = [ASIFormDataRequest requestWithURL:url];
         regRequest.tag=8000;
@@ -279,7 +294,14 @@
         [alertView show];
     }
     
-    
+
+}
+
+
+
+-(void)onDown:(UIButton*)sender
+{
+    [self reg];
 }
 
 //

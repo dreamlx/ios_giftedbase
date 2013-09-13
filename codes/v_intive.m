@@ -48,8 +48,10 @@
                                  action:@selector(menuClick:)
                          ];
         
+        
         btn.center = CGPointMake(btn.center.x + 50, btn.center.y);
         btn.alpha = 0;
+        
         
         [UIView animateWithDuration:.5
                               delay:i * .2

@@ -13,6 +13,7 @@
 #import "userReg.h"
 #import "userLogin.h"
 #import "registChooseSex.h"
+#import "profile.h"
 
 @implementation v_enter
 
@@ -222,6 +223,15 @@
        // [self showList];
         
     }else if(e.tag == 1002){
+        
+        NSLog(@"setting");
+        
+        profile *ur = [[profile alloc]initWithFrame:self.frame];
+        [self fadeInView:ur duration:.5];
+        [ur loadCurrentPage:0];
+        
+        
+        
         
     }else {
 //        [sf unloadCurrentPage];

@@ -99,7 +99,11 @@
          ];
         
         
+        [[NSUserDefaults standardUserDefaults] setValue:@"m"
+                                                 forKey:@"sex"];
+        
         NSString *sex= [[NSUserDefaults standardUserDefaults] objectForKey:@"sex"];
+        
         
         if ([sex isEqualToString:@"f"])
         {
