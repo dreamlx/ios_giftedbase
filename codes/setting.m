@@ -20,7 +20,7 @@
         
         [self addBackground:@"et_bg.png"];
         
-        
+        /*
         [self addImageView:self
                      image:@"avatar_12.jpg"
                   position:CGPointMake(196, 116)];
@@ -28,7 +28,7 @@
         [self addImageView:self
                      image:@"profile_0.jpg"
                   position:CGPointMake(196, 323)];
-        
+        */
         
         [self addButton:self
                   image:@"qq_back.png"
@@ -44,20 +44,21 @@
         
         [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 116)]];
         [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 233)]];
-        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 349)]];
-        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 466)]];
-        
+       // [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 349)]];
+       // [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 466)]];
         
         
         for (int i=0; i<[pos count]; i++) {
             CGPoint p=[[pos objectAtIndex:i] CGPointValue];
             
-            [self addButton:self
-                      image:[NSString stringWithFormat:@"profile_bt%d.png",i]
-                   position:p
-                        tag:1000+i
-                     target:self
-                     action:@selector(onDown:)];
+            UIButton *bt=  [self addButton:self
+                                     image:[NSString stringWithFormat:@"setting_bt%d.png",i]
+                                  position:p
+                                       tag:1000+i
+                                    target:self
+                                    action:@selector(onDown:)];
+            
+            bt.center=CGPointMake(512, bt.center.y);
           
         }
         
@@ -72,20 +73,19 @@
 
 -(void)onDown:(UIButton*)sender
 {
+
     
     switch (sender.tag) {
         case 1000:
         {
-            profile *p=[[profile alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
-            [p loadCurrentPage:0];
-            [self fadeInView:p duration:.5];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://gifted-center.com"]];
         }
             break;
         case 1001:
         {
-            v_paiming *p=[[v_paiming alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
-            [p loadCurrentPage:0];
-            [self fadeInView:p duration:.5];
+            //切换帐号
+            
+            
         }
             break;
         case 1002:
