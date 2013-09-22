@@ -33,6 +33,11 @@
     return self;
 }
 
+-(void)clearSelf {
+    [request clearDelegatesAndCancel];
+    [self removeFromSuperview];
+}
+
 -(void)readInfo {
     NSURL *url = [NSURL URLWithString:@"http://gifted-center.com/api/grades.json"];
     request = [ASIHTTPRequest requestWithURL:url];

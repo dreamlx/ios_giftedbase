@@ -33,7 +33,7 @@
     
     UIButton *gy;
     
-    UIButton *backButton;
+    UIButton *backButton, *userBtn;
     
     NSArray *stages;
     int cirID;

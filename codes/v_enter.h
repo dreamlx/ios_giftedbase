@@ -8,13 +8,14 @@
 
 #import "iPageView.h"
 #import "iSequenceFrameView.h"
+#import "v_level.h"
 
 @interface v_enter : iPageView<iSequenceFrameViewDelegate>
 
 {
     iSequenceFrameView *sf;
     int vid;
-    
+    v_level *vl;
     UIView *btnv;
 }
 

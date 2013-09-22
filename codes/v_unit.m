@@ -56,11 +56,17 @@
         
         
         
-        
+        userBtn = [self addButton:self
+                                  image:@"userSenterMenu.png"
+                               position:CGPointMake(30, 30)
+                                    tag:1006
+                                 target:self
+                                 action:@selector(centerClick:)
+                         ];
         
         backButton= [self addButton:self
                               image:@"qq_back.png"
-                           position:CGPointMake(30, 30)
+                           position:CGPointMake(906, 30)
                                 tag:1004
                              target:self
                              action:@selector(backClick:)
@@ -72,6 +78,10 @@
         
     }
     return self;
+}
+
+-(void)centerClick:(UIButton*)e {
+    //用户中心
 }
 
 -(void)backClick:(UIButton*)e {
@@ -117,6 +127,7 @@
                 svv.frame = CGRectMake(0, -130, 1024, 134);
                 svv.alpha = 0;
                 backButton.alpha = 1;
+                userBtn.alpha = 1;
                 gy.alpha = 0;
                 vhand.alpha = 0;
             
@@ -248,6 +259,7 @@
     svv.alpha = 0;
     
     backButton.alpha=0;
+    userBtn.alpha = 0;
     
     CGPoint pp;
     int px = self.frame.size.width * 1.5 - e.center.x;

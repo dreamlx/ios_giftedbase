@@ -25,4 +25,6 @@
     NSArray *allArray;
 }
 
+-(void)clearSelf;
+
 @end
