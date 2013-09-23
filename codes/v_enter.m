@@ -180,8 +180,23 @@
 }
 
 -(void)showList {
-    v_level *vl = [[v_level alloc]initWithFrame:CGRectMake(0, 343, 1024, 328)];
+    vl = [[v_level alloc]initWithFrame:CGRectMake(0, 343, 1024, 328)];
+    vl.tag = 11111;
     [self fadeInView:vl duration:.5];
+    
+    [self addButton:self
+              image:@"qq_back.png"
+           position:CGPointMake(30, 30)
+                tag:11112
+             target:self
+             action:@selector(backClick:)
+     ];
+}
+
+-(void)backClick:(UIButton*)e {
+    [vl clearSelf];
+    [[self viewWithTag:11112] removeFromSuperview];
+    [self showMenu];
 }
 
 -(void)menuClick:(UIButton*)e {

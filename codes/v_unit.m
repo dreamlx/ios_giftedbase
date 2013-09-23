@@ -56,11 +56,17 @@
         
         
         
-        
+        userBtn = [self addButton:self
+                                  image:@"userSenterMenu.png"
+                               position:CGPointMake(30, 30)
+                                    tag:1006
+                                 target:self
+                                 action:@selector(centerClick:)
+                         ];
         
         backButton= [self addButton:self
                               image:@"qq_back.png"
-                           position:CGPointMake(30, 30)
+                           position:CGPointMake(906, 30)
                                 tag:1004
                              target:self
                              action:@selector(backClick:)
@@ -72,6 +78,10 @@
         
     }
     return self;
+}
+
+-(void)centerClick:(UIButton*)e {
+    //用户中心
 }
 
 -(void)backClick:(UIButton*)e {
@@ -117,6 +127,7 @@
                 svv.frame = CGRectMake(0, -130, 1024, 134);
                 svv.alpha = 0;
                 backButton.alpha = 1;
+                userBtn.alpha = 1;
                 gy.alpha = 0;
                 vhand.alpha = 0;
             
@@ -165,7 +176,10 @@
     gbArr = [arr[cmd] objectForKey:@"stages"];
     int mapcount = [[arr[cmd] objectForKey:@"pictures"] count];
     NSLog(@"map count == %d", mapcount);
-    NSString *imgurl = [[arr[cmd] objectForKey:@"pictures"][mapcount - 1] objectForKey:@"image_url"];
+    NSString *imgurl = @"";
+    if(mapcount > 0) {
+        imgurl = [[arr[cmd] objectForKey:@"pictures"][mapcount - 1] objectForKey:@"image_url"];
+    }
     if(imgurl) {
         NSLog(@"%@", imgurl);
         
@@ -210,19 +224,40 @@
     
     stages=[arr[cmd] objectForKey:@"stages"];
     NSLog(@"stages count = %d", [stages count]);
-    
+    NSLog(@"stages ->>%@", stages);
     for (int i = 0; i < [stages count]; i++) {
         NSArray *pos=[stages[i] objectForKey:@"map_places"];
         CGPoint p =CGPointMake([[pos[0] objectForKey:@"x"] integerValue],[[pos[0] objectForKey:@"y"] integerValue]);
         
+        NSString *state = [stages[i] objectForKey:@"purchase_state"];
+        //测试
+        if(i > 2) state = @"unpaid";
+        NSLog(@"state == > %@", state);
+        //
         UIButton *cir = [self addButton:mapv
                                   image:[NSString stringWithFormat:@"ut_cir%d.png", i]
                                position:CGPointMake(p.x * 2, p.y * 2)
                                     tag:2000 + i
                                  target:self
-                                 action:@selector(cirClick:)
+                                 action:[state isEqualToString:@"paid"] ? @selector(cirClick:) : nil
                          ];
-        
+        if([state isEqualToString:@"paid"]) {
+            UILabel *txt = [self addLabel:cir
+                                    frame:CGRectMake(0, 0, cir.frame.size.width, cir.frame.size.height)
+                                     font:[UIFont fontWithName:@"Gretoon" size:32]
+                                     text:[state isEqualToString:@"paid"] ? [NSString stringWithFormat:@"%d", i + 1] : @""
+                                    color:[UIColor blackColor]
+                                      tag:2100 + i
+                            ];
+            txt.alpha = .5;
+            txt.textAlignment = UITextAlignmentCenter;
+            
+        }else {
+            [self addImageView:cir
+                         image:@"ut_rock.png"
+                      position:CGPointMake(0, 0)
+             ];
+        }
         cir.alpha = 0;
         cir.transform = CGAffineTransformMakeScale(0.01, 0.01);
         
@@ -233,7 +268,7 @@
                              cir.alpha = 1;
                              cir.transform = CGAffineTransformMakeScale(1, 1);
                          } completion:^(BOOL finished) {
-                             [self showCir:cir];
+                             if([state isEqualToString:@"paid"]) [self showCir:cir];
                          }];
     }
     
@@ -248,6 +283,7 @@
     svv.alpha = 0;
     
     backButton.alpha=0;
+    userBtn.alpha = 0;
     
     CGPoint pp;
     int px = self.frame.size.width * 1.5 - e.center.x;
