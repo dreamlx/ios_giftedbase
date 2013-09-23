@@ -9,6 +9,8 @@
 #import "setting.h"
 #import "v_paiming.h"
 #import "profile.h"
+#import "v_switch.h"
+
 
 @implementation setting
 
@@ -42,8 +44,8 @@
         
         NSMutableArray *pos=[NSMutableArray array];
         
-        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 116)]];
-        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 233)]];
+        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 216)]];
+        [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 333)]];
        // [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 349)]];
        // [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 466)]];
         
@@ -83,7 +85,13 @@
             break;
         case 1001:
         {
-            //切换帐号
+            //切换帐号 临时
+            
+            
+            v_switch *p=[[v_switch alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+            [p loadCurrentPage:0];
+            [self fadeInView:p duration:.5];
+            
             
             
         }

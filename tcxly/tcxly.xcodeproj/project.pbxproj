@@ -181,6 +181,8 @@
 		6E9F1F2017E1F514008A0CB2 /* profile_bt3.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9F1F1B17E1F514008A0CB2 /* profile_bt3.png */; };
 		6EB330DE17EC31C600933BD0 /* setting_bt0.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB330DC17EC31C600933BD0 /* setting_bt0.png */; };
 		6EB330DF17EC31C600933BD0 /* setting_bt1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB330DD17EC31C600933BD0 /* setting_bt1.png */; };
+		6EB5BF4117EEF3ED00ADE5A3 /* v_switch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB5BF4017EEF3ED00ADE5A3 /* v_switch.m */; };
+		6ED862C417EF50D1008691A5 /* avatar_new.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6ED862C317EF50D1008691A5 /* avatar_new.jpg */; };
 		6EE7932817BEA5C400C34F3D /* reg_bt.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EE7932717BEA5C400C34F3D /* reg_bt.png */; };
 		6EE7932A17BEA75900C34F3D /* back_step.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6EE7932917BEA75900C34F3D /* back_step.jpg */; };
 		6EE7934117BEB23900C34F3D /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE7932D17BEB23900C34F3D /* MKAnnotationView+WebCache.m */; };
@@ -521,6 +523,9 @@
 		6E9F1F1B17E1F514008A0CB2 /* profile_bt3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_bt3.png; sourceTree = "<group>"; };
 		6EB330DC17EC31C600933BD0 /* setting_bt0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_bt0.png; sourceTree = "<group>"; };
 		6EB330DD17EC31C600933BD0 /* setting_bt1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_bt1.png; sourceTree = "<group>"; };
+		6EB5BF3F17EEF3ED00ADE5A3 /* v_switch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = v_switch.h; sourceTree = "<group>"; };
+		6EB5BF4017EEF3ED00ADE5A3 /* v_switch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v_switch.m; sourceTree = "<group>"; };
+		6ED862C317EF50D1008691A5 /* avatar_new.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar_new.jpg; sourceTree = "<group>"; };
 		6EE7932717BEA5C400C34F3D /* reg_bt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reg_bt.png; sourceTree = "<group>"; };
 		6EE7932917BEA75900C34F3D /* back_step.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back_step.jpg; sourceTree = "<group>"; };
 		6EE7932C17BEB23900C34F3D /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
@@ -849,6 +854,8 @@
 		1B6AAC0217343D9900EC3839 /* codes */ = {
 			isa = PBXGroup;
 			children = (
+				6EB5BF3F17EEF3ED00ADE5A3 /* v_switch.h */,
+				6EB5BF4017EEF3ED00ADE5A3 /* v_switch.m */,
 				6E0D009A17E36F9900FD1529 /* profile.h */,
 				6E0D009B17E36F9900FD1529 /* profile.m */,
 				6E9F1EFD17E1A33D008A0CB2 /* setting.h */,
@@ -1127,6 +1134,7 @@
 		6E4EBE4E17D0F00A0061AFAF /* avatar */ = {
 			isa = PBXGroup;
 			children = (
+				6ED862C317EF50D1008691A5 /* avatar_new.jpg */,
 				6E9F1E8717DF04DC008A0CB2 /* avatar_12.jpg */,
 				6E4EBE7117D0F2530061AFAF /* avatar_t0.png */,
 				6E4EBE6D17D0F11B0061AFAF /* avatar_ok.jpg */,
@@ -1584,6 +1592,7 @@
 				1B6AACB31734414A00EC3839 /* et_jqr.png in Resources */,
 				1B6AACB41734414A00EC3839 /* et_light.png in Resources */,
 				1B6AACBA1734E5B600EC3839 /* et_1.png in Resources */,
+				6ED862C417EF50D1008691A5 /* avatar_new.jpg in Resources */,
 				1B6AACBB1734E5B600EC3839 /* et_2.png in Resources */,
 				1B6AACBC1734E5B600EC3839 /* et_dog.png in Resources */,
 				1B6AACBE1734E79900EC3839 /* et_btnw.png in Resources */,
@@ -1856,6 +1865,7 @@
 				DE698C5B17B8094000237317 /* ASIS3Bucket.m in Sources */,
 				DE698C5C17B8094000237317 /* ASIS3BucketObject.m in Sources */,
 				DE698C5D17B8094000237317 /* ASIS3BucketRequest.m in Sources */,
+				6EB5BF4117EEF3ED00ADE5A3 /* v_switch.m in Sources */,
 				DE698C5E17B8094000237317 /* ASIS3ObjectRequest.m in Sources */,
 				DE698C5F17B8094000237317 /* ASIS3Request.m in Sources */,
 				DE698C6017B8094000237317 /* ASIS3ServiceRequest.m in Sources */,

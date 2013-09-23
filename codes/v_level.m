@@ -159,6 +159,8 @@
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
     
     NSLog(@"Successfully deserialized...");
+    
+    
     NSDictionary *deserializedDictionary = (NSDictionary *)jsonObject;
     
     if(![deserializedDictionary isKindOfClass:[NSNull class]] )

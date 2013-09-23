@@ -154,6 +154,8 @@
                 
                 
                 
+                
+                
                 //注册成功并保存token
                 NSString *token=[jsonObject objectForKey:@"auth_token"];
                 
@@ -162,6 +164,39 @@
                 
                 
                 
+                
+                //记录帐户信息
+                
+                id aa=[[NSUserDefaults standardUserDefaults] objectForKey:@"accountArray"];
+                
+                if(aa&& ![aa isKindOfClass:[NSNull class]])
+                {
+                    //已经存在帐户了
+                    NSMutableArray *testArray=aa;
+                    
+                    [testArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                          an,@"avatar",
+                                          UserName.text,@"name",
+                                          token,@"token",nil]];
+                    
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:testArray
+                                                              forKey:@"accountArray"];
+                    
+                }
+                else
+                {
+                    //不存在帐户
+                    NSMutableArray *testArray=[NSMutableArray array];
+                    [testArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                          an,@"avatar",
+                                          UserName.text,@"name",
+                                          token,@"token",nil]];
+                    
+                    [[NSUserDefaults standardUserDefaults] setObject:testArray
+                                                              forKey:@"accountArray"];
+                }
+
                 
                 [HUD hide:YES];
 

@@ -42,6 +42,22 @@
 - (void)requestFinished:(ASIHTTPRequest *)r
 {
     NSLog(@"%@",[r responseString]);
+    
+    NSData *jsonData = [r responseData];
+    
+    NSError *error = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+    NSDictionary *items=(NSDictionary*)jsonObject;
+    
+    
+    NSArray *rank=(NSArray*)[items objectForKey:@"user_rankings"];
+    
+    NSLog(@"%d",[rank count]);
+    
+    
+    
+    
+    
 }
 
 
@@ -56,7 +72,7 @@
 
 -(void)loadCurrentPage:(int)cmd
 {
-  //  http://127.0.0.1:3000/api/ranks/ranking.json?auth_token=L1M1NXGpFayafaQasky7 -d "grade_id=1"
+
     
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     
