@@ -105,7 +105,7 @@
     v_shop *vp = [[v_shop alloc] initWithFrame:self.frame];
     [self fadeInView:vp duration:.5];
     [vp loadCurrentPage:0];
-    [vp loadInfo:gbArr];
+    [vp loadInfo:stages vid:cirID];
 }
 
 //放大缩小
@@ -174,7 +174,11 @@
 }
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd {
-    gbArr = [arr[cmd] objectForKey:@"stages"];
+    stages = [arr[cmd] objectForKey:@"stages"];
+    
+    NSLog(@"stages count = %d", [stages count]);
+    NSLog(@"stages ->>%@", stages);
+    
     int mapcount = [[arr[cmd] objectForKey:@"pictures"] count];
     NSLog(@"map count == %d", mapcount);
     NSString *imgurl = @"";
@@ -220,19 +224,13 @@
           ];
     gy.alpha = 0;
 
-    
-    
-    
-    stages=[arr[cmd] objectForKey:@"stages"];
-    NSLog(@"stages count = %d", [stages count]);
-    NSLog(@"stages ->>%@", stages);
     for (int i = 0; i < [stages count]; i++) {
         NSArray *pos=[stages[i] objectForKey:@"map_places"];
         CGPoint p =CGPointMake([[pos[0] objectForKey:@"x"] integerValue],[[pos[0] objectForKey:@"y"] integerValue]);
         
         NSString *state = [stages[i] objectForKey:@"purchase_state"];
         //测试
-        if(i > 2) state = @"unpaid";
+//        if(i > 2) state = @"unpaid";
         NSLog(@"state == > %@", state);
         //
         UIButton *cir = [self addButton:mapv
@@ -240,13 +238,13 @@
                                position:CGPointMake(p.x * 2, p.y * 2)
                                     tag:2000 + i
                                  target:self
-                                 action:[state isEqualToString:@"paid"] ? @selector(cirClick:) : nil
+                                 action:@selector(cirClick:)
                          ];
         if([state isEqualToString:@"paid"]) {
             UILabel *txt = [self addLabel:cir
                                     frame:CGRectMake(0, 0, cir.frame.size.width, cir.frame.size.height)
                                      font:[UIFont fontWithName:@"Gretoon" size:32]
-                                     text:[state isEqualToString:@"paid"] ? [NSString stringWithFormat:@"%d", i + 1] : @""
+                                     text:[[stages[i] objectForKey:@"position"] isKindOfClass:[NSNull class]] ? @"0" : [stages[i] objectForKey:@"position"]
                                     color:[UIColor blackColor]
                                       tag:2100 + i
                             ];
@@ -280,6 +278,7 @@
     for(UIView *sview in uv.subviews) {
         [sview removeFromSuperview];
     }
+    
     svv.frame = CGRectMake(0, -130, 1024, 134);
     svv.alpha = 0;
     
@@ -294,6 +293,8 @@
     
     NSLog(@"%f---%f", pp.x, pp.y);
     gy.alpha = 0;
+    
+    
     
     [UIView animateWithDuration:.5
                           delay:0
@@ -360,11 +361,18 @@
                            ];
     boards.alpha = 0;
     [self setcurunit:0];
+    NSString *pstr = [stages[cirID] objectForKey:@"purchase_state"];
     
-    [UIView animateWithDuration:.3 animations:^{
-        svv.frame = CGRectMake(0, 9, 1024, 134);
-        svv.alpha = 1;
-    }];
+    //pstr = cirID > 2 ? @"unpaid" : pstr;
+    
+    NSLog(@"%d", [[stages[cirID] objectForKey:@"id"] integerValue]);
+    
+    if([pstr isEqualToString:@"paid"]) {
+        [UIView animateWithDuration:.3 animations:^{
+            svv.frame = CGRectMake(0, 9, 1024, 134);
+            svv.alpha = 1;
+        }];
+    }
     
 }
 

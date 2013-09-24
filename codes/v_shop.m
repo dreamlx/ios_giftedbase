@@ -9,6 +9,7 @@
 #import "v_shop.h"
 #import "v_pay.h"
 #import "mpvc.h"
+#import "v_unit.h"
 #import "UIView+iTextManager.h"
 #import "MainViewController.h"
 #import "UIImageView+WebCache.h"
@@ -56,18 +57,19 @@
     
 }
 
--(void)loadInfo:(NSArray *)arr {
+-(void)loadInfo:(NSArray *)arr vid:(int)v{
     varr = arr;
+    _vid = v;
     NSString *n = [[NSUserDefaults standardUserDefaults] objectForKey:@"menuid"];
     int menuid = n.intValue;
     NSLog(@"menuid == %d", menuid);
     
-    NSLog(@"%@++++++", [arr[0] objectForKey:@"name"]);
+    NSLog(@"%@++++++", [arr[v] objectForKey:@"name"]);
     
     UILabel *title = [self addLabel:self
                               frame:CGRectMake(0, 66, 1024, 36)
                                font:[UIFont boldSystemFontOfSize:20]
-                               text:[arr[0] objectForKey:@"name"]
+                               text:[arr[v] objectForKey:@"name"]
                               color:[UIColor blackColor]
                                 tag:1401
                       ];
@@ -76,7 +78,7 @@
     UILabel *content = [self addLabel:self
                                 frame:CGRectMake(77, 162, 870, 160)
                                  font:[UIFont systemFontOfSize:18]
-                                 text:[arr[0] objectForKey:@"description"]
+                                 text:[arr[v] objectForKey:@"description"]
                                 color:[UIColor blackColor]
                                   tag:1402
                         ];
@@ -90,7 +92,7 @@
     [self addSubview:bvv];
 //    [[bvv layer] setCornerRadius:2.0];
     bvv.clipsToBounds = YES;
-    [bvv setImageWithURL:[NSURL URLWithString:[arr[0] objectForKey:@"thumb_video_poster_url"]]
+    [bvv setImageWithURL:[NSURL URLWithString:[arr[v] objectForKey:@"thumb_video_poster_url"]]
             placeholderImage:nil
                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
                        
@@ -119,28 +121,122 @@
 }
 
 -(void)buyClick:(UIButton*)e {
-    v_pay *vp = [[v_pay alloc] initWithFrame:self.frame];
-    [self.superview fadeInView:self withNewView:vp duration:.5];
-    [vp loadCurrentPage:0];
-    [vp saveInfo:varr];
+    
+    MainViewController *mvc = (MainViewController*)[self getManager];
+    int index=[[[NSUserDefaults standardUserDefaults]  objectForKey:@"menuid"] integerValue];
+    NSArray *arr = mvc.unitArr;
+    int cid = [[[arr[index] objectForKey:@"stages"][_vid] objectForKey:@"id"] integerValue];
+    NSLog(@"buyid = %d", cid);
+    NSString *token=[[NSUserDefaults standardUserDefaults]  objectForKey:@"token"];
+    NSString *str = [NSString stringWithFormat:@"http://gifted-center.com/api/stages/%d/purchase.json?auth_token=%@", cid, token];
+    NSLog(@"url = %@", str);
+    NSURL *url = [NSURL URLWithString:str];
+    request = [ASIHTTPRequest requestWithURL:url];
+    [request setDelegate:self];
+    [request setRequestMethod:@"POST"];
+    [request startAsynchronous];
+    
+    UIActivityIndicatorView *loginLoading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    [loginLoading setCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height/2)];
+    loginLoading.tag = 9991;
+    [self addSubview:loginLoading];
+    [loginLoading startAnimating];
+    
+    UILabel *txt = [self addLabel:self
+                            frame:CGRectMake(0, 0, 200, 100)
+                             font:[UIFont systemFontOfSize:18]
+                             text:@"请稍候..."
+                            color:[UIColor whiteColor]
+                              tag:9992
+                    ];
+    txt.shadowColor = [UIColor blackColor];
+    txt.textAlignment = UITextAlignmentCenter;
+    txt.center = CGPointMake(self.frame.size.width / 2, self.frame.size.height/2 + 50);
+//    v_pay *vp = [[v_pay alloc] initWithFrame:self.frame];
+//    [self.superview fadeInView:self withNewView:vp duration:.5];
+//    [vp loadCurrentPage:0];
+//    [vp saveInfo:varr vid:_vid];
+}
+
+#pragma mark –
+#pragma mark 请求完成 requestFinished
+
+- (void)requestFailed:(ASIHTTPRequest *)req
+{
+    NSError *error = [req error];
+    NSLog(@"login:%@",error);
+    
+    [self clearUnuseful];
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"网络无法连接, 请检查网络并重试."
+                                                       delegate:self
+                                              cancelButtonTitle:@"重试"
+                                              otherButtonTitles:@"好", nil];
+    [alertView show];
+    
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)r
+{
+    
+    [self clearUnuseful];
+    NSLog(@"%@",[r responseString]);
+    NSString *res = [r responseString];
+    if([res isEqualToString:@"success"]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"购买成功!"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"好"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"购买失败, 请检查您的账户"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"好"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    v_unit *vs = [[v_unit alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    MainViewController *mvc = (MainViewController*)[self getManager];
+    int index=[[[NSUserDefaults standardUserDefaults]  objectForKey:@"menuid"] integerValue];
+    
+    [vs loadInfo:mvc.unitArr idx:index];
+    [self.superview.superview fadeInView:vs duration:.5];
+}
+
+-(void)clearUnuseful {
+    UIActivityIndicatorView *loginLoading = (UIActivityIndicatorView*)[self viewWithTag:9991];
+    [loginLoading stopAnimating];
+    [loginLoading removeFromSuperview];
+    [[self viewWithTag:9992] removeFromSuperview];
 }
 
 -(void)playMovie:(UIButton*)e {
  
     MainViewController *m=(MainViewController*)[self getManager];
     mpvc *mv=[[mpvc alloc] init];
-    
-    [mv load:[varr[0] objectForKey:@"video_url"] Ex:nil];
-    
-    [m presentViewController:mv
-                    animated:YES
-                  completion:^{
-        
-    }];
-    
-    
-    
-    
+    NSString *video_url = [varr[_vid] objectForKey:@"video_url"];
+    NSLog(@"videourl -> %@", video_url);
+    if([video_url isKindOfClass:[NSNull class]] || video_url == nil) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"抱歉, 暂无视频!"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"知道了"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }else {
+        [mv load:video_url Ex:nil];
+        [m presentViewController:mv
+                        animated:YES
+                      completion:^{
+                          
+                      }];
+    }
 }
 
 @end
