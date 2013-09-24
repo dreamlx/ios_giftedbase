@@ -7,13 +7,16 @@
 //
 
 #import "iPageView.h"
+#import "ASIHTTPRequest.h"
 
-@interface v_shop : iPageView
+@interface v_shop : iPageView<UIAlertViewDelegate>
 
 {
     NSArray *varr;
+    int _vid;
+    ASIHTTPRequest *request;
 }
 
--(void)loadInfo:(NSArray*)arr;
+-(void)loadInfo:(NSArray*)arr vid:(int)v;
 
 @end

@@ -14,10 +14,10 @@
 {
     iCarousel *carousel;
     NSMutableArray *items;
-    int num;
+    int num, _vid;
     NSArray *varr;
 }
 
--(void)saveInfo:(NSArray*)arr;
+-(void)saveInfo:(NSArray*)arr vid:(int)v;
 
 @end

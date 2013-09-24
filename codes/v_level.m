@@ -172,7 +172,7 @@
     {
         
         allArray = (NSArray*)deserializedDictionary;
-        
+        NSLog(@"allArray = %@", allArray);
         MainViewController *mvc = (MainViewController*)[self getManager];
         mvc.unitArr = allArray;
         
