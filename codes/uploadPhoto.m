@@ -152,10 +152,6 @@
             
             if (success){
                 
-                
-                
-                
-                
                 //注册成功并保存token
                 NSString *token=[jsonObject objectForKey:@"auth_token"];
                 
@@ -197,6 +193,10 @@
                                                               forKey:@"accountArray"];
                 }
 
+                
+                
+                NSLog(@"items=%@",aa);
+                
                 
                 [HUD hide:YES];
 

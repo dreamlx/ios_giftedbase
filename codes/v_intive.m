@@ -39,6 +39,7 @@
 }
 
 -(void)loadCurrentPage:(int)cmd {
+    
     for (int i = 1; i < 4; i++) {
         UIButton *btn = [self addButton:self
                                   image:[NSString stringWithFormat:@"ie_b%d.png", i]

@@ -81,7 +81,11 @@
 }
 
 -(void)centerClick:(UIButton*)e {
-    //用户中心
+
+    NSLog(@"用户中心");
+    
+    
+    
 }
 
 -(void)backClick:(UIButton*)e {
@@ -132,10 +136,7 @@
                 vhand.alpha = 0;
             
             }];
-            
-            
-            
-           
+
         }
 	}
 }

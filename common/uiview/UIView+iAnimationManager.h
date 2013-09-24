@@ -11,6 +11,9 @@
 
 @interface UIView (iAnimationManager)
 
+
+-(CGPoint)LeftPointToCenter:(CGPoint)p view:(UIView*)v;
+
 -(void) startAnimation:(UIView*) v
                   sPos:(CGPoint) sp
                   ePos:(CGPoint) ep

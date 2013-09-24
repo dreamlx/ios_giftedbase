@@ -10,7 +10,7 @@
 #import "v_paiming.h"
 #import "profile.h"
 #import "v_switch.h"
-
+#import "v_enter.h"
 
 @implementation setting
 
@@ -70,6 +70,7 @@
 
 -(void)backClick:(UIButton*)sender
 {
+    [((v_enter*)self.superview) showMenu];
     [self fadeOutView:self duration:.5];
 }
 
@@ -87,10 +88,17 @@
         {
             //切换帐号 临时
             
+            v_paiming *p=[[v_paiming alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+            [p loadCurrentPage:0];
+            [self fadeInView:p duration:.5];
             
+            
+            return;
+            /*
             v_switch *p=[[v_switch alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
             [p loadCurrentPage:0];
             [self fadeInView:p duration:.5];
+             */
             
             
             

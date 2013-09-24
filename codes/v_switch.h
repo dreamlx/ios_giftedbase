@@ -7,9 +7,11 @@
 //
 
 #import "iPageView.h"
-
-@interface v_switch : iPageView
+#import "iCarousel.h"
+@interface v_switch : iPageView<iCarouselDataSource,iCarouselDelegate,UIAlertViewDelegate>
 {
     UIScrollView *sv;
+    iCarousel *carousel;
+    NSMutableArray *items;
 }
 @end

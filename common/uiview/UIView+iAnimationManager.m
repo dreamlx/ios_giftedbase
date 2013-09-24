@@ -12,6 +12,12 @@
 @implementation UIView (iAnimationManager)
 
 
+-(CGPoint)LeftPointToCenter:(CGPoint)p view:(UIView*)v
+{
+    return CGPointMake(p.x+v.frame.size.width/2, p.y+v.frame.size.height/2);
+}
+
+
 -(void)setRoate:(UIView*)v dir:(int)d
 {
     CABasicAnimation* spinAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
