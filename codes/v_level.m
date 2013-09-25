@@ -39,7 +39,12 @@
 }
 
 -(void)readInfo {
-    NSURL *url = [NSURL URLWithString:@"http://gifted-center.com/api/grades.json"];
+    
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/grades.json?auth_token=%@",token]];
     request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];
     [request setRequestMethod:@"GET"];

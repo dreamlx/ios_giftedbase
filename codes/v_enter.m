@@ -213,10 +213,7 @@
         
         NSLog(@"token====%@",token);
         
-        
-        token=nil;
-        
-        //
+
         if(token==nil)
         {
             registChooseSex *p=[[registChooseSex alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
@@ -227,8 +224,8 @@
         {
             [self showList]; 
         }
-        
 
+        
         return;
 
         if(vid != 1) {
@@ -241,22 +238,15 @@
         
     }else if(e.tag == 1002){
         
-        
-        
         NSLog(@"setting");
         
         for(UIView *subv in btnv.subviews) {
             [subv removeFromSuperview];
         }
-
-        
         
         setting *ur = [[setting alloc]initWithFrame:self.frame];
         [self fadeInView:ur duration:.5];
         [ur loadCurrentPage:0];
-        
-        
-        
         
     }else {
 //        [sf unloadCurrentPage];

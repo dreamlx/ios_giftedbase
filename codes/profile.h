@@ -7,7 +7,11 @@
 //
 
 #import "iPageView.h"
-
+#import "ASIFormDataRequest.h"
 @interface profile : iPageView
-
+{
+    ASIFormDataRequest *request;
+    UILabel *username,*sex;
+}
+-(void)loadP:(NSDictionary*)p;
 @end

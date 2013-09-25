@@ -167,9 +167,7 @@
         un.textAlignment=UITextAlignmentCenter;
         
         
-        
-        
-        
+
         //成绩
         un=[self addLabel:p1
                     frame:CGRectMake(368, 115, 180, 50)
@@ -180,10 +178,7 @@
         
         un.textAlignment=UITextAlignmentCenter;
         
-        
-        
-        
-        
+
         //排名
         un=[self addLabel:p1
                     frame:CGRectMake(572, 115, 121, 50)
@@ -191,6 +186,7 @@
                      text:[NSString stringWithFormat:@"第%d名",100]
                     color:[UIColor blackColor]
                       tag:0];
+        
         
         un.textAlignment=UITextAlignmentCenter;
         
@@ -201,9 +197,7 @@
                  color:[UIColor whiteColor]
                    tag:0];
 
-        
-        
-        
+
         [UIView animateWithDuration:1
                          animations:^{
                     
@@ -227,7 +221,6 @@
 -(void)loadCurrentPage:(int)cmd
 {
 
-    
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/ranks/ranking.json?auth_token=%@&grade_id=1",token]];

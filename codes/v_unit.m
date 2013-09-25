@@ -12,7 +12,8 @@
 #import "UIView+iTextManager.h"
 #import "UIImageView+WebCache.h"
 #import "v_enter.h"
-
+#import "profile.h"
+#import "personal.h"
 
 @implementation v_unit
 
@@ -55,7 +56,6 @@
         [self addGestureRecognizer:pinchGesture];
         
         
-        
         userBtn = [self addButton:self
                                   image:@"userSenterMenu.png"
                                position:CGPointMake(30, 30)
@@ -72,9 +72,9 @@
                              action:@selector(backClick:)
                      ];
         
+        
         vhand = [self addImageView:self image:@"ut_hand.png" position:CGPointMake(900, 660)];
         vhand.alpha = 0;
-        
         
     }
     return self;
@@ -85,7 +85,10 @@
     NSLog(@"用户中心");
     
     
-    
+    personal *p=[[personal alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+    [p loadCurrentPage:0];
+    [self fadeInView:p duration:.5];
+
 }
 
 -(void)backClick:(UIButton*)e {
