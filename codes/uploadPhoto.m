@@ -55,20 +55,18 @@
               position:CGPointMake(447, 61)];
     
     
-    
     //输入矿
     [self addImageView:self
                  image:@"avatar_tf.jpg"
               position:CGPointMake(354, 350)];
 
     
-    UIButton *bt=  [self addButton:self
+    UIButton *bt = [self addButton:self
                              image:@"findPsw_next.png"
                           position:CGPointMake(803, 653)
                                tag:2002
                             target:self
-                            action:@selector(onDown:)
-                    ];
+                            action:@selector(onDown:)];
     
 
     
@@ -78,6 +76,7 @@
                           color:[UIColor blackColor]
                     placeholder:nil
                             tag:1000];
+    
     UserName.delegate=self;
     UserName.returnKeyType = UIReturnKeyDone;
     UserName.placeholder=@"输入昵称";
@@ -170,7 +169,9 @@
                     //已经存在帐户了
                     NSMutableArray *testArray=aa;
                     
-                    [testArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                    
+                    
+                    [testArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                           an,@"avatar",
                                           UserName.text,@"name",
                                           token,@"token",nil]];
@@ -184,7 +185,7 @@
                 {
                     //不存在帐户
                     NSMutableArray *testArray=[NSMutableArray array];
-                    [testArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                    [testArray addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:
                                           an,@"avatar",
                                           UserName.text,@"name",
                                           token,@"token",nil]];

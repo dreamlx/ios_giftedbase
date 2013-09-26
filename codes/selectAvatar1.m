@@ -6,9 +6,9 @@
 //  Copyright (c) 2013年 Terry. All rights reserved.
 //
 
-#import "selectAvatar.h"
-#import "uploadPhoto.h"
-@implementation selectAvatar
+#import "selectAvatar1.h"
+#import "profile.h"
+@implementation selectAvatar1
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -59,15 +59,15 @@
                             position:p
                                    t:1000+i
                               action:@selector(onTap:)];
- 
     }
+    
+    
     
     
     //[self bringSubviewToFront:[self viewWithTag:1000+cmd]];
     //[self viewWithTag:1000+cmd].transform=CGAffineTransformMakeScale(1.2, 1.2);
       
-    
-    
+
     [self addButton:self
               image:@"qq_back.png"
            position:CGPointMake(906, 30)
@@ -98,13 +98,10 @@
                          [self bringSubviewToFront:bt];
                          bt.transform=CGAffineTransformMakeScale(1.2, 1.2);
                          
-                         [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",sender.view.tag-1000+1]
-                                                                   forKey:@"avatar"];
                          
                      } completion:^(BOOL finished) {
-                         uploadPhoto *p=(uploadPhoto*)self.superview;
-                         [p updateAvatar];
-                         
+                         profile  *p=(profile*)self.superview;
+                         [p updateAvatar:sender.view.tag-1000+1];
                          
                          [self fadeOutView:self duration:.5];
     

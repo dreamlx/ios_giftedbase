@@ -36,6 +36,10 @@
         {
             [items addObjectsFromArray:aa];
         }
+        
+        
+        NSLog(@"%@",items);
+        
     }
     return self;
 }

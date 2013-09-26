@@ -12,6 +12,17 @@
 {
     ASIFormDataRequest *request;
     UILabel *username,*sex;
+    UIImageView *avatar;
+    
+    UITextField *year,*month,*day,*homeAddress,*homeName,*schoolAddress,*schoolName,*qq,*email;
+    
+    id aid;
+
+    id an;
+    
+   
 }
+
+-(void)updateAvatar:(int)a;
 -(void)loadP:(NSDictionary*)p;
 @end

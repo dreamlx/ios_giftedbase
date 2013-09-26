@@ -24,7 +24,7 @@
         
         [self addButton:self
                   image:@"qq_back.png"
-               position:CGPointMake(30, 30)
+               position:CGPointMake(906, 30)
                     tag:2000
                  target:self
                  action:@selector(backClick:)

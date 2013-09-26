@@ -10,6 +10,7 @@
 #import "UIView+iTextManager.h"
 #import "profile.h"
 #import "v_paiming.h"
+#import "profile.h"
 
 @implementation personal
 
@@ -27,16 +28,21 @@
         
         [self addButton:self
                   image:@"qq_back.png"
-               position:CGPointMake(30, 30)
+               position:CGPointMake(906, 30)
                     tag:1003
                  target:self
                  action:@selector(backClick:)];
         
         
         
+        
+        id av= [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
+        
         avatar= [self addImageView:self
-                             image:@"avatar_1.jpg"
+                             image:[NSString stringWithFormat:@"avatar_%@.jpg",av]
                           position:CGPointMake(200, 110)];
+        
+        
         
         UIImageView *p0=  [self addImageView:self
                                        image:@"profile_0.jpg"
@@ -104,6 +110,12 @@
 }
 
 
+-(void)updateAvatar
+{
+    id av= [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
+    avatar.image=[UIImage imageNamed:[NSString stringWithFormat:@"avatar_%@.jpg",av]];
+}
+
 
 -(void)loadCurrentPage:(int)cmd
 {
@@ -120,7 +132,6 @@
     [request setRequestMethod:@"GET"];
     request.timeOutSeconds=60;
     [request startAsynchronous];
-    
     
     
 }
@@ -141,10 +152,7 @@
     
     
     un.text=[items objectForKey:@"username"];
-    
-    
-    
-    
+
 }
 
 

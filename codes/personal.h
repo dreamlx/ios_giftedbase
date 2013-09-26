@@ -20,5 +20,6 @@
     NSDictionary *items;
 }
 
+-(void)updateAvatar;
 
 @end
