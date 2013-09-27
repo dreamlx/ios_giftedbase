@@ -348,28 +348,31 @@
 
     //已经存在帐户了
 
-//    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-//    
-//    NSMutableArray *testArray=[[NSUserDefaults standardUserDefaults] objectForKey:@"accountArray"];
-//    
-//    NSMutableArray *testArray2=[testArray new];
-//
-//    for (int i=0; i<[testArray count]; i++) {
-//        
-//        NSString *tk=  [[testArray objectAtIndex:i] objectForKey:@"token"];
-//        
-//        if([tk isEqualToString:token])
-//        {
-//            [[testArray objectAtIndex:i] setObject:aid forKey:@"avatar"];
-//        }
-//        
-//        
-//        [testArray2 addObject:[testArray objectAtIndex:i]];
-//        
-//    }
-//
-//    [[NSUserDefaults standardUserDefaults] setObject:testArray2
-//                                              forKey:@"accountArray"];
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    
+    
+    NSMutableArray *testArray=[[NSMutableArray alloc] init];
+    [testArray addObjectsFromArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"accountArray"]];
+
+    for (int i=0; i<[testArray count]; i++) {
+        
+        NSString *tk=  [[testArray objectAtIndex:i] objectForKey:@"token"];
+        
+        if([tk isEqualToString:token])
+        {
+            //重要！！
+            
+            NSDictionary *item =[testArray objectAtIndex:i];
+            NSMutableDictionary *mutableItem = [NSMutableDictionary dictionaryWithDictionary:item];
+            [mutableItem setObject:aid forKey:@"avatar"];
+            [testArray setObject:mutableItem atIndexedSubscript:i];
+            
+            break;
+        }
+    }
+
+    [[NSUserDefaults standardUserDefaults] setObject:testArray
+                                              forKey:@"accountArray"];
     
     [[NSUserDefaults standardUserDefaults] setObject:aid forKey:@"avatar"];
 
