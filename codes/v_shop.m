@@ -10,6 +10,7 @@
 #import "v_pay.h"
 #import "mpvc.h"
 #import "v_unit.h"
+#import "v_enter.h"
 #import "UIView+iTextManager.h"
 #import "MainViewController.h"
 #import "UIImageView+WebCache.h"
@@ -132,6 +133,7 @@
     NSLog(@"url = %@", str);
     NSURL *url = [NSURL URLWithString:str];
     request = [ASIHTTPRequest requestWithURL:url];
+    request.tag = 60001;
     [request setDelegate:self];
     [request setRequestMethod:@"POST"];
     [request startAsynchronous];
@@ -182,31 +184,87 @@
     
     [self clearUnuseful];
     NSLog(@"%@",[r responseString]);
-    NSString *res = [r responseString];
-    if([res isEqualToString:@"success"]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                            message:@"购买成功!"
-                                                           delegate:self
-                                                  cancelButtonTitle:@"好"
-                                                  otherButtonTitles:nil];
-        [alertView show];
+    
+    if(r.tag == 60001) {
+        NSString *res = [r responseString];
+        if([res isEqualToString:@"success"]) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                message:@"购买成功!"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"好"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+        }else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                message:@"购买失败, 请检查您的账户"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"好"
+                                                      otherButtonTitles:nil];
+            [alertView show];
+        }
     }else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                            message:@"购买失败, 请检查您的账户"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"好"
-                                                  otherButtonTitles:nil];
-        [alertView show];
+        [HUD hide:YES];
+        NSData *jsonData = [r responseData];
+        
+        //解析JSon
+        NSError *error = nil;
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
+        
+        NSLog(@"Successfully deserialized...");
+        
+        
+        NSDictionary *deserializedDictionary = (NSDictionary *)jsonObject;
+        
+        if(![deserializedDictionary isKindOfClass:[NSNull class]] )
+        {
+            
+            NSArray *allArray = (NSArray*)deserializedDictionary;
+            NSLog(@"allArray = %@", allArray);
+            MainViewController *mvc = (MainViewController*)[self getManager];
+            mvc.unitArr = allArray;
+            
+            v_unit *vs = [[v_unit alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
+            int index=[[[NSUserDefaults standardUserDefaults]  objectForKey:@"menuid"] integerValue];
+            
+            [vs loadInfo:mvc.unitArr idx:index];
+            [self.superview.superview fadeInView:self.superview withNewView:vs duration:.5];
+        }else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                message:@"载入失败, 请检查网络!"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"好"
+                                                      otherButtonTitles:nil];
+            alertView.tag = 50001;
+            [alertView show];
+        }
     }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    v_unit *vs = [[v_unit alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
-    MainViewController *mvc = (MainViewController*)[self getManager];
-    int index=[[[NSUserDefaults standardUserDefaults]  objectForKey:@"menuid"] integerValue];
+    if(alertView.tag == 50001) {
+        v_enter *ve = [[v_enter alloc] initWithFrame:self.frame];
+        [self.superview.superview fadeInView:self.superview withNewView:ve duration:.5];
+    }else {
+        [self resetInfo];
+        HUD = [[MBProgressHUD alloc] initWithView:self];
+        [self addSubview:HUD];
+        HUD.labelText = @"正在载入试卷，请稍候...";
+        
+        [HUD show:YES];
+    }
     
-    [vs loadInfo:mvc.unitArr idx:index];
-    [self.superview.superview fadeInView:vs duration:.5];
+}
+
+-(void)resetInfo {
+    NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/grades.json?auth_token=%@",token]];
+    request = [ASIHTTPRequest requestWithURL:url];
+    request.tag = 60002;
+    [request setDelegate:self];
+    [request setRequestMethod:@"GET"];
+    request.timeOutSeconds=60;
+    [request startAsynchronous];
 }
 
 -(void)clearUnuseful {

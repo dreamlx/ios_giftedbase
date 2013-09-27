@@ -8,6 +8,7 @@
 
 #import "iPageView.h"
 #import "ASIHTTPRequest.h"
+#import "MBProgressHUD.h"
 
 @interface v_shop : iPageView<UIAlertViewDelegate>
 
@@ -15,6 +16,7 @@
     NSArray *varr;
     int _vid;
     ASIHTTPRequest *request;
+    MBProgressHUD *HUD;
 }
 
 -(void)loadInfo:(NSArray*)arr vid:(int)v;
