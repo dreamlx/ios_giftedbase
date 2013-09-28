@@ -244,10 +244,11 @@
                                  action:@selector(cirClick:)
                          ];
         if([state isEqualToString:@"paid"]) {
+            NSString *cirname = [NSString stringWithFormat:@"%d", [[stages[i] objectForKey:@"position"] isKindOfClass:[NSNull class]] ? 0 : [[stages[i] objectForKey:@"position"] integerValue]];
             UILabel *txt = [self addLabel:cir
                                     frame:CGRectMake(0, 0, cir.frame.size.width, cir.frame.size.height)
                                      font:[UIFont fontWithName:@"Gretoon" size:32]
-                                     text:[[stages[i] objectForKey:@"position"] isKindOfClass:[NSNull class]] ? @"0" : [stages[i] objectForKey:@"position"]
+                                     text:cirname
                                     color:[UIColor blackColor]
                                       tag:2100 + i
                             ];
