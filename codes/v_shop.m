@@ -25,14 +25,6 @@
         
         [self addBackground:@"sp_bg.jpg"];
         
-        [self addButton:self
-                  image:@"sp_buy.png"
-               position:CGPointMake(856, 36)
-                    tag:5000
-                 target:self
-                 action:@selector(buyClick:)
-         ];
-        
 //        [self addImageView:self
 //                     image:@"sp_text.png"
 //                  position:CGPointMake(77, 66)
@@ -55,7 +47,14 @@
 }
 
 -(void)loadCurrentPage:(int)cmd {
-    
+    UIButton *buybtn = [self addButton:self
+                                 image:@"sp_buy.png"
+                              position:CGPointMake(856, 36)
+                                   tag:5000
+                                target:self
+                                action:@selector(buyClick:)
+                        ];
+    buybtn.alpha = cmd;
 }
 
 -(void)loadInfo:(NSArray *)arr vid:(int)v{

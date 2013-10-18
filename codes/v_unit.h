@@ -37,6 +37,8 @@
     
     NSArray *stages;
     int cirID;
+    
+    UIButton *curcir;
 }
 
 -(void)loadInfo:(NSArray*)arr idx:(int)cmd;
