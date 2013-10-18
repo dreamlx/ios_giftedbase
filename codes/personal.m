@@ -21,11 +21,10 @@
         // Initialization code
         
         
+        
         [self addBackground:@"et_bg.png"];
         
-        
-        
-        
+
         [self addButton:self
                   image:@"qq_back.png"
                position:CGPointMake(906, 30)
@@ -75,10 +74,40 @@
         
         un.textAlignment=UITextAlignmentCenter;
         
+        
+        UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                                                                           action:@selector(pinchPiece:)];
+        [self addGestureRecognizer:pinchGesture];
+
+        
 
     }
     return self;
 }
+
+
+//放大缩小
+- (void)pinchPiece:(UIPinchGestureRecognizer *)gestureRecognizer
+{
+    
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan ) {
+		scalePos=gestureRecognizer.scale;
+    }
+    if ([gestureRecognizer state] == UIGestureRecognizerStateEnded)
+	{
+		//NSLog(@"%f,%f",scalePos,gestureRecognizer.scale);
+		
+		if(scalePos>gestureRecognizer.scale)
+        {
+            
+            [self fadeOutView:self duration:.5];
+            
+        }
+	}
+}
+
+
+
 
 -(void)onDown:(UIButton*)sender
 {
@@ -110,12 +139,16 @@
 }
 
 
+-(void)updateInfo
+{
+    [self loadCurrentPage:0];
+}
+
 -(void)updateAvatar
 {
     id av= [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
     avatar.image=[UIImage imageNamed:[NSString stringWithFormat:@"avatar_%@.jpg",av]];
 }
-
 
 -(void)loadCurrentPage:(int)cmd
 {
@@ -126,13 +159,11 @@
     
     NSLog(@"%@",url);
     
-    
     request = [ASIHTTPRequest requestWithURL:url];
     [request setDelegate:self];
     [request setRequestMethod:@"GET"];
     request.timeOutSeconds=60;
     [request startAsynchronous];
-    
     
 }
 

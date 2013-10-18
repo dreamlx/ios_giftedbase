@@ -18,8 +18,10 @@
     UILabel *un;
     
     NSDictionary *items;
+    
+    float scalePos;
 }
 
 -(void)updateAvatar;
-
+-(void)updateInfo;
 @end

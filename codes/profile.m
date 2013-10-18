@@ -37,13 +37,13 @@
         
         
         
-        UIScrollView *sv=[self addScrollView:pa
-                                    delegate:self
-                                       frame:CGRectMake(231, 22, 640, 480)
-                                     bounces:YES
-                                        page:NO
-                                       showH:NO
-                                       showV:YES];
+        sv=[self addScrollView:pa
+                      delegate:self
+                         frame:CGRectMake(231, 22, 640, 480)
+                       bounces:YES
+                          page:NO
+                         showH:NO
+                         showV:YES];
  
         
         username = [self addLabel:sv
@@ -98,7 +98,8 @@
                             font:[UIFont systemFontOfSize:25]
                            color:[UIColor blackColor]
                      placeholder:nil
-                             tag:0];
+                             tag:1200];
+        year.delegate=self;
         
         
         month=[self addTextField:sv
@@ -106,7 +107,8 @@
                             font:[UIFont systemFontOfSize:25]
                            color:[UIColor blackColor]
                      placeholder:nil
-                             tag:0];
+                             tag:1201];
+        month.delegate=self;
         
         
         day=[self addTextField:sv
@@ -114,13 +116,16 @@
                           font:[UIFont systemFontOfSize:25]
                          color:[UIColor blackColor]
                    placeholder:nil
-                           tag:0];
+                           tag:1202];
+        day.delegate=self;
         
         
         
-         year.keyboardType=UIKeyboardTypeNumberPad;
-         month.keyboardType=UIKeyboardTypeNumberPad;
-         day.keyboardType=UIKeyboardTypeNumberPad;
+        year.keyboardType=UIKeyboardTypeNumberPad;
+        
+        
+        month.keyboardType=UIKeyboardTypeNumberPad;
+        day.keyboardType=UIKeyboardTypeNumberPad;
         
         
         NSMutableArray *pos=[NSMutableArray array];
@@ -131,7 +136,7 @@
         [pos addObject:[NSValue valueWithCGPoint:CGPointMake(156, 450)]];
         [pos addObject:[NSValue valueWithCGPoint:CGPointMake(156, 523)]];
         [pos addObject:[NSValue valueWithCGPoint:CGPointMake(156, 596)]];
-
+        
         
         for (int i=0; i<[pos count]; i++) {
             CGPoint p=[[pos objectAtIndex:i] CGPointValue];
@@ -154,6 +159,21 @@
         schoolName=(UITextField*)[self viewWithTag:1104];
         schoolAddress=(UITextField*)[self viewWithTag:1105];
         
+        
+        qq.delegate=self;
+        email.delegate=self;
+        homeAddress.delegate=self;
+        homeName.delegate=self;
+        schoolName.delegate=self;
+        schoolAddress.delegate=self;
+        
+        
+        CGRect f=email.frame;
+        f.size.width=400;
+        email.frame=f;
+        
+        
+        
 
         [self addButton:pa
                   image:@"profile_0_bt.png"
@@ -167,13 +187,90 @@
                          animations:^{
                              //106
                              pa.center=[self LeftPointToCenter:CGPointMake(56, 106) view:pa];
-                             
                          }];
         
-        
+        changed=NO;
         
     }
     return self;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  //  NSLog(@"%f",scrollView.contentOffset.y);
+    
+}
+
+
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+    NSLog(@"%d",textField.tag);
+    
+    switch (textField.tag) {
+        case 1200:
+        case 1201:
+        case 1202:
+        case 1100:
+        {
+           [sv setContentOffset:CGPointMake(0, 61) animated:YES];
+        }
+            break;
+            
+        case 1101:
+        {
+            [sv setContentOffset:CGPointMake(0, 138) animated:YES];
+        }
+            break;
+            
+        case 1102:
+        {
+            [sv setContentOffset:CGPointMake(0, 230) animated:YES];
+        }
+            break;
+        
+        case 1103:
+        {
+            [sv setContentOffset:CGPointMake(0, 283) animated:YES];
+        }
+            break;
+            
+        case 1104:
+        {
+            [sv setContentOffset:CGPointMake(0, 360) animated:YES];
+        }
+            break;
+            
+        case 1105:
+        {
+            [sv setContentOffset:CGPointMake(0, 420) animated:YES];
+        }
+            break;
+
+
+    }
+    
+    
+    
+    
+    
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [year endEditing:YES];
+    [month endEditing:YES];
+    [day endEditing:YES];
+    [qq endEditing:YES];
+    [email endEditing:YES];
+    [homeName endEditing:YES];
+    [homeAddress endEditing:YES];
+    [schoolAddress endEditing:YES];
+    [schoolName endEditing:YES];
+    
+    return YES;
 }
 
 
@@ -267,7 +364,7 @@
     
     if(hn && ![hn isKindOfClass:[NSNull class]])
     {
-        homeName.text=ha;
+        homeName.text=hn;
     }
     
     id sa=[p objectForKey:@"school_address"];
@@ -290,7 +387,7 @@
     {
         email.text=em;
     }
-
+    
     
 }
 
@@ -329,9 +426,34 @@
     [request setDelegate:self];
     [request setRequestMethod:@"PUT"];
     request.timeOutSeconds=60;
+    
+    
+    
+    
     [request startAsynchronous];
     
 }
+
+
+- (void)requestFailed:(ASIHTTPRequest *)r
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                        message:@"网络不给力，稍后在试用"
+                                                       delegate:self
+                                              cancelButtonTitle:@"确定"
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+
+    NSLog(@"修改");
+    
+    changed=YES;
+    return YES;
+}
+
 
 
 - (void)requestFinished:(ASIHTTPRequest *)r
@@ -371,26 +493,163 @@
         }
     }
 
-    [[NSUserDefaults standardUserDefaults] setObject:testArray
-                                              forKey:@"accountArray"];
     
-    [[NSUserDefaults standardUserDefaults] setObject:aid forKey:@"avatar"];
+    changed=NO;
+    
+    
+    if(r.tag==4000)
+    {
+        //保存后返回
+        
+        
+        personal *p=(personal*)self.superview;
+        [p updateAvatar];
+        [p updateInfo];
+        [self fadeOutView:self duration:.5];
+        
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:testArray
+                                                  forKey:@"accountArray"];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:aid forKey:@"avatar"];
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"修改成功！"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"确定"
+                                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+    
+    
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                                                                       action:@selector(pinchPiece:)];
+    [self addGestureRecognizer:pinchGesture];
 
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                        message:@"修改成功！"
-                                                       delegate:self
-                                              cancelButtonTitle:@"确定"
-                                              otherButtonTitles:nil];
-    [alertView show];
     
+}
+
+
+//放大缩小
+- (void)pinchPiece:(UIPinchGestureRecognizer *)gestureRecognizer
+{
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan ) {
+		scalePos=gestureRecognizer.scale;
+    }
+    if ([gestureRecognizer state] == UIGestureRecognizerStateEnded)
+	{
+		//NSLog(@"%f,%f",scalePos,gestureRecognizer.scale);
+		
+		if(scalePos>gestureRecognizer.scale)
+        {
+           
+            
+            if(changed)
+            {
+                
+                //如果修改了没有保存的，提示一下
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                    message:@"你还没有保存修改？"
+                                                                   delegate:self
+                                                          cancelButtonTitle:@"取消"
+                                                          otherButtonTitles:@"保存",nil];
+                [alertView show];
+                
+                return;
+            }
+            
+            
+            personal *p=(personal*)self.superview;
+            [p updateAvatar];
+            [p updateInfo];
+            [self fadeOutView:self duration:.5];
+            
+        }
+	}
+}
+
+
+
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     
+    NSLog(@"buttonIndex====%d",buttonIndex);
+    
+    switch (buttonIndex) {
+        case 0:
+        {
+            if(request.tag==4000)
+            {
+                personal *p=(personal*)self.superview;
+                [p updateAvatar];
+                [p updateInfo];
+                [self fadeOutView:self duration:.5];
+            }
+            
+        }
+            break;
+            
+        default:
+        {
+            
+            NSString *dateString =[NSString stringWithFormat:@"%@-%@-%@",year.text,month.text,day.text];
+            
+            NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+            
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/profiles.json?auth_token=%@&avatar_id=%@&birthday=%@&home_address=%@&parent_name=%@&school_address=%@&school_name=%@&qq=%@&email=%@",
+                                               token,
+                                               aid,
+                                               dateString,
+                                               homeAddress.text,
+                                               homeName.text,
+                                               schoolAddress.text,
+                                               schoolName.text,
+                                               qq.text,
+                                               email.text]];
+            
+            NSLog(@"%@",url);
+            
+            
+            
+            request = [ASIFormDataRequest requestWithURL:url];
+            [request setDelegate:self];
+            [request setRequestMethod:@"PUT"];
+            request.timeOutSeconds=60;
+            request.tag=4000;
+            
+            
+            
+            [request startAsynchronous];
+
+        }
+            break;
+    }
 }
 
 -(void)backClick:(UIButton*)sender
 {
-
+    
+    if(changed)
+    {
+        
+        //如果修改了没有保存的，提示一下
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"你还没有保存修改？"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"取消"
+                                                  otherButtonTitles:@"保存",nil];
+        [alertView show];
+        
+        return;
+    }
+    
+    
     personal *p=(personal*)self.superview;
     [p updateAvatar];
+    [p updateInfo];
     [self fadeOutView:self duration:.5];
     
 }

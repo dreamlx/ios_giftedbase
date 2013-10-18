@@ -8,7 +8,7 @@
 
 #import "iPageView.h"
 #import "ASIFormDataRequest.h"
-@interface profile : iPageView
+@interface profile : iPageView<UITextFieldDelegate,UIScrollViewDelegate,UIAlertViewDelegate>
 {
     ASIFormDataRequest *request;
     UILabel *username,*sex;
@@ -20,9 +20,15 @@
 
     id an;
     
+    UIScrollView *sv;
+    
+    BOOL changed;
+    
+    float scalePos;
    
 }
 
 -(void)updateAvatar:(int)a;
 -(void)loadP:(NSDictionary*)p;
+
 @end
