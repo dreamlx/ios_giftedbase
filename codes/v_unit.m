@@ -107,7 +107,8 @@
 -(void)gyClick:(UIButton*)e {
     v_shop *vp = [[v_shop alloc] initWithFrame:self.frame];
     [self fadeInView:vp duration:.5];
-    [vp loadCurrentPage:0];
+    NSString *state = [stages[curcir.tag - 2000] objectForKey:@"purchase_state"];
+    [vp loadCurrentPage:[state isEqualToString:@"paid"] ? 0 : 1];
     [vp loadInfo:stages vid:cirID];
 }
 
@@ -139,6 +140,7 @@
                 vhand.alpha = 0;
             
             }];
+            curcir = nil;
 
         }
 	}
@@ -230,7 +232,7 @@
     for (int i = 0; i < [stages count]; i++) {
         NSArray *pos=[stages[i] objectForKey:@"map_places"];
         CGPoint p =CGPointMake([[pos[0] objectForKey:@"x"] integerValue],[[pos[0] objectForKey:@"y"] integerValue]);
-        
+//        NSLog(@"x=%f     y=%f", p.x, p.y);
         NSString *state = [stages[i] objectForKey:@"purchase_state"];
         //测试
 //        if(i > 2) state = @"unpaid";
@@ -243,24 +245,22 @@
                                  target:self
                                  action:@selector(cirClick:)
                          ];
-        if([state isEqualToString:@"paid"]) {
-            NSString *cirname = [NSString stringWithFormat:@"%d", [[stages[i] objectForKey:@"position"] isKindOfClass:[NSNull class]] ? 0 : [[stages[i] objectForKey:@"position"] integerValue]];
-            UILabel *txt = [self addLabel:cir
-                                    frame:CGRectMake(0, 0, cir.frame.size.width, cir.frame.size.height)
-                                     font:[UIFont fontWithName:@"Gretoon" size:32]
-                                     text:cirname
-                                    color:[UIColor blackColor]
-                                      tag:2100 + i
-                            ];
-            txt.alpha = .5;
-            txt.textAlignment = UITextAlignmentCenter;
-            
-        }else {
+        if(![state isEqualToString:@"paid"]) {
             [self addImageView:cir
                          image:@"ut_rock.png"
                       position:CGPointMake(0, 0)
              ];
         }
+        NSString *cirname = [NSString stringWithFormat:@"%d", [[stages[i] objectForKey:@"position"] isKindOfClass:[NSNull class]] ? 0 : [[stages[i] objectForKey:@"position"] integerValue]];
+        UILabel *txt = [self addLabel:cir
+                                frame:CGRectMake(0, 0, cir.frame.size.width, cir.frame.size.height)
+                                 font:[UIFont fontWithName:@"Gretoon" size:32]
+                                 text:cirname
+                                color:[UIColor blackColor]
+                                  tag:2100 + i
+                        ];
+//        txt.alpha = .5;
+        txt.textAlignment = UITextAlignmentCenter;
         cir.alpha = 0;
         cir.transform = CGAffineTransformMakeScale(0.01, 0.01);
         
@@ -273,14 +273,30 @@
                          } completion:^(BOOL finished) {
                              if([state isEqualToString:@"paid"]) [self showCir:cir];
                          }];
+        
+        
+        UIView *scir = [[UIView alloc] initWithFrame:self.frame];
+        scir.userInteractionEnabled = NO;
+        scir.tag = 66666;
+        [mapv addSubview:scir];
     }
     
 }
 
 -(void)cirClick:(UIButton*)e {
     
+    if(curcir.tag == e.tag) return;
+    curcir = e;
+    
+    
+    int qid = curcir.tag - 2000;
+    
     for(UIView *sview in uv.subviews) {
         [sview removeFromSuperview];
+    }
+    UIView *cirv = [self viewWithTag:66666];
+    for(UIView *scir in cirv.subviews) {
+        [scir removeFromSuperview];
     }
     
     svv.frame = CGRectMake(0, -130, 1024, 134);
@@ -298,7 +314,32 @@
     NSLog(@"%f---%f", pp.x, pp.y);
     gy.alpha = 0;
     
-    
+    //small point
+    NSMutableArray *sparr = [stages[qid] objectForKey:@"units"];
+    NSLog(@"count --> %d", [sparr count]);
+    for (int j = 0; j < [sparr count]; j++) {
+        NSMutableArray *mplace = [sparr[j] objectForKey:@"map_places"];
+        if([mplace count] > 0) {
+            UIImageView *smcir = [self addImageView:cirv
+                         image:[NSString stringWithFormat:@"ut_asd%d.png", qid]
+                      position:CGPointMake([[mplace[0] objectForKey:@"x"] integerValue] * 2, [[mplace[0] objectForKey:@"y"] integerValue] * 2)
+             ];
+            NSLog(@"******%d", [[mplace[0] objectForKey:@"x"] integerValue]);
+            smcir.alpha = 0;
+            smcir.transform = CGAffineTransformMakeScale(.1, .1);
+            
+            [UIView animateWithDuration:.5
+                                  delay:j * .2 + 1
+                                options:UIViewAnimationOptionCurveEaseOut
+                             animations:^{
+                                 smcir.alpha = 1;
+                                 smcir.transform = CGAffineTransformMakeScale(1, 1);
+                             } completion:^(BOOL finished) {
+                                 
+                             }];
+            
+        }
+    }
     
     [UIView animateWithDuration:.5
                           delay:0

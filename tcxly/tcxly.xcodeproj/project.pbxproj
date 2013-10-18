@@ -213,6 +213,8 @@
 		6EF59B5F17BA94CD0070589E /* v_qna_caogao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EF59B5E17BA94CD0070589E /* v_qna_caogao.m */; };
 		6EF59B6117BA97DA0070589E /* qq_qna_caogao_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF59B6017BA97DA0070589E /* qq_qna_caogao_close.png */; };
 		6EF6095717B8F90E00370DB4 /* 0_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EF6095617B8F90E00370DB4 /* 0_light.png */; };
+		DE0683DF1811A03600DA77FB /* ut_asd6.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0683DD1811A03600DA77FB /* ut_asd6.png */; };
+		DE0683E01811A03600DA77FB /* ut_asd7.png in Resources */ = {isa = PBXBuildFile; fileRef = DE0683DE1811A03600DA77FB /* ut_asd7.png */; };
 		DE3136B317D130DE0012D159 /* ut_hand.png in Resources */ = {isa = PBXBuildFile; fileRef = DE3136B217D130DE0012D159 /* ut_hand.png */; };
 		DE3136B617D13DF30012D159 /* again_bt.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE3136B417D13DF30012D159 /* again_bt.jpg */; };
 		DE3136B717D13DF30012D159 /* result_bt.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE3136B517D13DF30012D159 /* result_bt.jpg */; };
@@ -577,6 +579,8 @@
 		6EF59B5E17BA94CD0070589E /* v_qna_caogao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v_qna_caogao.m; sourceTree = "<group>"; };
 		6EF59B6017BA97DA0070589E /* qq_qna_caogao_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qq_qna_caogao_close.png; sourceTree = "<group>"; };
 		6EF6095617B8F90E00370DB4 /* 0_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0_light.png; sourceTree = "<group>"; };
+		DE0683DD1811A03600DA77FB /* ut_asd6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ut_asd6.png; sourceTree = "<group>"; };
+		DE0683DE1811A03600DA77FB /* ut_asd7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ut_asd7.png; sourceTree = "<group>"; };
 		DE3136B217D130DE0012D159 /* ut_hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ut_hand.png; sourceTree = "<group>"; };
 		DE3136B417D13DF30012D159 /* again_bt.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = again_bt.jpg; sourceTree = "<group>"; };
 		DE3136B517D13DF30012D159 /* result_bt.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = result_bt.jpg; sourceTree = "<group>"; };
@@ -916,7 +920,10 @@
 		1B6AAC0317343D9F00EC3839 /* images */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				6E143D2418119258001A765B /* profile */,
+=======
+>>>>>>> Terry
 				6EB330DB17EC31C600933BD0 /* setting */,
 				6E9F1EF317E08C9E008A0CB2 /* 排名 */,
 				6E4EBE4E17D0F00A0061AFAF /* avatar */,
@@ -1068,6 +1075,8 @@
 		1B76E80F1736A707005B6FF3 /* unit */ = {
 			isa = PBXGroup;
 			children = (
+				DE0683DD1811A03600DA77FB /* ut_asd6.png */,
+				DE0683DE1811A03600DA77FB /* ut_asd7.png */,
 				DE405BCC17EF5C7D0083F688 /* ut_rock.png */,
 				DE405BCA17EF5A210083F688 /* ut_cir100.png */,
 				DE405BC817EF50AA0083F688 /* userSenterMenu.png */,
@@ -1627,6 +1636,7 @@
 				1B6AAD181734F7B800EC3839 /* idx_0.png in Resources */,
 				1B6AAD191734F7B800EC3839 /* idx_1.png in Resources */,
 				1B6AAD1A1734F7B800EC3839 /* idx_10.png in Resources */,
+				DE0683DF1811A03600DA77FB /* ut_asd6.png in Resources */,
 				DE405BCB17EF5A210083F688 /* ut_cir100.png in Resources */,
 				1B6AAD1B1734F7B800EC3839 /* idx_11.png in Resources */,
 				1B6AAD1C1734F7B800EC3839 /* idx_12.png in Resources */,
@@ -1675,6 +1685,7 @@
 				1B6AAD451734F7B800EC3839 /* idx_5.png in Resources */,
 				1B6AAD461734F7B800EC3839 /* idx_50.png in Resources */,
 				1B6AAD471734F7B800EC3839 /* idx_51.png in Resources */,
+				DE0683E01811A03600DA77FB /* ut_asd7.png in Resources */,
 				1B6AAD481734F7B800EC3839 /* idx_52.png in Resources */,
 				1B6AAD491734F7B800EC3839 /* idx_53.png in Resources */,
 				1B6AAD4A1734F7B800EC3839 /* idx_54.png in Resources */,
@@ -1788,7 +1799,10 @@
 				DE649DF5179ADFA40041B1D4 /* reg_light.png in Resources */,
 				DE7B43FF17AA47200098254F /* et_ball.png in Resources */,
 				DE3BF68917AC1F590026CB1D /* regboard.png in Resources */,
+<<<<<<< HEAD
 				6E143D2F18119258001A765B /* profile_0_0.png in Resources */,
+=======
+>>>>>>> Terry
 				DE3BF68A17AC1F590026CB1D /* regrot.png in Resources */,
 				DE3BF68D17AC2BF20026CB1D /* reg_man_1.png in Resources */,
 				DE3BF68E17AC2BF20026CB1D /* reg_woman_1.png in Resources */,
