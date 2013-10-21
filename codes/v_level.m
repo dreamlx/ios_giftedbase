@@ -216,14 +216,15 @@
         bt=[UIButton buttonWithType: UIButtonTypeCustom];
         bt.frame=CGRectMake(0,0,btBg.size.width,btBg.size.height);
         [bt setBackgroundImage:btBg forState:UIControlStateNormal];
+        bt.tag = 8000 + [[allArray[index] objectForKey:@"id"] integerValue];
         
         UILabel *ub = [self addLabel:bt
-                 frame:CGRectMake(0, 47, 438, 27)
-                  font:[UIFont systemFontOfSize:30]
+                               frame:CGRectMake(0, 47, 438, 27)
+                                font:[UIFont systemFontOfSize:30]
                                 text:[NSString stringWithFormat:@"%@", [allArray[index] objectForKey:@"name"]]
-                 color:[UIColor blackColor]
-                   tag:999888
-         ];
+                               color:[UIColor blackColor]
+                                 tag:7878
+                       ];
         
         ub.textAlignment = UITextAlignmentCenter;
         
@@ -270,10 +271,12 @@
 -(void)onMenuDown:(UIButton*)sender
 {
     NSInteger index = [carousel indexOfItemView:sender];
-    NSLog(@"%d",index);
+    NSLog(@"grade_id = %d",sender.tag - 8000);
     
     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", index]
                                               forKey:@"menuid"];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d", sender.tag - 8000]
+                                              forKey:@"grade_id"];
     
     v_unit *vs = [[v_unit alloc]initWithFrame:CGRectMake(0, 0, 1024, 768)];
     vs.delegate=self;

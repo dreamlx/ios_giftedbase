@@ -108,8 +108,8 @@
     v_shop *vp = [[v_shop alloc] initWithFrame:self.frame];
     [self fadeInView:vp duration:.5];
     NSString *state = [stages[curcir.tag - 2000] objectForKey:@"purchase_state"];
-    [vp loadCurrentPage:[state isEqualToString:@"paid"] ? 0 : 1];
     [vp loadInfo:stages vid:cirID];
+    [vp loadCurrentPage:[state isEqualToString:@"paid"] ? 0 : 1];
 }
 
 //放大缩小
@@ -218,16 +218,6 @@
                                             }];
                        }];
     }
-    
-    
-    gy = [self addButton:mapv
-                   image:@"ut_gaiyao.png"
-                position:CGPointMake(0, 0)
-                     tag:78978
-                  target:self
-                  action:@selector(gyClick:)
-          ];
-    gy.alpha = 0;
 
     for (int i = 0; i < [stages count]; i++) {
         NSArray *pos=[stages[i] objectForKey:@"map_places"];
@@ -239,17 +229,17 @@
         NSLog(@"state == > %@", state);
         //
         UIButton *cir = [self addButton:mapv
-                                  image:[NSString stringWithFormat:@"ut_cir%d.png", i]
+                                  image:[NSString stringWithFormat:@"ut_cir%d.png", [state isEqualToString:@"paid"] ? i : 100]
                                position:CGPointMake(p.x * 2, p.y * 2)
                                     tag:2000 + i
                                  target:self
                                  action:@selector(cirClick:)
                          ];
         if(![state isEqualToString:@"paid"]) {
-            [self addImageView:cir
-                         image:@"ut_rock.png"
-                      position:CGPointMake(0, 0)
-             ];
+//            [self addImageView:cir
+//                         image:@"ut_rock.png"
+//                      position:CGPointMake(0, 0)
+//             ];
         }
         NSString *cirname = [NSString stringWithFormat:@"%d", [[stages[i] objectForKey:@"position"] isKindOfClass:[NSNull class]] ? 0 : [[stages[i] objectForKey:@"position"] integerValue]];
         UILabel *txt = [self addLabel:cir
@@ -280,6 +270,15 @@
         scir.tag = 66666;
         [mapv addSubview:scir];
     }
+    
+    gy = [self addButton:mapv
+                   image:@"ut_gaiyao.png"
+                position:CGPointMake(0, 0)
+                     tag:78978
+                  target:self
+                  action:@selector(gyClick:)
+          ];
+    gy.alpha = 0;
     
 }
 
@@ -350,7 +349,7 @@
                          vhand.alpha = 1;
                      } completion:^(BOOL finished) {
                          [self addPointAni:e.tag - 2001];
-                         gy.center = CGPointMake(e.center.x, e.center.y + 120);
+                         gy.center = CGPointMake(e.center.x, e.center.y + 150);
                          [UIView animateWithDuration:.5
                                           animations:^{
                                               gy.center = CGPointMake(gy.center.x, gy.center.y - 20);

@@ -102,13 +102,19 @@
 //                                            
 //                                        }];
                    }];
-    [self addButton:self
-              image:@"sp_play.png"
-           position:CGPointMake(473, 555)
-                tag:4500
-             target:self
-             action:@selector(playMovie:)
-     ];
+    
+    UIButton *moviebtn = [self addButton:self
+                                   image:@"sp_play.png"
+                                position:CGPointMake(473, 555)
+                                     tag:4500
+                                  target:self
+                                  action:@selector(playMovie:)
+                          ];
+    NSString *video_url = [varr[_vid] objectForKey:@"video_url"];
+    NSLog(@"videourl -> %@", video_url);
+    if([video_url isKindOfClass:[NSNull class]] || video_url == nil) {
+        moviebtn.alpha = 0;
+    }
     
     UILabel *ys = [self addLabel:self
                            frame:CGRectMake(389, 447, 275, 25)

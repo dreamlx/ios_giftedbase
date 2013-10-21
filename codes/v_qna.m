@@ -194,13 +194,13 @@
     return addTime;
 }
 
--(void)ansClick:(UIButton*)e {
+-(void)ansClick:(UIGestureRecognizer*)e {
     
 //    UILabel *lb = (UILabel*)[self viewWithTag:e.tag + 500];
     
     for (int i = 0; i < 4; i++) {
         UIButton *btn = (UIButton*)[self viewWithTag:7000 + i];
-        if(btn.tag == e.tag) {
+        if(btn.tag == e.view.tag + 2000) {
             btn.alpha = 1;
             [postAnswerArr replaceObjectAtIndex:questionID withObject:[NSString stringWithFormat:@"%d", i]];
             [postIDArr replaceObjectAtIndex:questionID withObject:[NSNumber numberWithInt:i]];
@@ -280,17 +280,25 @@
     opnum = [oparr count];
     
     for (int i = 0; i < opnum; i++) {
-        UIView *ansview = [[UIView alloc]initWithFrame:CGRectMake(80, 250 + i * 80, 150, 50)];
+        UIView *ansview = [[UIView alloc]initWithFrame:CGRectMake(80, 250 + i * 80, 300, 50)];
         [qnav addSubview:ansview];
-        ansview.tag = 50000 + i;
+        ansview.tag = 5000 + i;
         
-        UIButton *btn = [self addButton:ansview
-                                  image:[NSString stringWithFormat:@"qpcc%d.png", i]
-                               position:CGPointMake(0, 0)
-                                    tag:7000 + i
-                                 target:self
-                                 action:@selector(ansClick:)
-                         ];
+        [self addTapEvent:ansview target:self action:@selector(ansClick:)];
+        
+        UIImageView *btn = [self addImageView:ansview
+                                       image:[NSString stringWithFormat:@"qpcc%d.png", i]
+                                    position:CGPointMake(0, 0)
+                                          tag:7000 + i
+                           ];
+        
+//        UIButton *btn = [self addButton:ansview
+//                                  image:[NSString stringWithFormat:@"qpcc%d.png", i]
+//                               position:CGPointMake(0, 0)
+//                                    tag:7000 + i
+//                                 target:self
+//                                 action:nil
+//                         ];
         btn.transform = CGAffineTransformMakeScale(.5, .5);
         btn.center = CGPointMake(25, 25);
         btn.alpha = .5;
