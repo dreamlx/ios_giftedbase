@@ -84,7 +84,7 @@
                         ];
     content.textAlignment = UITextAlignmentCenter;
     
-    [self addImageView:self
+    UIImageView *spbg = [self addImageView:self
                  image:@"sp_board.png"
               position:CGPointMake(354, 418)
      ];
@@ -110,11 +110,6 @@
                                   target:self
                                   action:@selector(playMovie:)
                           ];
-    NSString *video_url = [varr[_vid] objectForKey:@"video_url"];
-    NSLog(@"videourl -> %@", video_url);
-    if([video_url isKindOfClass:[NSNull class]] || video_url == nil) {
-        moviebtn.alpha = 0;
-    }
     
     UILabel *ys = [self addLabel:self
                            frame:CGRectMake(389, 447, 275, 25)
@@ -124,6 +119,12 @@
                              tag:1403
                    ];
     ys.textAlignment = UITextAlignmentCenter;
+    
+    NSString *video_url = [varr[_vid] objectForKey:@"video_url"];
+    NSLog(@"videourl -> %@", video_url);
+    if([video_url isKindOfClass:[NSNull class]] || video_url == nil) {
+        moviebtn.alpha = spbg.alpha = ys.alpha = 0;
+    }
 }
 
 -(void)buyClick:(UIButton*)e {
