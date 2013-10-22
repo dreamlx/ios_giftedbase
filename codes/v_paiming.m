@@ -20,29 +20,36 @@
         
         [self addBackground:@"et_bg.png"];
         
-       p0=  [self addImageView:self
-                     image:@"pm_bg1.png"
-                  position:CGPointMake(70, 73)];
         
-       p1= [self addImageView:self
-                     image:@"pm_bg2.png"
-                  position:CGPointMake(70, 768)];
+        
+        
+        p0=  [self addImageView:self
+                          image:@"pm_bg1.png"
+                       position:CGPointMake(70, 73)];//73
+        
+        
+        
+        p1= [self addImageView:self
+                         image:@"pm_bg2.png"
+                      position:CGPointMake(70, 768)];
         
         
         [self addButton:self
                   image:@"qq_back.png"
-               position:CGPointMake(906, 30)
+               position:CGPointMake(30, 30)
                     tag:1003
                  target:self
-                 action:@selector(backClick:)
-         ];
+                 action:@selector(backClick:)];
         
     }
     return self;
 }
 
+
+
 - (void)requestFinished:(ASIHTTPRequest *)r
 {
+    
     NSLog(@"%@",[r responseString]);
     
     NSData *jsonData = [r responseData];
@@ -125,11 +132,17 @@
     
     
     
+    NSDictionary *myself=[items objectForKey:@"current_user_ranking"];
+
+    NSLog(@"==========%@",myself);
+    
+    
+    
     //第四名
-    if([items count]>3)
+    if(myself!=nil)
     {
         
-        id aid=[[rank objectAtIndex:3] objectForKey:@"avatar_id"];
+        id aid=[[myself objectForKey:@"user"] objectForKey:@"avatar_id"];
         
         UIImageView *im;
         
@@ -147,20 +160,16 @@
                          position:CGPointMake(40, 83)];
         }
         
-        
         CGRect f=im.frame;
         f.size.width=f.size.height=110;
         im.frame=f;
-        
-        
-        
         
         
         //名字
         UILabel *un=[self addLabel:p1
                              frame:CGRectMake(161, 115, 180, 50)
                               font:[UIFont boldSystemFontOfSize:20]
-                              text:[[[rank objectAtIndex:3] objectForKey:@"user"] objectForKey:@"username"]
+                              text:[[myself objectForKey:@"user"] objectForKey:@"username"]
                              color:[UIColor blackColor]
                                tag:0];
         
@@ -172,7 +181,7 @@
         un=[self addLabel:p1
                     frame:CGRectMake(368, 115, 180, 50)
                      font:[UIFont boldSystemFontOfSize:20]
-                     text:[NSString stringWithFormat:@"%d",[[[rank objectAtIndex:3] objectForKey:@"total_point"] integerValue]]
+                     text:[NSString stringWithFormat:@"%d",[[myself objectForKey:@"total_point"] integerValue]]
                     color:[UIColor blackColor]
                       tag:0];
         
@@ -183,7 +192,7 @@
         un=[self addLabel:p1
                     frame:CGRectMake(572, 115, 121, 50)
                      font:[UIFont boldSystemFontOfSize:20]
-                     text:[NSString stringWithFormat:@"第%d名",100]
+                     text: [NSString stringWithFormat:@"第%d名",[[myself objectForKey:@"ranking_no"] integerValue]]
                     color:[UIColor blackColor]
                       tag:0];
         
@@ -193,18 +202,18 @@
         [self addLabel:p1
                  frame:CGRectMake(582, 20, 260, 50)
                   font:[UIFont boldSystemFontOfSize:20]
-                  text:[NSString stringWithFormat:@"在线学员：%d",[[[rank objectAtIndex:3] objectForKey:@"users_count"] integerValue]]
+                  text:[NSString stringWithFormat:@"在线学员：%d",[[myself objectForKey:@"users_count"] integerValue]]
                  color:[UIColor whiteColor]
                    tag:0];
 
 
         [UIView animateWithDuration:1
                          animations:^{
-                    
                             p1.center=[self LeftPointToCenter:CGPointMake(70, 550) view:p1];
-                             
                          }];
     }
+    
+    
     
 }
 
@@ -223,7 +232,9 @@
 
     NSString *token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/ranks/ranking.json?auth_token=%@&grade_id=1",token]];
+    NSString *gid = [[NSUserDefaults standardUserDefaults] objectForKey:@"grade_id"];
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://gifted-center.com/api/ranks/ranking.json?auth_token=%@&grade_id=%@",token,gid]];
     
     NSLog(@"%@",url);
     

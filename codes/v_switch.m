@@ -45,6 +45,8 @@
 }
 
 
+
+
 -(void)onDown:(UIButton*)sender
 {
 
@@ -79,9 +81,10 @@
 }
 
 
+
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [((v_enter*)self.superview.superview) showMenu];
+    [((v_enter*)self.superview.superview) showList];
     [self fadeOutView:self.superview duration:.5];
 }
 

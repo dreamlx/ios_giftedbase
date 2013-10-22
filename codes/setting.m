@@ -34,7 +34,7 @@
         
         [self addButton:self
                   image:@"qq_back.png"
-               position:CGPointMake(906, 30)
+               position:CGPointMake(30, 30)
                     tag:1003
                  target:self
                  action:@selector(backClick:)
@@ -46,6 +46,7 @@
         
         [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 216)]];
         [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 333)]];
+        
        // [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 349)]];
        // [pos addObject:[NSValue valueWithCGPoint:CGPointMake(510, 466)]];
         
@@ -53,7 +54,10 @@
         for (int i=0; i<[pos count]; i++) {
             CGPoint p=[[pos objectAtIndex:i] CGPointValue];
             
-            UIButton *bt=  [self addButton:self
+            if(i==0)
+                continue;
+            
+            UIButton *bt = [self addButton:self
                                      image:[NSString stringWithFormat:@"setting_bt%d.png",i]
                                   position:p
                                        tag:1000+i
@@ -74,6 +78,23 @@
     [self fadeOutView:self duration:.5];
 }
 
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (buttonIndex) {
+        case 0:
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+
 -(void)onDown:(UIButton*)sender
 {
 
@@ -81,6 +102,15 @@
     switch (sender.tag) {
         case 1000:
         {
+            
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
+//                                                                message:@"是否要打开"
+//                                                               delegate:self
+//                                                      cancelButtonTitle:@"确定"
+//                                                      otherButtonTitles:nil];
+//            [alertView show];
+
+            
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://gifted-center.com"]];
         }
             break;

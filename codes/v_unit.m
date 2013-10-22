@@ -58,7 +58,7 @@
         
         userBtn = [self addButton:self
                                   image:@"userSenterMenu.png"
-                               position:CGPointMake(30, 30)
+                               position:CGPointMake(906, 30)
                                     tag:1006
                                  target:self
                                  action:@selector(centerClick:)
@@ -66,7 +66,7 @@
         
         backButton= [self addButton:self
                               image:@"qq_back.png"
-                           position:CGPointMake(906, 30)
+                           position:CGPointMake(30, 30)
                                 tag:1004
                              target:self
                              action:@selector(backClick:)

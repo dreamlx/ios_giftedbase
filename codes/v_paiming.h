@@ -12,5 +12,6 @@
 {
     ASIFormDataRequest *request;
     UIImageView *p0,*p1;
+    float scalePos;
 }
 @end

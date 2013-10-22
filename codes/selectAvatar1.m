@@ -70,7 +70,7 @@
 
     [self addButton:self
               image:@"qq_back.png"
-           position:CGPointMake(906, 30)
+           position:CGPointMake(30, 30)
                 tag:8888
              target:self
              action:@selector(backClick:)
@@ -106,7 +106,6 @@
                          [self fadeOutView:self duration:.5];
     
                      }];
-    
     
 }
 
