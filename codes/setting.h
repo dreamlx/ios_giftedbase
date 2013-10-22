@@ -9,7 +9,7 @@
 #import "iPageView.h"
 #import "ASIFormDataRequest.h"
 
-@interface setting : iPageView
+@interface setting : iPageView<UIAlertViewDelegate>
 {
     ASIFormDataRequest *request;
 }

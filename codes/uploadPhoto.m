@@ -298,7 +298,7 @@
         
         
         
-        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[username]=%@&user[email]=%@@gifted.com&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@&user[avatarid]=%@",
+        NSString *s=[NSString stringWithFormat:@"http://gifted-center.com/users.json?user[username]=%@&user[email]=%@@gifted.com&user[password]=%@&user[password_confirmation]=%@&user[gender]=%@&user[avatar_id]=%@",
                      nickname,
                      [self uniqueString],
                      @"11111111",

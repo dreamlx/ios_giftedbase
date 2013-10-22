@@ -20,33 +20,25 @@
     if (self) {
         // Initialization code
         
-        
-        
         [self addBackground:@"et_bg.png"];
         
 
         [self addButton:self
                   image:@"qq_back.png"
-               position:CGPointMake(906, 30)
+               position:CGPointMake(30, 30)
                     tag:1003
                  target:self
                  action:@selector(backClick:)];
-        
-        
-        
-        
+
         id av= [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
         
         avatar= [self addImageView:self
                              image:[NSString stringWithFormat:@"avatar_%@.jpg",av]
                           position:CGPointMake(200, 110)];
         
-        
-        
         UIImageView *p0=  [self addImageView:self
                                        image:@"profile_0.jpg"
                                     position:CGPointMake(200, 320)];
-        
         
         [self addButton:self
                   image:@"profile_bt0.png"
@@ -71,15 +63,11 @@
                      color:[UIColor blackColor]
                        tag:0];
         
-        
         un.textAlignment=UITextAlignmentCenter;
-        
         
         UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self
                                                                                            action:@selector(pinchPiece:)];
         [self addGestureRecognizer:pinchGesture];
-
-        
 
     }
     return self;
@@ -106,12 +94,8 @@
 	}
 }
 
-
-
-
 -(void)onDown:(UIButton*)sender
 {
-    
     switch (sender.tag) {
         case 1000:
         {
@@ -129,8 +113,6 @@
         }
             break;
     }
-    
-    
 }
 
 -(void)backClick:(UIButton*)sender
