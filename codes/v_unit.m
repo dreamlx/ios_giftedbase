@@ -125,22 +125,34 @@
 		
 		if(scalePos>gestureRecognizer.scale)
         {
-            [self clearPoint:-1];
-            [UIView animateWithDuration:.5
-                             animations:^{
-                                 mapv.transform = CGAffineTransformMakeScale(.5, .5);
-                                 mapv.center = CGPointMake(512, 384);
-                             }];
-            [UIView animateWithDuration:.5 animations:^{
-                svv.frame = CGRectMake(0, -130, 1024, 134);
-                svv.alpha = 0;
-                backButton.alpha = 1;
-                userBtn.alpha = 1;
-                gy.alpha = 0;
-                vhand.alpha = 0;
             
-            }];
-            curcir = nil;
+            if (mapv.frame.size.width>1024) {
+                [self clearPoint:-1];
+                [UIView animateWithDuration:.5
+                                 animations:^{
+                                     mapv.transform = CGAffineTransformMakeScale(.5, .5);
+                                     mapv.center = CGPointMake(512, 384);
+                                 }];
+                [UIView animateWithDuration:.5 animations:^{
+                    svv.frame = CGRectMake(0, -130, 1024, 134);
+                    svv.alpha = 0;
+                    backButton.alpha = 1;
+                    userBtn.alpha = 1;
+                    gy.alpha = 0;
+                    vhand.alpha = 0;
+                    
+                }];
+
+                
+            }
+            
+            else
+            {
+                  [self.superview fadeOutView:self duration:.5];
+            }
+            
+            
+                       curcir = nil;
 
         }
 	}

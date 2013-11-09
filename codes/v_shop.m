@@ -195,7 +195,7 @@
         NSString *res = [r responseString];
         if([res isEqualToString:@"success"]) {
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                                message:@"购买成功!"
+                                                                message:@"解锁成功!"
                                                                delegate:self
                                                       cancelButtonTitle:@"好"
                                                       otherButtonTitles:nil];

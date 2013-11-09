@@ -134,12 +134,12 @@
     
     NSDictionary *myself=[items objectForKey:@"current_user_ranking"];
 
-    NSLog(@"==========%@",myself);
+    NSLog(@"==========%d",[myself count]);
     
     
     
     //第四名
-    if(myself!=nil)
+    if([myself count]>0)
     {
         
         id aid=[[myself objectForKey:@"user"] objectForKey:@"avatar_id"];

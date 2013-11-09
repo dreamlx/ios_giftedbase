@@ -59,6 +59,7 @@
                  action:@selector(onDown:)];
         
         
+        stroke=5;
         
     }
     return self;
@@ -67,6 +68,9 @@
 -(void)loadCurrentPage:(int)cmd
 {
     
+    
+    NSLog(@"颜色=%d",cmd);
+    
     //笔触换颜色
     switch (cmd) {
         case 1:
@@ -74,19 +78,33 @@
             r=67.f;
             g=216.f;
             b=241.f;
+            stroke=5;
         }
             break;
         case 2: {
             r=135.f;
             g=135.f;
             b=135.f;
+            stroke=5;
         }
             break;
         case 3: {
             r=255.f;
             g=0.f;
             b=0.f;
+            stroke=5;
         }
+            break;
+        case 4:
+        {
+            r=255.f;
+            g=255.f;
+            b=255.f;
+            stroke=20;
+        }
+            break;
+            
+            
         default:
             break;
     }
@@ -97,9 +115,14 @@
 -(void)onDown:(UIButton*)sender
 {
     
-    v_qna *vq = (v_qna*)(self.superview);
-    [vq clearcaogao];
-    [self removeFromSuperview];
+  //  v_qna *vq = (v_qna*)(self.superview);
+   // [vq clearcaogao];
+   // [self removeFromSuperview];
+    
+    self.hidden=YES;
+    self.userInteractionEnabled=NO;
+    
+    
 }
 
 
@@ -126,7 +149,7 @@
         UIGraphicsBeginImageContext(canvas.frame.size);
         [canvas.image drawInRect:CGRectMake(0, 0, canvas.frame.size.width, canvas.frame.size.height)];
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 5.0);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), stroke);
         
         CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), r/255.f,g/255.f,b/255.f, 1.0);
         CGContextBeginPath(UIGraphicsGetCurrentContext());

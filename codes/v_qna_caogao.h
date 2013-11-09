@@ -13,5 +13,7 @@
     UIImageView *canvas;
     CGPoint lastPoint;
     float r,g,b;
+    
+    int stroke;
 }
 @end

@@ -171,6 +171,7 @@
 		6E9F1EF917E08C9E008A0CB2 /* pm_bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E9F1EF617E08C9E008A0CB2 /* pm_bg2.png */; };
 		6E9F1EFC17E08CE0008A0CB2 /* v_paiming.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9F1EFB17E08CE0008A0CB2 /* v_paiming.m */; };
 		6E9F1EFF17E1A33D008A0CB2 /* setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E9F1EFE17E1A33D008A0CB2 /* setting.m */; };
+		6EA98E0C182E045200A1BC67 /* qq_pan4.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EA98E0B182E045200A1BC67 /* qq_pan4.png */; };
 		6EB330DE17EC31C600933BD0 /* setting_bt0.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB330DC17EC31C600933BD0 /* setting_bt0.png */; };
 		6EB330DF17EC31C600933BD0 /* setting_bt1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6EB330DD17EC31C600933BD0 /* setting_bt1.png */; };
 		6EB3529917F2CBBB00EDF353 /* personal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB3529817F2CBBB00EDF353 /* personal.m */; };
@@ -519,6 +520,7 @@
 		6E9F1EFB17E08CE0008A0CB2 /* v_paiming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = v_paiming.m; sourceTree = "<group>"; };
 		6E9F1EFD17E1A33D008A0CB2 /* setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setting.h; sourceTree = "<group>"; };
 		6E9F1EFE17E1A33D008A0CB2 /* setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setting.m; sourceTree = "<group>"; };
+		6EA98E0B182E045200A1BC67 /* qq_pan4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qq_pan4.png; sourceTree = "<group>"; };
 		6EB330DC17EC31C600933BD0 /* setting_bt0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_bt0.png; sourceTree = "<group>"; };
 		6EB330DD17EC31C600933BD0 /* setting_bt1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_bt1.png; sourceTree = "<group>"; };
 		6EB3529717F2CBBB00EDF353 /* personal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = personal.h; sourceTree = "<group>"; };
@@ -1121,6 +1123,7 @@
 				1B76E8371736AAA1005B6FF3 /* qq_pan1.png */,
 				1B76E8381736AAA1005B6FF3 /* qq_pan2.png */,
 				1B76E8391736AAA1005B6FF3 /* qq_pan3.png */,
+				6EA98E0B182E045200A1BC67 /* qq_pan4.png */,
 				1B76E83A1736AAA1005B6FF3 /* qq_submit.png */,
 				1B76E83B1736AAA1005B6FF3 /* qq_time.png */,
 				1B76E83C1736AAA1005B6FF3 /* qq_upq.png */,
@@ -1632,6 +1635,7 @@
 				1B6AAD1B1734F7B800EC3839 /* idx_11.png in Resources */,
 				1B6AAD1C1734F7B800EC3839 /* idx_12.png in Resources */,
 				1B6AAD1D1734F7B800EC3839 /* idx_13.png in Resources */,
+				6EA98E0C182E045200A1BC67 /* qq_pan4.png in Resources */,
 				1B6AAD1E1734F7B800EC3839 /* idx_14.png in Resources */,
 				1B6AAD1F1734F7B800EC3839 /* idx_15.png in Resources */,
 				6EB70CCF17F8124300C2C80D /* profile_bt3.png in Resources */,

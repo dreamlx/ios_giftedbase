@@ -109,10 +109,10 @@
 //                  position:CGPointMake(0, 150)];
         
         //pan
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < 5; i++) {
             [self addButton:qnav
                       image:[NSString stringWithFormat:@"qq_pan%d.png", i]
-                   position:CGPointMake(916, 137 + (i - 1) * 100)
+                   position:CGPointMake(916, 137 + (i - 1) * 80)
                         tag:4000 + i
                      target:self
                      action:@selector(panClick:)
@@ -136,6 +136,13 @@
         
         [self addQupAnyThing];
 
+        
+        
+         cg=[[v_qna_caogao alloc] initWithFrame:CGRectMake(452, 90, 463, 680)];
+        [self addSubview:cg];
+        
+        cg.hidden=YES;
+        cg.userInteractionEnabled=NO;
         
     }
     return self;
@@ -425,13 +432,19 @@
     NSLog(@"草稿来了, 修改下");
 
     
-    if(!cg) {
-        cg=[[v_qna_caogao alloc] initWithFrame:CGRectMake(452, 90, 463, 680)];
-        [cg loadCurrentPage:e.tag - 4000];
-        [self addSubview:cg];
-    }else {
-        [cg loadCurrentPage:e.tag - 4000];
-    }
+    
+    [cg loadCurrentPage:e.tag - 4000];
+    cg.hidden=NO;
+    cg.userInteractionEnabled=YES;
+    
+//    
+//    if(!cg) {
+//        //cg=[[v_qna_caogao alloc] initWithFrame:CGRectMake(452, 90, 463, 680)];
+//        
+//        
+//    }else {
+//        [cg loadCurrentPage:e.tag - 4000];
+//    }
 }
 
 -(void)clearcaogao {
